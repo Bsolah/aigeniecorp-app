@@ -2,16 +2,34 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api', // Update with your backend URL
+  baseURL: '/api', // Update with your backend URL
+  withCredentials: true,
 });
 
-// Add token to headers for authenticated requests
-API.interceptors.request.use((req) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    req.headers.Authorization = `Bearer ${token}`;
-  }
-  return req;
-});
+// API.interceptors.request.use(
+//   (config) => {
+//     // Perform actions before the request is sent, e.g., adding headers
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
+
+// API.interceptors.response.use(
+//   (response) => {
+//     // Handle responses globally
+//     return response;
+//   },
+//   (error) => {
+//     // Handle errors globally (e.g., redirect to login on 401)
+//     if (error.response?.status === 401) {
+//       // Redirect to login or handle unauthorized access
+//       // window.location.href = "/login";
+//     }
+//     return Promise.reject(error);
+//   }
+// );
+
 
 export default API;
