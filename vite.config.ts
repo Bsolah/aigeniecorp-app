@@ -45,7 +45,7 @@ export default defineConfig({
         proxy: {
           // Proxy all API requests to the backend server
           '/api': {
-            target: 'http://localhost:5000', // Your backend server URL
+            target: 'https://aigeniecorp-api.vercel.app', // Your backend server URL
             changeOrigin: true,  // Change the origin of the request to the target
           },
         },
