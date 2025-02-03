@@ -50,8 +50,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     console.log('response ', chatRooms);
 
     useEffect(() => {
-        setSelectedChat(chatRooms.chats[0]);
-        setActiveChatId(chatRooms.chats[0].id);
+        setSelectedChat(chatRooms?.chats[0]);
+        setActiveChatId(chatRooms?.chats[0]?.id);
     }, [])
 
     useEffect(() => {
