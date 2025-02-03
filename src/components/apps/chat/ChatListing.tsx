@@ -78,11 +78,11 @@ const ChatListing = () => {
 
   const chatListMapping = (arrItems: any) => {
 
-    const isAgent = arrItems.find((item: any) => item.name === 'Genie Bot');
+    const isAgent = arrItems?.find((item: any) => item.name === 'Genie Bot');
 
     return <>
       <Label className="flex justify-start h-8 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : 'Employees'}</Label>
-      {arrItems.map((chat: any) => (
+      {arrItems?.map((chat: any) => (
         <div
           key={chat.id}
           className={`cursor-pointer py-4 px-6 gap-0 flex justify-between group bg-hover ${activeChatId === chat.id
