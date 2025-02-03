@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://aigeniecorp-api.vercel.app/api', // Update with your backend URL
+  baseURL: 'https://aigeniecorp-api.vercel.app', // Update with your backend URL
   withCredentials: true,
 });
 

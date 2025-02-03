@@ -1,16 +1,18 @@
 // src/store/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import axios from 'axios';
+import API from "../../api/api";
+
 
 export const getChatsByUser = createAsyncThunk('chat/all', async (_, { rejectWithValue }) => {
   console.log('I am in')
   try {
-    const { data } = await axios.get(`/api/chat/all`, { withCredentials: true });
+    const { data } = await API.get(`/api/chat/all`, { withCredentials: true });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return rejectWithValue(error.response.data);
-    }
+    // if (axios.isAxiosError(error) && error.response) {
+    //   return rejectWithValue(error.response.data);
+    // }
     return rejectWithValue(error);  }
 });
 

@@ -1,17 +1,18 @@
 // src/store/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import API from "../../api/api"
+// import axios from 'axios';
 
 export const register = createAsyncThunk(
   'auth/register',
   async ({ username, email, password }: { username: string, email: string; password: string }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/auth/register', { username, email, password }, { withCredentials: true });
+      const { data } = await API.post('/api/auth/register', { username, email, password }, { withCredentials: true });
       return data; // Assume response includes token and user data
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data);
-      }
+      // if (axios.isAxiosError(error) && error.response) {
+      //   return rejectWithValue(error.response.data);
+      // }
       return rejectWithValue(error);
     }
   }
@@ -21,12 +22,12 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/auth/login', { email, password }, { withCredentials: true });
+      const { data } = await API.post('/api/auth/login', { email, password }, { withCredentials: true });
       return data?.data; // Assume response includes token and user data
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data);
-      }
+      // if (axios.isAxiosError(error) && error.response) {
+      //   return rejectWithValue(error.response.data);
+      // }
       return rejectWithValue(error);
     }
   }
@@ -34,12 +35,12 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    await axios.post('/api/auth/logout');
+    await API.post('/api/auth/logout');
     return true;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return rejectWithValue(error.response.data);
-    }
+    // if (axios.isAxiosError(error) && error.response) {
+    //   return rejectWithValue(error.response.data);
+    // }
     return rejectWithValue(error);
   }
 });

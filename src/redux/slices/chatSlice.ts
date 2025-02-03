@@ -1,42 +1,43 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import axios from 'axios';
+import API from "../../api/api";
 
 export const saveChat = createAsyncThunk(
   'chat/save',
   async ({ receiverId, senderId, content, chatRoomId, type }: any, { rejectWithValue }) => {
     try {
       console.log('got here 2')
-      const { data } = await axios.post(`/api/chat/save/${senderId}`, { receiverId, chatRoomId, content, type }, { withCredentials: true });
+      const { data } = await API.post(`/api/chat/save/${senderId}`, { receiverId, chatRoomId, content, type }, { withCredentials: true });
       console.log('got here 3')
       return data; // Assume response includes token and user data
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data);
-      }
+      // if (axios.isAxiosError(error) && error.response) {
+      //   return rejectWithValue(error.response.data);
+      // }
       return rejectWithValue(error);  }
     }
 );
 
 export const getChatByRoomId = createAsyncThunk('chat/get', async (chatRoomId, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(`/api/chat/get/${chatRoomId}`, { withCredentials: true });
+    const { data } = await API.get(`/api/chat/get/${chatRoomId}`, { withCredentials: true });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return rejectWithValue(error.response.data);
-    }
+    // if (axios.isAxiosError(error) && error.response) {
+    //   return rejectWithValue(error.response.data);
+    // }
     return rejectWithValue(error);  
   }
 });
 
 export const deleteChatByRoomId = createAsyncThunk('chat/remove', async ({ room }: { room: string }, { rejectWithValue }) => {
   try {
-    const { data } = await axios.delete(`/api/chat/get/${room}`, { withCredentials: true });
+    const { data } = await API.delete(`/api/chat/get/${room}`, { withCredentials: true });
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return rejectWithValue(error.response.data);
-    }
+    // if (axios.isAxiosError(error) && error.response) {
+    //   return rejectWithValue(error.response.data);
+    // }
     return rejectWithValue(error);  
   }
 });
