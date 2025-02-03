@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import fs from 'fs/promises';
 import svgr from '@svgr/rollup';
+const API_URL = process.env.VITE_API_URL;
+
+console.log('API ', API_URL)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -45,7 +48,7 @@ export default defineConfig({
         proxy: {
           // Proxy all API requests to the backend server
           '/api': {
-            target: 'https://aigeniecorp-api.vercel.app', // Your backend server URL
+            target: API_URL, // Your backend server URL
             changeOrigin: true,  // Change the origin of the request to the target
           },
         },

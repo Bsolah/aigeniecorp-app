@@ -1,10 +1,11 @@
 // src/api/api.js
+const API_URL = import.meta.env.VITE_API_URL || "https://aigeniecorp-api.vercel.app"; // Fallback URL in case no env var is set
 import axios from 'axios';
 
-// const API = axios.create({
-//   baseURL: 'https://aigeniecorp-api.vercel.app', // Update with your backend URL
-//   withCredentials: true,
-// });
+const API = axios.create({
+  baseURL: API_URL, // Update with your backend URL
+  withCredentials: true,
+});
 
 // API.interceptors.request.use(
 //   (config) => {
