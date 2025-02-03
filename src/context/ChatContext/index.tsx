@@ -49,10 +49,10 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const { chatRooms } = useSelector((state: any) => state.chatRoom);
     console.log('response ', chatRooms);
 
-    // useEffect(() => {
-    //     setSelectedChat(chatRooms?.chats[0]);
-    //     setActiveChatId(chatRooms?.chats[0]?.id);
-    // }, [])
+    useEffect(() => {
+        setSelectedChat(chatRooms?.chats[0]);
+        setActiveChatId(chatRooms?.chats[0]?.id);
+    }, [])
 
     useEffect(() => {
         setChatData(chatRooms?.chats);

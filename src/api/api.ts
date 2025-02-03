@@ -1,10 +1,10 @@
 // src/api/api.js
 import axios from 'axios';
 
-const API = axios.create({
-  baseURL: 'https://aigeniecorp-api.vercel.app', // Update with your backend URL
-  withCredentials: true,
-});
+// const API = axios.create({
+//   baseURL: 'https://aigeniecorp-api.vercel.app', // Update with your backend URL
+//   withCredentials: true,
+// });
 
 // API.interceptors.request.use(
 //   (config) => {
