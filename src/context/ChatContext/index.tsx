@@ -55,13 +55,13 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, [])
 
     useEffect(() => {
-        setChatData(chatRooms.chats);
+        setChatData(chatRooms?.chats);
     }, [chatData, chatContent, chatSearch, chatRooms])
                 
            
     useEffect(() => {
 
-        const newUpdatedChat: any = chatData.find(item => item.id === selectedChat?.id)
+        const newUpdatedChat: any = chatData.find(item => item?.id === selectedChat?.id)
 
         setSelectedChat(newUpdatedChat);
         setActiveChatId(newUpdatedChat?.id);
