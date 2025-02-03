@@ -27,7 +27,7 @@ const ChatMsgSent = () => {
     setMsg(e.target.value);
   };
 
-  console.log('initialPrompts ', initialPrompts, selectedChat?.messages[selectedChat?.messages.length - 1])
+  // console.log('initialPrompts ', initialPrompts, selectedChat?.messages[selectedChat?.messages.length - 1])
 
   const onChatMsgSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
