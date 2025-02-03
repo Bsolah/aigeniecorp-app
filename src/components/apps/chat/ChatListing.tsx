@@ -65,8 +65,8 @@ const ChatListing = () => {
     chat.name.toLowerCase().includes(chatSearch.toLowerCase())
   );
 
-  const agentChats = filteredChats.filter((item: any) => item.name === 'Genie Bot');
-  const nonAgentChats = filteredChats.filter((item: any) => item.name !== 'Genie Bot');
+  const agentChats = filteredChats?.filter((item: any) => item.name === 'Genie Bot');
+  const nonAgentChats = filteredChats?.filter((item: any) => item.name !== 'Genie Bot');
 
 
   const handleChatSelect = (chat: ChatsType) => {
