@@ -21,7 +21,7 @@ const AuthLogin = () => {
 
   return (
     <>
-      {error && (<ErrorBanner information={error || 'Failed to login'} action={() => dispatch(resetError())} />)}
+      {error && (<ErrorBanner information={'Failed to login'} action={() => dispatch(resetError())} />)}
 
       <form className="mt-6">
         <div className="mb-4">
