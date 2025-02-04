@@ -8,7 +8,7 @@ import type { AppDispatch } from './redux/store.ts';
 import { getChatsByUser } from './redux/slices/chatRoomSlice.ts';
 import { useEffect } from "react";
 
-function App() { 
+function App() {
 
   const dispatch = useDispatch<AppDispatch>();
 
