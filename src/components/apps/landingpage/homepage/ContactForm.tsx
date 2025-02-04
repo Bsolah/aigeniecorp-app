@@ -68,7 +68,18 @@ const ContactForm = () => {
                     className="form-control"
                   />
                 </div>
-
+                <div className="col-span-12">
+                  <div className="mb-2 block">
+                    <Label htmlFor="nm" value="Company Name" />
+                  </div>
+                  <TextInput
+                    id="nm"
+                    type="text"
+                    placeholder="Company Name"
+                    required
+                    className="form-control"
+                  />
+                </div>
                 <div className="col-span-12">
                   <div className="mb-2 block">
                     <Label htmlFor="msg" value="Message" />

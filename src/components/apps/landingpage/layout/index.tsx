@@ -4,6 +4,7 @@ import ScrollToTop from 'src/components/shared/ScrollToTop';
 import customTheme from 'src/utils/theme/custom-theme';
 
 import FrontHeader from './Header';
+import { Footer } from './Footer';
 
 function LandingPageLayouts({ children }: { children: React.ReactNode }) {
   return (
@@ -15,7 +16,7 @@ function LandingPageLayouts({ children }: { children: React.ReactNode }) {
           <ScrollToTop>
             <Outlet />
           </ScrollToTop>
-          {/* <Footer /> */}
+          <Footer />
         </Flowbite>
       </div>
     </>
