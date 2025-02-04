@@ -1,13 +1,20 @@
 // src/store/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import API from "../../api/api"
+import API from '../../api/api';
 // import axios from 'axios';
 
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ username, email, password }: { username: string, email: string; password: string }, { rejectWithValue }) => {
+  async (
+    { username, email, password }: { username: string; email: string; password: string },
+    { rejectWithValue },
+  ) => {
     try {
-      const { data } = await API.post('/api/auth/register', { username, email, password }, { withCredentials: true });
+      const { data } = await API.post(
+        '/api/auth/register',
+        { username, email, password },
+        { withCredentials: true },
+      );
       return data; // Assume response includes token and user data
     } catch (error) {
       // if (API.isAxiosError(error) && error.response) {
@@ -15,14 +22,18 @@ export const register = createAsyncThunk(
       // }
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const { data } = await API.post('/api/auth/login', { email, password }, { withCredentials: true });
+      const { data } = await API.post(
+        '/api/auth/login',
+        { email, password },
+        { withCredentials: true },
+      );
       return data?.data; // Assume response includes token and user data
     } catch (error) {
       // if (axios.isAxiosError(error) && error.response) {
@@ -30,7 +41,7 @@ export const login = createAsyncThunk(
       // }
       return rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
@@ -52,7 +63,7 @@ const authSlice = createSlice({
     token: null,
     loading: false,
     error: null,
-    status: ''
+    status: '',
   },
   reducers: {
     resetError: (state: any) => {
@@ -75,30 +86,27 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
 
-
       // Logout
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
       })
 
-
-    // Register
-    .addCase(register.pending, (state) => {
+      // Register
+      .addCase(register.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-    .addCase(register.fulfilled, (state, action) => {
-      console.log({action})
-      state.loading = false;
-      state.user = action.payload.user;
-      state.status = action.payload.message;
-    })
-    .addCase(register.rejected, (state, action: any) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
-
-},
+      .addCase(register.fulfilled, (state, action) => {
+        console.log({ action });
+        state.loading = false;
+        state.user = action.payload.user;
+        state.status = action.payload.message;
+      })
+      .addCase(register.rejected, (state, action: any) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
 });
 
 export const { resetError } = authSlice.actions;
