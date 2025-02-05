@@ -19,55 +19,7 @@ export const Footer = () => {
       link: "/#",
     }
   ];
-  const navLinks2 = [
-    {
-      key: "link1",
-      title: "Knowledge Hub",
-      link: "/#",
-    },
-    {
-      key: "link2",
-      title: "AI Powered Workflow",
-      link: "/widgets/charts",
-    },
-    {
-      key: "link3",
-      title: "Project Executions with AI",
-      link: "/headless-form/radiogroup",
-    },
-    {
-      key: "link4",
-      title: "Customizable Templates",
-      link: "/apps/user-profile/gallery",
-    }
-  ];
-  const navLinks3 = [
-    {
-      key: "link1",
-      title: "Project Executions with AI",
-      link: "/forms/form-layouts",
-    },
-    {
-      key: "link2",
-      title: "Tables",
-      link: "/tables/basic",
-    },
-    {
-      key: "link3",
-      title: "React Table",
-      link: "/react-tables/basic",
-    },
-    {
-      key: "link4",
-      title: "Form Elements",
-      link: "/forms/form-elements",
-    },
-    {
-      key: "link5",
-      title: "Validation",
-      link: "/forms/form-validation",
-    },
-  ];
+
   return (
     <>
       <div className="bg-sky">

@@ -1,60 +1,11 @@
-import user1 from "/src/assets/images/profile/user-2.jpg";
-import user2 from "/src/assets/images/profile/user-3.jpg";
-import user3 from "/src/assets/images/profile/user-4.jpg";
-
-import tech1 from "/src/assets/images/front-pages/technology/react.svg";
-import tech2 from "/src/assets/images/front-pages/technology/flowbite.svg";
-import tech3 from "/src/assets/images/front-pages/technology/nextjs.svg";
-import tech4 from "/src/assets/images/front-pages/technology/typescript.svg";
-import tech5 from "/src/assets/images/front-pages/technology/tailwind.svg";
-import tech6 from "/src/assets/images/front-pages/technology/headless-ui.svg";
-import mainbanner from "/src/assets/images/front-pages/background/main-banner.png";
-import { Button, Tooltip } from "flowbite-react";
-import { Link } from "react-router";
+import { Button,  } from "flowbite-react";
 import WelcomeBox from "../layout/WelcomeBox";
 import Customer from "../layout/Customer";
 import Project from "../layout/Project";
 
 
 const MainBanner = () => {
-  const userImg = [
-    {
-      user: user1,
-    },
-    {
-      user: user2,
-    },
-    {
-      user: user3,
-    },
-  ];
 
-  const Technology = [
-    {
-      tech: tech1,
-      tooltip: "React",
-    },
-    {
-      tech: tech2,
-      tooltip: "Flowbite React",
-    },
-    {
-      tech: tech3,
-      tooltip: "Next.js",
-    },
-    {
-      tech: tech4,
-      tooltip: "Typescript",
-    },
-    {
-      tech: tech5,
-      tooltip: "Tailwind css",
-    },
-    {
-      tech: tech6,
-      tooltip: "Headless Ui",
-    },
-  ];
   return (
     <>
       <div className="bg-lightgray dark:bg-darkgray">
@@ -88,7 +39,7 @@ const MainBanner = () => {
                 <Button
                   color={'primary'}
                   as="button"
-                  onClick={(e) => {
+                  onClick={(e: any) => {
                     e.preventDefault();
                     const targetElement = document.querySelector('#contact');
                     if (targetElement) {

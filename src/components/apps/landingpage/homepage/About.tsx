@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import mainbanner from '/src/assets/images/front-pages/background/feature-image.png';
 
 import RevenueByProduct from "../layout/RevenueByProduct";
 
 const About = () => {
   // Custom Tab
-  const [activeTab, setActiveTab] = useState('Team Scheduling');
+
 
   return (
     <div id="about">
@@ -16,7 +14,6 @@ const About = () => {
               <RevenueByProduct />
             </div>
             <div className="lg:col-span-5 col-span-12 lg:ps-7">
-              {activeTab === 'Team Scheduling' && (
                 <>
                   <p
                     style={{
@@ -54,7 +51,6 @@ const About = () => {
                     </ul>
                   </p>
                 </>
-              )}
             </div>
           </div>
         </div>
