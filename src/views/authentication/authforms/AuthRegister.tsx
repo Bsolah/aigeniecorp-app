@@ -1,11 +1,9 @@
-import { Button, Label, TextInput } from "flowbite-react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { Button, Label, TextInput } from 'flowbite-react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { register } from '../../../redux/slices/authSlice.ts';
 
-
 const AuthRegister = () => {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -54,12 +52,13 @@ const AuthRegister = () => {
             sizing="md"
             className="form-control"
           />
-        </div> 
-        <Button color={'primary'} onClick={handleRegister} className="rounded-md  w-full">Sign Up</Button> 
-        
+        </div>
+        <Button color={'primary'} onClick={handleRegister} className="rounded-md  w-full">
+          Sign Up
+        </Button>
       </form>
     </>
-  )
-}
+  );
+};
 
-export default AuthRegister
+export default AuthRegister;

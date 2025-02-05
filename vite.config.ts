@@ -57,5 +57,8 @@ export default defineConfig({
         commonjsOptions: {
           transformMixedEsModules: true,
         },
+        rollupOptions: {
+            external: ["apexhcarts"]
+        }
       },
 });

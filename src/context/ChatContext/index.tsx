@@ -61,7 +61,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
            
     useEffect(() => {
 
-        const newUpdatedChat: any = chatData.find(item => item?.id === selectedChat?.id)
+        const newUpdatedChat: any = chatData?.find(item => item?.id === selectedChat?.id)
 
         setSelectedChat(newUpdatedChat);
         setActiveChatId(newUpdatedChat?.id);

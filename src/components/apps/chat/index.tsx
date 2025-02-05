@@ -1,12 +1,10 @@
-
-import { Drawer, HR } from "flowbite-react";
-import  { useState } from "react";
-import ChatListing from "./ChatListing.tsx";
-import ChatContent from "./ChatContent.tsx";
-import ChatMsgSent from "./ChatMsgSent.tsx";
-import { ChatProvider } from "src/context/ChatContext/index.tsx";
-import CardBox from "src/components/shared/CardBox.tsx";
-
+import { Drawer, HR } from 'flowbite-react';
+import { useState } from 'react';
+import CardBox from 'src/components/shared/CardBox.tsx';
+import { ChatProvider } from 'src/context/ChatContext/index.tsx';
+import ChatContent from './ChatContent.tsx';
+import ChatListing from './ChatListing.tsx';
+import ChatMsgSent from './ChatMsgSent.tsx';
 
 const ChatsApp = () => {
   const [isOpenChat, setIsOpenChat] = useState(false);
@@ -37,7 +35,7 @@ const ChatsApp = () => {
             </div>
           </div>
         </CardBox>
-      </ChatProvider >
+      </ChatProvider>
     </>
   );
 };

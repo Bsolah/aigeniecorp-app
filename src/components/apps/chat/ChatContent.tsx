@@ -1,15 +1,14 @@
-
-import { useState, useContext, useRef, useEffect } from "react";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { Icon } from "@iconify/react";
-import { Badge, Button, Drawer, HR } from "flowbite-react";
+import { useState, useContext, useRef, useEffect } from 'react';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
+import { Icon } from '@iconify/react';
+import { Badge, Button, Drawer, HR } from 'flowbite-react';
 // import SimpleBar from "simplebar-react";
-import ChatInsideSidebar from "./ChatInsideSidebar.tsx";
-import { formatDistanceToNowStrict } from "date-fns";
-import { ChatContext } from "src/context/ChatContext/index.tsx";
+import ChatInsideSidebar from './ChatInsideSidebar.tsx';
+import { formatDistanceToNowStrict } from 'date-fns';
+import { ChatContext } from 'src/context/ChatContext/index.tsx';
 import user2 from '/src/assets/images/profile/user-2.jpg';
 import React from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 type Props = {
   onClickMobile: (event: React.MouseEvent<HTMLElement>) => void;
@@ -19,13 +18,12 @@ const ChatContent = ({ onClickMobile }: Props) => {
   const [isRightSide, setIsRightSide] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const chatEndRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     if (selectedChat) {
       scrollToBottom();
     }
   }, [selectedChat, selectedChat?.messages]);
-
 
   const handleButtonClick = () => {
     setIsRightSide(!isRightSide);
@@ -33,7 +31,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
 
   // Function to scroll to bottom
   const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const [isOpenMedia, setIsOpenMedia] = useState(false);
@@ -45,9 +43,9 @@ const ChatContent = ({ onClickMobile }: Props) => {
         <div>
           {selectedChat ? (
             <div className="flex items-center justify-between ">
-              <div className="flex items-center gap-3 ">
+              <div className="flex items-center gap-2">
                 <Button
-                  color={"lightprimary"}
+                  color={'lightprimary'}
                   className="btn-circle p-0 lg:hidden flex"
                   onClick={onClickMobile}
                 >
@@ -61,24 +59,21 @@ const ChatContent = ({ onClickMobile }: Props) => {
                     alt="user"
                     className="rounded-full sm:h-12 sm:w-12 h-9 w-9"
                   />
-                  {selectedChat.status == "online" ? (
+                  {selectedChat.status == 'online' ? (
                     <Badge
-                      color={"success"}
+                      color={'success'}
                       className="p-0 h-2 w-2 absolute bottom-1 end-0"
                     ></Badge>
-                  ) : selectedChat.status == "busy" ? (
+                  ) : selectedChat.status == 'busy' ? (
+                    <Badge color={'error'} className="p-0 h-2 w-2 absolute bottom-1 end-0"></Badge>
+                  ) : selectedChat.status == 'away' ? (
                     <Badge
-                      color={"error"}
-                      className="p-0 h-2 w-2 absolute bottom-1 end-0"
-                    ></Badge>
-                  ) : selectedChat.status == "away" ? (
-                    <Badge
-                      color={"warning"}
+                      color={'warning'}
                       className="p-0 h-2 w-2 absolute bottom-1 end-0"
                     ></Badge>
                   ) : (
                     <Badge
-                      color={"primary"}
+                      color={'primary'}
                       className="p-0 h-2 w-2 absolute bottom-1 end-0"
                     ></Badge>
                   )}
@@ -103,7 +98,10 @@ const ChatContent = ({ onClickMobile }: Props) => {
                 >
                   <HiOutlineDotsVertical size={18} className="sm:h-10 h-5 " />
                 </div>
-                <div className="btn-circle-hover cursor-pointer sm:h-10 sm:w-10 xl:hidden flex" onClick={() => setIsOpenMedia(true)}>
+                <div
+                  className="btn-circle-hover cursor-pointer sm:h-10 sm:w-10 xl:hidden flex"
+                  onClick={() => setIsOpenMedia(true)}
+                >
                   <HiOutlineDotsVertical size={20} className="sm:h-10 h-5 " />
                 </div>
               </div>
@@ -114,20 +112,21 @@ const ChatContent = ({ onClickMobile }: Props) => {
       <HR className="my-0" />
       <div className="flex max-h-[800px] h-[650px] ">
         <div
-          className={`transition-all ${!isRightSide
-            ? "lg:w-[calc(100%_-_0px)]"
-            : "xl:w-[calc(100%_-_300px)] w-full"
-            } `}
+          className={`transition-all ${
+            !isRightSide ? 'lg:w-[calc(100%_-_0px)]' : 'xl:w-[calc(100%_-_300px)] w-full'
+          } `}
         >
-          <div className={`${!isRightSide ? 'border-none' : 'lg:border-e'} border-ld h-full py-5 px-5`}>
-            <div className="max-h-[700px] h-[600px]" style={{ flexDirection: 'column-reverse', overflowY: 'auto' }}>
+          <div
+            className={`${!isRightSide ? 'border-none' : 'lg:border-e'} border-ld h-full py-5 px-5`}
+          >
+            <div
+              className="max-h-[700px] h-[600px]"
+              style={{ flexDirection: 'column-reverse', overflowY: 'auto' }}
+            >
               <div>
                 <>
                   {selectedChat?.messages?.map((msg: any) => (
-                    <div
-                      className="flex gap-3 mb-[30px]"
-                      key={msg.id + msg.createdAt}
-                    >
+                    <div className="flex gap-3 mb-[30px]" key={msg.id + msg.createdAt}>
                       {!(user.username === msg.sender) ? (
                         <div className="flex gap-3">
                           <div className="w-10">
@@ -139,16 +138,13 @@ const ChatContent = ({ onClickMobile }: Props) => {
                               className="rounded-full"
                             />
                           </div>
-                          {msg.type === "text" ? (
+                          {msg.type === 'text' ? (
                             <div>
                               <div className="text-xs text-ld opacity-60 font-medium mb-1 block">
-                                {selectedChat.name},{" "}
-                                {formatDistanceToNowStrict(
-                                  new Date(msg.createdAt),
-                                  {
-                                    addSuffix: false,
-                                  }
-                                )}{" "}
+                                {selectedChat.name},{' '}
+                                {formatDistanceToNowStrict(new Date(msg.createdAt), {
+                                  addSuffix: false,
+                                })}{' '}
                                 ago
                               </div>
                               <div className="p-2 bg-muted dark:bg-darkmuted text-ld rounded-md">
@@ -156,7 +152,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
                               </div>
                             </div>
                           ) : null}
-                          {msg.type === "image" ? (
+                          {msg.type === 'image' ? (
                             <img
                               src={msg.msg}
                               height={150}
@@ -171,21 +167,18 @@ const ChatContent = ({ onClickMobile }: Props) => {
                           <div>
                             {msg.timestamp ? (
                               <div className="text-xs text-ld opacity-60 font-medium mb-1 block text-end">
-                                {formatDistanceToNowStrict(
-                                  new Date(msg.createdAt),
-                                  {
-                                    addSuffix: false,
-                                  }
-                                )}{" "}
+                                {formatDistanceToNowStrict(new Date(msg.createdAt), {
+                                  addSuffix: false,
+                                })}{' '}
                                 ago
                               </div>
                             ) : null}
-                            {msg.type === "text" ? (
+                            {msg.type === 'text' ? (
                               <div className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
                                 {msg.msg}
                               </div>
                             ) : null}
-                            {msg.type === "image" ? (
+                            {msg.type === 'image' ? (
                               <img
                                 src={msg.msg}
                                 height={150}
@@ -203,16 +196,11 @@ const ChatContent = ({ onClickMobile }: Props) => {
                 <div ref={chatEndRef} />
               </div>
             </div>
-          
           </div>
-
         </div>
         {isRightSide && (
           <>
-            <div
-              className={`shrink-0 ${!isRightSide ? "max-w-[0]" : "xl:max-w-[300px] max-w-0"
-                }`}
-            >
+            <div className={`shrink-0 ${!isRightSide ? 'max-w-[0]' : 'xl:max-w-[300px] max-w-0'}`}>
               <ChatInsideSidebar />
             </div>
             <Drawer
