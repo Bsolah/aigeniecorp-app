@@ -1,8 +1,60 @@
-import { Button } from 'flowbite-react';
-import { Link } from 'react-router';
-import mainbanner from '/src/assets/images/front-pages/background/main-banner.png';
+import user1 from "/src/assets/images/profile/user-2.jpg";
+import user2 from "/src/assets/images/profile/user-3.jpg";
+import user3 from "/src/assets/images/profile/user-4.jpg";
+
+import tech1 from "/src/assets/images/front-pages/technology/react.svg";
+import tech2 from "/src/assets/images/front-pages/technology/flowbite.svg";
+import tech3 from "/src/assets/images/front-pages/technology/nextjs.svg";
+import tech4 from "/src/assets/images/front-pages/technology/typescript.svg";
+import tech5 from "/src/assets/images/front-pages/technology/tailwind.svg";
+import tech6 from "/src/assets/images/front-pages/technology/headless-ui.svg";
+import mainbanner from "/src/assets/images/front-pages/background/main-banner.png";
+import { Button, Tooltip } from "flowbite-react";
+import { Link } from "react-router";
+import WelcomeBox from "../layout/WelcomeBox";
+import Customer from "../layout/Customer";
+import Project from "../layout/Project";
+
 
 const MainBanner = () => {
+  const userImg = [
+    {
+      user: user1,
+    },
+    {
+      user: user2,
+    },
+    {
+      user: user3,
+    },
+  ];
+
+  const Technology = [
+    {
+      tech: tech1,
+      tooltip: "React",
+    },
+    {
+      tech: tech2,
+      tooltip: "Flowbite React",
+    },
+    {
+      tech: tech3,
+      tooltip: "Next.js",
+    },
+    {
+      tech: tech4,
+      tooltip: "Typescript",
+    },
+    {
+      tech: tech5,
+      tooltip: "Tailwind css",
+    },
+    {
+      tech: tech6,
+      tooltip: "Headless Ui",
+    },
+  ];
   return (
     <>
       <div className="bg-lightgray dark:bg-darkgray">
@@ -18,8 +70,8 @@ const MainBanner = () => {
                   turning hours of work into minutes
                 </h5>
               </div>
-              {/* <ul className="flex flex-wrap lg:justify-start justify-center gap-5 pb-7 md:pt-4 ml-0">
-                {Technology.map((item, index) => (
+              <ul className="flex flex-wrap lg:justify-start justify-center gap-5 pb-7 md:pt-4 ml-0">
+                {/* {Technology.map((item, index) => (
                   <Tooltip
                     content={item.tooltip}
                     className="!text-xs"
@@ -30,24 +82,38 @@ const MainBanner = () => {
                       <img src={item.tech} alt="icon" height={28} className="md:h-7 h-5" />
                     </li>
                   </Tooltip>
-                ))}
-              </ul> */}
+                ))} */}
+              </ul>
               <div className="flex lg:justify-start justify-center">
                 <Button
                   color={'primary'}
-                  as={Link}
-                  to="/auth/auth2/login"
+                  as="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const targetElement = document.querySelector('#contact');
+                    if (targetElement) {
+                      targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                   className="px-4 font-bold sm:w-fit w-full"
                 >
                   Get Early Access
                 </Button>
               </div>
             </div>
-            <div className="lg:col-span-6 col-span-12 xl:block hidden">
-              <div className="min-w-[1300px] max-h-[700px] h-[calc(100vh_-_100px)] overflow-hidden ">
-                <img src={mainbanner} className="rtl:scale-x-[-1]" alt="banner" />
+            {/* <div className="lg:col-span-6 col-span-12 xl:block hidden"> */}
+            <div className="xl:col-span-6 col-span-12">
+              <WelcomeBox />
+              <div className="grid grid-cols-12 mt-30 gap-30">
+                <div className="md:col-span-6 col-span-12">
+                  <Customer />
+                </div>
+                <div className="md:col-span-6 col-span-12">
+                  <Project />
+                </div>
               </div>
             </div>
+            {/* </div> */}
           </div>
         </div>
       </div>

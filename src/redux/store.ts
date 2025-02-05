@@ -2,6 +2,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice.ts';
 import chatReducer from './slices/chatSlice.ts';
+import leadReducer from './slices/leadSlice.ts';
 import chatRoomReducer from './slices/chatRoomSlice.ts';
 import { persistStore as reduxPersistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; 
@@ -22,6 +23,7 @@ export const store = configureStore({
         auth: persistedAuthReducer,
         chat: persistedChatReducer,
         chatRoom: persistedChatRoomReducer,
+        lead: leadReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().prepend(listenerMiddleware.middleware), 

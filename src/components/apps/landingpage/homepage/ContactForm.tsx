@@ -1,7 +1,35 @@
 import { Button, HR, Label, Textarea, TextInput } from 'flowbite-react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'src/redux/store';
 import CardBox from 'src/components/shared/CardBox';
+import { createLead } from 'src/redux/slices/leadSlice';
+
+const intialContact = {
+  firstName: '',
+  lastName: '',
+  message: '',
+  email: '',
+  phoneNumber: ''
+}
 
 const ContactForm = () => {
+  const [contactData, setContactData] = useState(intialContact);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setContactData((prevData: any) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    dispatch(createLead(contactData));
+  };
+
+
   return (
     <div id="contact">
       <div className="container-1218 mx-auto mt-30 mb-40">
@@ -11,10 +39,9 @@ const ContactForm = () => {
               <h5 className="text-lg font-bold text-white pb-4">CONTACT US</h5>
               <p className="text-base text-white leading-7">Reach out to our sales team now</p>
               <HR className="border-t border-white/10 !bg-transparent" />
-              <h5 className="text-lg font-bold text-white pb-4">Our Location</h5>
+              <h5 className="text-lg font-bold text-white pb-4">  TAILORED DEMO  </h5>
               <p className="text-base text-white leading-7">
-                Visit us in person or find our contact details to connect with us directly.
-              </p>
+                Experience a personalized demo crafted to show you exactly how our solutions can drive your business forward.              </p>
             </div>
           </div>
           <div className="lg:col-span-8 col-span-12 h-full">
@@ -22,38 +49,44 @@ const ContactForm = () => {
               <div className="grid grid-cols-12 lg:gap-30 gap-6">
                 <div className="lg:col-span-6 col-span-12">
                   <div className="mb-2 block">
-                    <Label htmlFor="nm" value="First Name *" />
+                    <Label htmlFor="nm" value="First Name" />
                   </div>
                   <TextInput
-                    id="nm"
                     type="text"
-                    placeholder="Name"
-                    required
+                    placeholder="First Name"
+                    id="firstName"
+                    name="firstName"
+                    value={contactData.firstName}
                     className="form-control"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="lg:col-span-6 col-span-12">
                   <div className="mb-2 block">
-                    <Label htmlFor="lnm" value="Last Name *" />
+                    <Label htmlFor="lnm" value="Last Name" />
                   </div>
                   <TextInput
-                    id="lnm"
                     type="text"
                     placeholder="Last Name"
-                    required
+                    id="lastName"
+                    name="lastName"
+                    value={contactData.lastName}
                     className="form-control"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="lg:col-span-6 col-span-12">
                   <div className="mb-2 block">
-                    <Label htmlFor="ph" value="Phone Number *" />
+                    <Label htmlFor="ph" value="Phone Number" />
                   </div>
                   <TextInput
-                    id="ph"
                     type="number"
                     placeholder="xxx xxx xxxx"
-                    required
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={contactData.phoneNumber}
                     className="form-control"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="lg:col-span-6 col-span-12">
@@ -61,11 +94,14 @@ const ContactForm = () => {
                     <Label htmlFor="em" value="Email *" />
                   </div>
                   <TextInput
-                    id="em"
+                    id="email"
+                    name="email"
+                    value={contactData.email}
                     type="email"
                     placeholder="Email address"
-                    required
                     className="form-control"
+                    onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="col-span-12">
@@ -90,11 +126,12 @@ const ContactForm = () => {
                     required
                     className="form-control-textarera rounded-md"
                     rows={4}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="col-span-12">
                   <div className="block">
-                    <Button color={'primary'} className="sm:w-auto w-full ms-auto">
+                    <Button color={'primary'} onClick={handleSubmit} className="sm:w-auto w-full ms-auto">
                       Send Message
                     </Button>
                   </div>

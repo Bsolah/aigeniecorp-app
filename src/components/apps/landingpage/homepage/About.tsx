@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import mainbanner from '/src/assets/images/front-pages/background/feature-image.png';
+
+import RevenueByProduct from "../layout/RevenueByProduct";
+
 const About = () => {
   // Custom Tab
   const [activeTab, setActiveTab] = useState('Team Scheduling');
@@ -9,10 +12,10 @@ const About = () => {
       <div className="bg-lightgray dark:bg-darkgray lg:py-24 py-12">
         <div className="container-1218 mx-auto">
           <div className="grid grid-cols-12 gap-30  items-center">
-            <div className="lg:col-span-6 col-span-12">
-              <img src={mainbanner} className="w-full" alt="banner" />
+            <div className="lg:col-span-7 col-span-12">
+              <RevenueByProduct />
             </div>
-            <div className="lg:col-span-6 col-span-12 lg:ps-7">
+            <div className="lg:col-span-5 col-span-12 lg:ps-7">
               {activeTab === 'Team Scheduling' && (
                 <>
                   <p
@@ -22,7 +25,7 @@ const About = () => {
                   >
                     ABOUT US
                   </p>
-                  <h2 className="sm:text-44 text-3xl font-bold !leading-[48px] text-darklink dark:text-white pb-6">
+                  <h2 className="sm:text-44 text-3xl font-bold !leading-[43px] text-darklink dark:text-white pb-6">
                     Work Smarter, Grow Faster
                   </h2>
                   <p
@@ -32,24 +35,23 @@ const About = () => {
                       color: '#333',
                     }}
                   >
-                    At AI Ops Genie, we’re transforming how teams operate with an all-in-one
-                    platform powered by AI. Our solution combines workflow automation, intelligent
-                    insights, centralized knowledge, and smart AI co-pilots, eliminating
-                    inefficiencies and empowering teams to focus on what truly matters. Seamlessly
-                    integrating with tools like Slack, Zendesk, Salesforce, and Confluence, we
-                    provide a unified experience that simplifies collaboration and drives results.
+                    At AI Genie Corp, we democratize AI for businesses of all sizes, turning complexity into clarity. Founded by a team of AI specialists and operations experts, we build tools that adapt to your needs—not the other way around.
                   </p>
                   <p
                     style={{
                       lineHeight: 2,
                       color: '#333',
+                      paddingTop: 12,
                     }}
                   >
-                    Designed by professionals who’ve experienced the challenges of scaling
-                    operations firsthand, AI Ops Genie is built for businesses aiming to streamline
-                    processes, make data-driven decisions, and stay ahead in a competitive world.
-                    Choose us to revolutionize the way you work: efficient, seamless, and
-                    future-ready
+                    <b>Why Choose Us?</b>
+                    <br />
+                    <ul className='text-xs pt-2 flex flex-col' style={{listStyle: "circle", paddingLeft: 'revert'}}>
+                      <li className='text-sm mt-3'><b>Accuracy First:</b> Avoid AI hallucinations with enterprise-grade validation and source citations. </li>
+                      <li className='text-sm mt-3'> <b>No Engineering Required:</b> Design workflows in minutes, not weeks.</li>
+                      <li className='text-sm mt-3'> <b>Adaptive Intelligence:</b> AI agents learn your team’s patterns and optimize over time.</li>
+                      <li className='text-sm mt-3'> <b>Enterprise-Grade Security:</b> GDPR, ISO, and SOC2 compliant with end-to-end encryption.</li>
+                    </ul>
                   </p>
                 </>
               )}

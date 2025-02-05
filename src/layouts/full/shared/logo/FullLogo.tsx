@@ -1,11 +1,11 @@
 
 
-import Logo from "/src/assets/images/logos/logo.svg";
+import Logo from "../../../../assets/images/logos/AI_Genie_Corp.svg";
 import { Link } from "react-router";
 const FullLogo = () => {
   return (
     <Link to={"/"}>
-      <img src={Logo} alt="logo" className="block" />
+      <img src={Logo} alt="logo" width={50} className="block" />
     </Link>
   );
 };
