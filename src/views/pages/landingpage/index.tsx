@@ -1,9 +1,8 @@
-import About from 'src/components/apps/landingpage/homepage/About';
-import ContactForm from 'src/components/apps/landingpage/homepage/ContactForm';
-import MainBanner from 'src/components/apps/landingpage/homepage/MainBanner';
-import Solution from 'src/components/apps/landingpage/homepage/Solutions';
-import LandingPageLayouts from 'src/components/apps/landingpage/layout';
-// import { Footer } from 'src/components/apps/landingpage/layout/Footer';
+import About from 'src/views/pages/landingpage/homepage/About';
+import ContactForm from 'src/views/pages/landingpage/homepage/ContactForm';
+import MainBanner from 'src/views/pages/landingpage/homepage/MainBanner';
+import Solution from 'src/views/pages/landingpage/homepage/Solutions';
+import LandingPageLayouts from 'src/views/pages/landingpage/layout';
 
 const Landingpage = () => {
   return (
@@ -13,7 +12,6 @@ const Landingpage = () => {
         <Solution />
         <About />
         <ContactForm />
-        {/* <Footer /> */}
       </LandingPageLayouts>
     </>
   );

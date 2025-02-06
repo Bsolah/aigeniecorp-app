@@ -5,8 +5,6 @@ import fs from 'fs/promises';
 import svgr from '@svgr/rollup';
 const API_URL = process.env.VITE_API_URL;
 
-console.log('API ', API_URL)
-
 // https://vitejs.dev/config/
 export default defineConfig({
     resolve: {

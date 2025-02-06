@@ -6,9 +6,7 @@ export const saveChat = createAsyncThunk(
   'chat/save',
   async ({ receiverId, senderId, content, chatRoomId, type }: any, { rejectWithValue }) => {
     try {
-      console.log('got here 2')
       const { data } = await API.post(`/api/chat/save/${senderId}`, { receiverId, chatRoomId, content, type }, { withCredentials: true });
-      console.log('got here 3')
       return data; // Assume response includes token and user data
     } catch (error) {
       // if (axios.isAxiosError(error) && error.response) {

@@ -28,7 +28,7 @@ const CustomCollapse: React.FC<{
         >
           <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
         </Switch> }
-          <span className="truncate max-w-28"  >{label}</span>
+          <span className="truncate text-bold text-xs max-w-28"  >{label}</span>
         </div>
         <HiOutlineChevronDown
           className={twMerge("transform transition-transform", open ? "rotate-180" : "rotate-0")}

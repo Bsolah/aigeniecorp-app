@@ -6,6 +6,7 @@ import router from "./routes/Router.tsx";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from './redux/store.ts';
 import { getChatsByUser } from './redux/slices/chatRoomSlice.ts';
+import { getFolders } from './redux/slices/folderSlice.ts';
 import { useEffect } from "react";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getChatsByUser())
+    dispatch(getFolders())
   }, [])
 
   return (

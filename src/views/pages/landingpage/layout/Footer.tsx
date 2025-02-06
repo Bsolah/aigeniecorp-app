@@ -121,18 +121,9 @@ export const Footer = () => {
             <div className="flex items-center gap-3">
               <img src={logo} alt="logo" height={24} />
               <p className="text-15 text-lightmuted ">
-                All rights reserved by MatDash.
+                All rights reserved by Aigenie.
               </p>
             </div>
-            <p className="text-15 text-lightmuted  flex items-center gap-1 md:pt-0 pt-3">
-              Produced by{" "}
-              <Link
-                className="text-white text-primary-ld"
-                to="https://adminmart.com/"
-              >
-                Adminmart
-              </Link>{" "}
-            </p>
           </div>
         </div>
       </div>

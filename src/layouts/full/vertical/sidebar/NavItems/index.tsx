@@ -7,6 +7,10 @@ import { useTranslation } from "react-i18next";
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext.tsx";
 import { Switch } from "@headlessui/react";
 import { useContext } from "react";
+import { getArticleById } from "src/redux/slices/articleSlice.ts";
+import { AppDispatch } from "src/redux/store";
+import { DocType } from "src/utils/commonFunctions.ts";
+import { useDispatch } from "react-redux";
 
 interface NavItemsProps {
   item: ChildItem;
@@ -17,13 +21,24 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
   const { t } = useTranslation();
 
   const { setIsMobileSidebarOpen } = useContext(DashboardContext);
+  const dispatch = useDispatch<AppDispatch>();
+
+  
+  
+  const handleClick = () => {
+    setIsMobileSidebarOpen(false);
+    
+    if(item.type === DocType.FILE) {
+      dispatch(getArticleById(item?.id))
+    }
+  }
   
   return (
     <>
       <Sidebar.Item
         to={item.url}
         as={Link}
-        onClick={() => setIsMobileSidebarOpen(false)}
+        onClick={handleClick}
         className={`${item.url == pathname
           ? "text-white bg-primary rounded-xl  hover:text-white hover:bg-primary dark:hover:text-white shadow-btnshdw active"
           : "text-link bg-transparent group/link "
@@ -50,7 +65,7 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
           }
 
           <span
-            className={`max-w-36 overflow-hidden`}
+            className={`max-w-36 overflow-hidden text-xs`}
           >
             {t(`${item.name}`)}
           </span>
@@ -62,3 +77,4 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
 };
 
 export default NavItems;
+

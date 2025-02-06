@@ -1,6 +1,6 @@
 
 import  { useState } from "react";
-import CardBox from "../../../shared/CardBox";
+import CardBox from "../../../../components/shared/CardBox";
 import { Badge, Select, Table } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import React from "react";

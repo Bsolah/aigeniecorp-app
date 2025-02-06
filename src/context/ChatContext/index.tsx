@@ -47,7 +47,6 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [loading, setLoading] = useState<boolean>(true);
 
     const { chatRooms } = useSelector((state: any) => state.chatRoom);
-    console.log('response ', chatRooms);
 
     // useEffect(() => {
     //     setSelectedChat(chatRooms?.chats[0]);
@@ -75,7 +74,6 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     //         setLoading(true);
     //         try {
     //             const response = await axios.get('/api/data/chat/ChatData');
-    //             console.log('response ', response)
     //             setChatData(response.data);
     //             if (response.data.length > 0) {
     //                 setSelectedChat(response.data[0]);
