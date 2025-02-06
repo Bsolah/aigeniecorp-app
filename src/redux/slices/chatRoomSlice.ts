@@ -1,19 +1,22 @@
 // src/store/slices/authSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import axios from 'axios';
-import API from "../../api/api"
-
+import API from '../../api/api';
 
 export const getChatsByUser = createAsyncThunk('chat/all', async (_, { rejectWithValue }) => {
-  console.log('I am in')
+  console.log('I am in');
   try {
-    const { data } = await API.get(`/api/chat/all`, { withCredentials: true });
-    return data;
+    const res = (await API.get(`/api/chat/get/rooms`, { withCredentials: true })).data;
+    return {
+      chats: res.chatRooms,
+      status: true,
+    };
   } catch (error) {
     // if (axios.isAxiosError(error) && error.response) {
     //   return rejectWithValue(error.response.data);
     // }
-    return rejectWithValue(error);  }
+    return rejectWithValue(error);
+  }
 });
 
 const chatRoomSlice = createSlice({
@@ -30,7 +33,7 @@ const chatRoomSlice = createSlice({
     },
     clearChat: (state, action) => {
       state.chatRooms = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,7 +49,7 @@ const chatRoomSlice = createSlice({
       .addCase(getChatsByUser.rejected, (state, action: any) => {
         state.loading = true;
         state.error = action.payload;
-      })
+      });
   },
 });
 

@@ -1,5 +1,5 @@
 // src/api/api.js
-const API_URL = import.meta.env.VITE_API_URL || "https://aigeniecorp-api.vercel.app"; // Fallback URL in case no env var is set
+const API_URL = import.meta.env.VITE_API_URL || 'https://aigeniecorp-api.vercel.app'; // Fallback URL in case no env var is set
 import axios from 'axios';
 
 const API = axios.create({
@@ -31,6 +31,5 @@ const API = axios.create({
 //     return Promise.reject(error);
 //   }
 // );
-
 
 export default API;

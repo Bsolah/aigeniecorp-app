@@ -3,17 +3,17 @@ import { sub } from 'date-fns';
 import { Chance } from 'chance';
 
 import s5 from '/src/assets/images/products/s5.jpg';
-import super_games from "/src/assets/images/products/Updated_Products/new-games.jpg";
-import psalms_book from "/src/assets/images/products/Updated_Products/new-book.jpg";
-import boat_headphone from "/src/assets/images/products/Updated_Products/boat-headphone.jpg";
-import macbook_air_pro from "/src/assets/images/products/Updated_Products/advance-macbook.jpg";
-import gaming_console from "/src/assets/images/products/Updated_Products/super-games.jpg";
-import red_dress from "/src/assets/images/products/Updated_Products/red-valvet-dress.jpg";
-import girls_shoes from "/src/assets/images/products/Updated_Products/shoes.jpg";
-import sweet_purse from "/src/assets/images/products/Updated_Products/short-sweet-purse.jpg";
-import soft_teddybear from "/src/assets/images/products/Updated_Products/teddybear.jpg";
-import little_toy from "/src/assets/images/products/Updated_Products/little-angel-toy.jpg";
-import dino_toy from "/src/assets/images/products/Updated_Products/toy-dino.jpg";
+import super_games from '/src/assets/images/products/Updated_Products/new-games.jpg';
+import psalms_book from '/src/assets/images/products/Updated_Products/new-book.jpg';
+import boat_headphone from '/src/assets/images/products/Updated_Products/boat-headphone.jpg';
+import macbook_air_pro from '/src/assets/images/products/Updated_Products/advance-macbook.jpg';
+import gaming_console from '/src/assets/images/products/Updated_Products/super-games.jpg';
+import red_dress from '/src/assets/images/products/Updated_Products/red-valvet-dress.jpg';
+import girls_shoes from '/src/assets/images/products/Updated_Products/shoes.jpg';
+import sweet_purse from '/src/assets/images/products/Updated_Products/short-sweet-purse.jpg';
+import soft_teddybear from '/src/assets/images/products/Updated_Products/teddybear.jpg';
+import little_toy from '/src/assets/images/products/Updated_Products/little-angel-toy.jpg';
+import dino_toy from '/src/assets/images/products/Updated_Products/toy-dino.jpg';
 
 const chance = new Chance();
 
@@ -24,7 +24,7 @@ const ProductsData = [
     discount: 25,
     related: false,
     salesPrice: 350,
-    category: ['toys','electronics'],
+    category: ['toys', 'electronics'],
     gender: 'Men',
     rating: 5,
     stock: true,
@@ -58,7 +58,7 @@ const ProductsData = [
     discount: 12,
     related: false,
     salesPrice: 137,
-    category: ['fashion',],
+    category: ['fashion'],
     gender: 'Kids',
     rating: 3,
     stock: true,
@@ -92,7 +92,7 @@ const ProductsData = [
     discount: 250,
     related: true,
     salesPrice: 900,
-    category: [ 'electronics'],
+    category: ['electronics'],
     gender: 'Women',
     rating: 3,
     stock: false,
@@ -143,7 +143,7 @@ const ProductsData = [
     discount: 80,
     related: false,
     salesPrice: 380,
-    category: ['fashion',],
+    category: ['fashion'],
     gender: 'Women',
     rating: 3,
     stock: true,
@@ -228,11 +228,10 @@ mock.onGet('/api/data/eCommerce/ProductsData').reply(() => {
   return [200, ProductsData];
 });
 
-
 // Endpoint to add a product to the cart
 mock.onPost('/api/data/eCommerce/add').reply((config: any) => {
   const { productId } = JSON.parse(config.data);
-  const productToAdd = ProductsData.find(product => product.id === productId);
+  const productToAdd = ProductsData?.find((product) => product.id === productId);
 
   if (!productToAdd) {
     return [404, { error: 'Product not found' }];

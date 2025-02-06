@@ -488,7 +488,7 @@ mock.onPost('/api/data/contacts/addContact').reply((config) => {
 // Mock API endpoint to delete a contact
 mock.onDelete('/api/data/contacts/deleteContact').reply((config) => {
   const { contactId } = JSON.parse(config.data);
-  const contactIndex = ContactList.findIndex(contact => contact.id === contactId);
+  const contactIndex = ContactList?.findIndex(contact => contact.id === contactId);
   if (contactIndex !== -1) {
     ContactList.splice(contactIndex, 1);
     return [200, ContactList];

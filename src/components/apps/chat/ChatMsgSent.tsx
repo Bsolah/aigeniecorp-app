@@ -1,88 +1,163 @@
-import { Icon } from "@iconify/react";
-import { ChatContext } from "src/context/ChatContext/index.tsx";
-import { TextInput, Button } from "flowbite-react";
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { saveChat } from "src/redux/slices/chatSlice.ts";
-import { AppDispatch } from "src/redux/store.ts";
-
-
+import { Icon } from '@iconify/react';
+import EmojiPicker from 'emoji-picker-react';
+import { TextInput } from 'flowbite-react';
+import { ChangeEvent, FormEvent, useContext, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChatContext } from 'src/context/ChatContext/index.tsx';
+import { saveChat, saveChatWithMedia } from 'src/redux/slices/chatSlice.ts';
+import { AppDispatch } from 'src/redux/store.ts';
+import VoiceRecorder from './VoiceRecorder';
 
 const ChatMsgSent = () => {
-  const { selectedChat } = useContext(ChatContext);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+  const [showRecording, setShowRecording] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const { selectedChat, chatData, activeChatId } = useContext(ChatContext);
   const user = useSelector((state: any) => state.auth.user);
-  const [msg, setMsg] = useState<string>("");
+  const [msg, setMsg] = useState<string>('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const dispatch: AppDispatch = useDispatch();
-  const initialPrompts = selectedChat?.messages[selectedChat?.messages.length - 1]?.prompts ?? null;
-  const [ showPrompts, setShowPrompts ] = useState(true);
+  const [type, setType] = useState<string>('text');
+  // const initialPrompts = selectedChat?.messages[selectedChat?.messages.length - 1]?.prompts ?? null;
+  const [showPrompts, setShowPrompts] = useState(true);
+  const [emoji, setEmoji] = useState('');
 
-  useEffect(() => {
-    if(selectedChat?.messages[selectedChat?.messages.length - 1]?.prompts) {
-      setShowPrompts(true);
-    }
+  const handleEmojiClick = (emojiObject: any) => {
+    setEmoji(emojiObject.emoji);
+  };
+  const selectedCartData: any = chatData?.find((cur) => cur.id === activeChatId) || [];
 
-  }, [selectedChat])
-
+  // useEffect(() => {
+  //   if (selectedChat?.messages[selectedChat?.messages.length - 1]?.prompts) {
+  //     setShowPrompts(true);
+  //   }
+  // }, [selectedChat]);
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   const handleChatMsgChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMsg(e.target.value);
   };
 
-  // console.log('initialPrompts ', initialPrompts, selectedChat?.messages[selectedChat?.messages.length - 1])
+  const handleEmojiSelect = (emoji: string) => {
+    setMsg((prev) => prev + emoji);
+  };
 
   const onChatMsgSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!msg.trim() || !selectedChat) return;
-    sendMessages();
-    setShowPrompts(false)
-    setMsg("");
+    sendMessages({});
+    setShowPrompts(false);
+    setMsg('');
+    setSelectedFile(null);
   };
 
   const handleSubmit = (selectedPrompt: any) => {
-
-    console.log("pressed the button ", selectedPrompt)
-    sendMessages(selectedPrompt);
+    sendMessages({ type: 'text' });
     setShowPrompts(false);
-    setMsg("");
+    setMsg('');
+  };
 
-  }
+  const handleFileSelect = (
+    event: ChangeEvent<HTMLInputElement>,
+    type: 'image' | 'file' | 'text',
+  ) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+      setType(type);
+      scrollToBottom();
+    }
+  };
 
-  const sendMessages = async (selectedPrompt?: any) => {
+  const removeFile = () => {
+    setSelectedFile(null);
+  };
+  console.log('selected file', selectedFile);
+  const sendMessages = async ({ media }: { media?: any }) => {
+    const messageToSend = msg;
+    dispatch(
+      type === 'text' || !selectedFile
+        ? saveChat({
+            receiverId: selectedCartData?.receiverId,
+            senderId: user._id,
+            content: messageToSend,
 
-    const messageToSend = selectedPrompt ? selectedPrompt : msg
-    console.log('got here 1 ', user)
-    console.log('selectedChat ', selectedChat)
-
-
-    dispatch(saveChat({ receiverId: selectedChat?.id, senderId: user._id, content: messageToSend, chatRoomId: null, type: "text" }));
-    // setQuery(''); // clear the input field
-    // const { data } = await axios.post(`/api/ai/ask`, { query });
-    // const parts = data.result.split(/r1\.response:|r2\.followUpQuestions:/).map(part => part.trim());
-
-    // const responsePart = parts[1]; // Content of r1.response
-    // const followUpQuestionsPart = parts[2]; // Content of r2.followUpQuestions
-
-    // const dataToRenderData = formatText(responsePart);
-    // const formattedData = stringToDocument(dataToRenderData);
-    // setFollowUpPrompts(followUpQuestionsPart);
-    // await dispatch(saveChat({ chatRoomId, userId: user._id, sender: 'agent', content: formattedData.getHTML() }));
-    // await dispatch(getChatByRoomId(chatRoomId.toString()));
-  }
+            chatRoomId: selectedCartData?.id,
+            type: type,
+          })
+        : saveChatWithMedia({
+            receiverId: selectedCartData?.receiverId,
+            senderId: user._id,
+            content: messageToSend,
+            chatRoomId: selectedCartData?.id,
+            type: type,
+            media: media || selectedFile,
+          }),
+    );
+    setSelectedFile(null);
+  };
 
   return (
-    <>
-      {showPrompts && initialPrompts && <div className="flex flex-row mb-[50px] relative -top-[50px] justify-center"> {initialPrompts.map((item: string) => 
-              item !== "" && (<Button onClick={() => handleSubmit(item)}  size="xs" color="lightinfo" className="rounded-lg mx-[5px]" >
-                {item}
-              </Button>)
-            )}</div>}
-      <form onSubmit={onChatMsgSubmit}>
-        <div className="flex gap-3 items-center py-5 px-5">
+    <div ref={chatEndRef}>
+      {showEmojiPicker && (
+        <div className="relative">
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+            }}
+          >
+            <EmojiPicker onEmojiClick={handleEmojiClick} />
+          </div>
+        </div>
+      )}
+
+      {showRecording && (
+        <VoiceRecorder
+          onRecordingStop={(e: any) => {
+            console.log('response coming from audio', e);
+            setSelectedFile(e);
+            setType('audio');
+            scrollToBottom();
+          }}
+          onClose={() => {
+            setShowRecording(false);
+          }}
+        />
+      )}
+
+      {selectedFile && (
+        <div className="p-3 border rounded-lg mb-3 flex items-center justify-between">
           <div>
-            <div className="btn-circle-hover cursor-pointer">
+            {selectedFile.type.startsWith('image') ? (
+              <img
+                src={URL.createObjectURL(selectedFile)}
+                alt="Preview"
+                className="w-32 h-32 object-cover"
+              />
+            ) : (
+              <p>{selectedFile.name}</p>
+            )}
+          </div>
+          <button onClick={removeFile} className="text-red-500 ml-4">
+            <Icon icon="solar:trash-bin-2-linear" height="20" />
+          </button>
+        </div>
+      )}
+
+      <form onSubmit={onChatMsgSubmit} className="mb-0">
+        <div className="flex gap-3 items-center py-5 px-5 mb-0">
+          <div className="relative">
+            <div
+              className="btn-circle-hover cursor-pointer"
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+            >
               <Icon icon="solar:sticker-smile-circle-2-linear" height="20" />
             </div>
           </div>
           <TextInput
+            placeholder="What can I help with?"
             className="form-control-chat border-0 w-full"
             sizing="md"
             required
@@ -90,27 +165,44 @@ const ChatMsgSent = () => {
             onChange={handleChatMsgChange}
           />
           <div className="flex gap-3 items-center">
-            <div className="btn-circle-hover cursor-pointer ">
-              <Icon icon="solar:plain-linear"
-                height="20"
-                onClick={handleSubmit}
+            <button
+              disabled={!msg || (!selectedFile && !msg)}
+              className="btn-circle-hover cursor-pointer "
+              onClick={handleSubmit}
+            >
+              <Icon icon="solar:plain-linear" height="20" />
+            </button>
+            <div className="btn-circle-hover cursor-pointer">
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                id="file-input-image"
+                onChange={(e) => handleFileSelect(e, 'image')}
               />
+              <label htmlFor="file-input-image" className="cursor-pointer">
+                <Icon icon="solar:gallery-add-linear" height="20" />
+              </label>
             </div>
             <div className="btn-circle-hover cursor-pointer">
-              <Icon icon="solar:gallery-add-linear" height="20" />
+              <input
+                type="file"
+                className="hidden"
+                id="file-input-file"
+                onChange={(e) => handleFileSelect(e, 'file')}
+              />
+              <label htmlFor="file-input-file" className="cursor-pointer">
+                <Icon icon="solar:paperclip-outline" height="20" />
+              </label>
             </div>
-            <div className="btn-circle-hover cursor-pointer">
-              <Icon icon="solar:paperclip-outline" height="20" />
-            </div>
-            <div className="btn-circle-hover cursor-pointer">
+            <div onClick={() => setShowRecording(true)} className="btn-circle-hover cursor-pointer">
               <Icon icon="solar:microphone-2-outline" height="20" />
             </div>
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 
 export default ChatMsgSent;
-

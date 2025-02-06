@@ -9,8 +9,8 @@ import user3 from '/src/assets/images/profile/user-3.jpg';
 import user4 from '/src/assets/images/profile/user-4.jpg';
 import user5 from '/src/assets/images/profile/user-5.jpg';
 import user8 from '/src/assets/images/profile/user-8.jpg';
-import user10 from "/src/assets/images/profile/user-10.jpg";
-import user9 from "/src/assets/images/profile/user-9.jpg";
+import user10 from '/src/assets/images/profile/user-10.jpg';
+import user9 from '/src/assets/images/profile/user-9.jpg';
 import s1 from '/src/assets/images/blog/blog-img1.jpg';
 
 import adobe from '/src/assets/images/chat/icon-adobe.svg';
@@ -174,7 +174,6 @@ const ChatData: ChatsType[] = [
         attachment: [],
         id: uniqueId(),
       },
-
     ],
   },
   {
@@ -534,41 +533,39 @@ mock.onGet('/api/data/chat/ChatData').reply(() => {
 });
 
 mock.onPost('/api/sendMessage').reply((config: any) => {
-    console.log('Request data:', config.data); // Log the request data
-  
-    try {
-      const { chatId, message } = JSON.parse(config.data);
-      if (!chatId || !message) {
-        return [400, { error: 'Invalid request. Missing parameters.' }];
-      }
-  
-      // Simulate creating a new message
-      const newMessage :any = {
-        id: Math.random(), // Use a random ID for simplicity
-        senderId: uniqueId(), // Generate a new senderId
-        msg: message,
-        createdAt: new Date().toISOString(),
-        type: 'text', // Assuming the message type is text for simplicity
-        attachment: [], // No attachment initially
-      };
-  
-      // Find the chat by chatId and push the new message
-      const chat = ChatData.find((chat) => chat.id === chatId);
-      if (chat) {
-        chat.messages.push(newMessage);
-      } else {
-        return [404, { error: 'Chat not found.' }];
-      }
-  
-      return [201, newMessage];
-    } catch (error) {
-      console.error('Error parsing JSON data:', error);
-      return [400, { error: 'Invalid JSON data format.' }];
+
+
+  try {
+    const { chatId, message } = JSON.parse(config.data);
+    if (!chatId || !message) {
+      return [400, { error: 'Invalid request. Missing parameters.' }];
     }
-  });
 
+    // Simulate creating a new message
+    const newMessage: any = {
+      id: Math.random(), // Use a random ID for simplicity
+      senderId: uniqueId(), // Generate a new senderId
+      msg: message,
+      createdAt: new Date().toISOString(),
+      type: 'text', // Assuming the message type is text for simplicity
+      attachment: [], // No attachment initially
+    };
 
-  console.log("Mock handlers:", mock.history);
+    // Find the chat by chatId and push the new message
+    const chat = ChatData?.find((chat) => chat.id === chatId);
+    if (chat) {
+      chat.messages.push(newMessage);
+    } else {
+      return [404, { error: 'Chat not found.' }];
+    }
 
+    return [201, newMessage];
+  } catch (error) {
+    console.error('Error parsing JSON data:', error);
+    return [400, { error: 'Invalid JSON data format.' }];
+  }
+});
+
+console.log('Mock handlers:', mock.history);
 
 export default ChatData;
