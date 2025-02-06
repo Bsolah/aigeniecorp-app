@@ -1,8 +1,7 @@
 
 import * as React from "react";
 import  { createContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
-import axios from "../../utils/axios.js";
-import { FolderType, ArticleType } from '../../types/apps/repository.js';
+import { FolderType } from '../../types/apps/repository.js';
 import { useSelector } from 'react-redux';
 
 // Define context props interface

@@ -126,6 +126,8 @@ const NewContent = () => {
                     />
                 </div>
 
+                <EditorContent editor={editor} />
+
                 {pages.length > 0 && (
                     <div>
                         <h2 className="text-2xl font-semibold mb-3">Pages</h2>

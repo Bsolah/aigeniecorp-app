@@ -1,4 +1,4 @@
-import mock from '../mock.js';
+// import mock from '../mock.js';
 import { Chance } from 'chance';
 import { sub } from 'date-fns';
 import { uniqueId } from 'lodash';

@@ -8,13 +8,13 @@ import { useSelector } from 'react-redux';
 
 const Repository = () => {
 
-    const [newPage, setNewPages] = useState<any>("");
+    // const [newPage, setNewPages] = useState<any>("");
     const {article} = useSelector((state: any) => state.article);
 
     console.log({article})
 
 
-    if(newPage) {
+    if(article) {
         return <NewContent />
     }
     if(article && article.length) {

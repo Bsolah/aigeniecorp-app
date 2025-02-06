@@ -1,4 +1,4 @@
-import { getFolders } from "src/redux/slices/folderSlice";
+// import { getFolders } from "src/redux/slices/folderSlice";
 import { uniqueId } from "lodash";
 import { DocType } from "src/utils/commonFunctions";
 
