@@ -27,8 +27,6 @@ const ChatMsgSent = () => {
     setMsg(e.target.value);
   };
 
-  // console.log('initialPrompts ', initialPrompts, selectedChat?.messages[selectedChat?.messages.length - 1])
-
   const onChatMsgSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!msg.trim() || !selectedChat) return;
@@ -39,7 +37,6 @@ const ChatMsgSent = () => {
 
   const handleSubmit = (selectedPrompt: any) => {
 
-    console.log("pressed the button ", selectedPrompt)
     sendMessages(selectedPrompt);
     setShowPrompts(false);
     setMsg("");
@@ -49,23 +46,9 @@ const ChatMsgSent = () => {
   const sendMessages = async (selectedPrompt?: any) => {
 
     const messageToSend = selectedPrompt ? selectedPrompt : msg
-    console.log('got here 1 ', user)
-    console.log('selectedChat ', selectedChat)
 
 
     dispatch(saveChat({ receiverId: selectedChat?.id, senderId: user._id, content: messageToSend, chatRoomId: null, type: "text" }));
-    // setQuery(''); // clear the input field
-    // const { data } = await axios.post(`/api/ai/ask`, { query });
-    // const parts = data.result.split(/r1\.response:|r2\.followUpQuestions:/).map(part => part.trim());
-
-    // const responsePart = parts[1]; // Content of r1.response
-    // const followUpQuestionsPart = parts[2]; // Content of r2.followUpQuestions
-
-    // const dataToRenderData = formatText(responsePart);
-    // const formattedData = stringToDocument(dataToRenderData);
-    // setFollowUpPrompts(followUpQuestionsPart);
-    // await dispatch(saveChat({ chatRoomId, userId: user._id, sender: 'agent', content: formattedData.getHTML() }));
-    // await dispatch(getChatByRoomId(chatRoomId.toString()));
   }
 
   return (

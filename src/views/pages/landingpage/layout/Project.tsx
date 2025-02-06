@@ -1,5 +1,5 @@
 
-import CardBox from "../../../shared/CardBox";
+import CardBox from "../../../../components/shared/CardBox";
 import Chart from 'react-apexcharts';
 
 const ChartData: any = {

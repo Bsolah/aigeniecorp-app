@@ -6,9 +6,7 @@ export const createLead = createAsyncThunk(
   'lead/create',
   async ({ firstName, lastName, email, phoneNumber }: any, { rejectWithValue }) => {
     try {
-      console.log('got here 2')
       const { data } = await API.post(`/api/lead/create/`, { firstName, lastName, email, phoneNumber }, { withCredentials: true });
-      console.log('got here 3')
       return data; // Assume response includes token and user data
     } catch (error) {
       // if (axios.isAxiosError(error) && error.response) {

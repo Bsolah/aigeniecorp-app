@@ -20,32 +20,37 @@ const ForgotPassword = Loadable(
 const TwoSteps = Loadable(lazy(() => import('../views/authentication/auth1/TwoSteps.tsx')));
 const Maintainance = Loadable(lazy(() => import('../views/authentication/Maintainance.tsx')));
 
-// landingpage
-const Landingpage = Loadable(lazy(() => import('../views/pages/landingpage/index.tsx')));
+// landingPage
+const LandingPage = Loadable(lazy(() => import('../views/pages/landingpage/index.tsx')));
 
 const ChatPage = Loadable(lazy(() => import('../views/pages/chats/ChatPage.tsx')));
 const RepositoryPage = Loadable(lazy(() => import('../views/pages/repository/RepositoryPage.tsx')));
+const NewRepositoryPage = Loadable(lazy(() => import('../components/apps/repository/NewContent.tsx')));
+const ViewRepositoryPage = Loadable(lazy(() => import('../components/apps/repository/ViewContent.tsx')));
 const Error = Loadable(lazy(() => import('../views/authentication/Error.tsx')));
 
 const Router = [
+  { path: '/', element: <LandingPage />},
   {
-    path: '/',
+    path: '/id',
     element: <PrivateRoute children={<FullLayout />} />,
     children: [
-      { path: '/chats/*', exact: true, element: <PrivateRoute children={<ChatPage />} /> },
+      { path: '/id/chats/*', exact: true, element: <PrivateRoute children={<ChatPage />} /> },
       {
-        path: '/repository/*',
+        path: '/id/repository/*',
         exact: true,
         element: <PrivateRoute children={<RepositoryPage />} />,
       },
-      { path: '/agents', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
-      { path: '/projects', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
-      { path: '/analytics', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
-      { path: '*', element: <Navigate to="/auth/404" /> },
+      { path: '/id/repository/new-page', exact: true, element: <PrivateRoute children={<NewRepositoryPage />} /> },
+      { path: '/id/repository/new-folder', exact: true, element: <PrivateRoute children={<ViewRepositoryPage />} /> },
+      { path: '/id/agents', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
+      { path: '/id/projects', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
+      { path: '/id/analytics', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
+      { path: '/id/*', element: <Navigate to="/auth/404" /> },
     ],
   },
   {
-    path: '/',
+    path: '/auth',
     element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <PublicRoute children={<Login />} /> },
@@ -53,12 +58,11 @@ const Router = [
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
       { path: '/auth/two-steps', element: <TwoSteps /> },
       { path: '/auth/maintenance', element: <Maintainance /> },
-      { path: '/landingpage', element: <Landingpage /> },
       { path: '404', element: <Error /> },
       { path: '/auth/404', element: <Error /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
-  },
+  }
 ];
 
 const router = createBrowserRouter(Router);

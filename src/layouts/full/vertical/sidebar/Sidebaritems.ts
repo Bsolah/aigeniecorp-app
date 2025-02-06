@@ -1,3 +1,7 @@
+import { getFolders } from "src/redux/slices/folderSlice";
+import { uniqueId } from "lodash";
+import { DocType } from "src/utils/commonFunctions";
+
 export interface ChildItem {
   id?: number | string;
   name?: string;
@@ -8,20 +12,20 @@ export interface ChildItem {
   item?: any;
   url?: any;
   color?: string;
+  type?: DocType;
 }
 
 export interface MenuItem {
   heading?: string;
   name?: string;
   icon?: any;
-  id?: number;
+  id?: number | string;
   to?: string;
   items?: MenuItem[];
   children?: ChildItem[];
   url?: any;
+  type?: DocType;
 }
-
-import { uniqueId } from "lodash";
 
 const SidebarContent: MenuItem[] = [
 
@@ -37,7 +41,7 @@ const SidebarContent: MenuItem[] = [
             name: "External",
             // icon: "solar:home-angle-outline",
             description: "Sources from Web",
-            selector: true, 
+            selector: true,
             id: uniqueId(),
             url: "/#",
           },
@@ -60,55 +64,7 @@ const SidebarContent: MenuItem[] = [
     items: [
       {
         heading: "Knowledge Base",
-        children: [
-          {
-            name: "Root",
-            icon: "solar:widget-add-line-duotone",
-            id: uniqueId(),
-            url: "/repository",
-            children: [
-              {
-                id: uniqueId(),
-                name: "Marketing",
-                icon: "flat-color-icons:opened-folder",
-                url: "/repository/marketing",
-              },
-              {
-                id: uniqueId(),
-                name: "Sales",
-                icon: "flat-color-icons:opened-folder",
-                url: "/repository/sales",
-                children: [
-                  {
-                    id: uniqueId(),
-                    name: "Sales Scripts",
-                    icon: 'flat-color-icons:file',
-                    url: "/repository/sales-scripts",
-                  }]
-              },
-              {
-                id: uniqueId(),
-                name: "Customers",
-                icon: "flat-color-icons:opened-folder",
-                url: "/repository/customers",
-                children: [
-                  {
-                    id: uniqueId(),
-                    name: "Support",
-                    icon: 'flat-color-icons:file',
-                    url: "/repository/customers/support",
-                  },
-                  {
-                    id: uniqueId(),
-                    name: "Complaints",
-                    icon: 'flat-color-icons:file',
-                    url: "/repository/customers/complaints",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+        children: [],
       },
 
       {
@@ -116,9 +72,16 @@ const SidebarContent: MenuItem[] = [
         children: [
           {
             id: uniqueId(),
-            url: "/repository/new-page",
+            url: "/id/repository/new-page",
             name: "New Page",
             icon: "solar:document-text-outline",
+            color: "text-primary",
+          },
+          {
+            id: uniqueId(),
+            url: "/id/repository/new-folder",
+            name: "New Folder",
+            icon: "whh:addfolderalt",
             color: "text-primary",
           }
         ],
@@ -128,9 +91,23 @@ const SidebarContent: MenuItem[] = [
         children: [
           {
             id: uniqueId(),
-            url: "/sample-page",
+            url: "/id/repository/google-docs",
             name: "Google Docs",
-            icon: "solar:google-docs",
+            icon: "arcticons:google-docs",
+            color: "text-primary",
+          },
+          {
+            id: uniqueId(),
+            url: "/id/repository/google-sheets",
+            name: "Google Sheets",
+            icon: "arcticons:google-docs",
+            color: "text-primary",
+          },
+          {
+            id: uniqueId(),
+            url: "/id/repository/google-slides",
+            name: "Google Slides",
+            icon: "arcticons:google-docs",
             color: "text-primary",
           }
         ],

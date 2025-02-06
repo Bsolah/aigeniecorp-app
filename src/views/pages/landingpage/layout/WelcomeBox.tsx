@@ -1,5 +1,5 @@
 
-import CardBox from "../../../shared/CardBox";
+import CardBox from "../../../../components/shared/CardBox";
 import { Icon } from "@iconify/react";
 import Background from '/src/assets/images/backgrounds/welcome-bg.png';
 

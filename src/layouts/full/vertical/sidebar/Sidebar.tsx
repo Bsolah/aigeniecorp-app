@@ -17,11 +17,28 @@ import {
   Switch
 } from "@headlessui/react";
 import React from "react";
+import { structureFolder } from "src/utils/commonFunctions.ts";
+import { useSelector } from "react-redux";
 
 const SidebarLayout = () => {
   const { selectedIconId, setSelectedIconId } =
     useContext(CustomizerContext) || {};
-    console.log('I am here ', selectedIconId)
+  const { folder } = useSelector((state: any) => state.folders)
+  console.log('I am here ', folder)
+
+  // 'flat-color-icons:file',"flat-color-icons:opened-folder",
+
+  const convertedFolderTree = structureFolder(folder[0])
+
+  SidebarContent.forEach(item => item["items"]?.forEach(item => {
+
+    if (item.heading === "Knowledge Base") {
+      item.children = [convertedFolderTree]
+    }
+    return item;
+  }
+  ))
+
   const selectedContent = SidebarContent.find(
     (data) => data.id === selectedIconId
   );
@@ -33,27 +50,27 @@ const SidebarLayout = () => {
     for (const item of narray) {
       // If we're at the top level, set the parentId
       const currentParentId = parentId ?? item.id;
-  
+
       // Check if the current item's URL matches the target
       if (item.url === targetUrl) {
         return currentParentId; // Return the top parent ID
       }
-  
+
       // Search recursively in `children`
       if (item.children) {
         const foundId = findActiveUrl(item.children, targetUrl, currentParentId);
         if (foundId) return foundId;
       }
-  
+
       // Search recursively in `items`
       if (item.items) {
         const foundId = findActiveUrl(item.items, targetUrl, currentParentId);
         if (foundId) return foundId;
       }
     }
-  
+
     return null; // URL not found
-  }  
+  }
 
 
   const sidebarSelection = (item: any) => {
@@ -99,7 +116,6 @@ const SidebarLayout = () => {
 
   useEffect(() => {
     const result = findActiveUrl(SidebarContent, pathname);
-    console.log('find path result ', result)
     if (result) {
       setSelectedIconId(result);
     }
@@ -123,7 +139,6 @@ const SidebarLayout = () => {
               <Sidebar.ItemGroup className="sidebar-nav hide-menu">
                 {selectedContent &&
                   selectedContent.items?.map((item, index) => {
-                    // console.log('item ', item)
                     // if(item.heading === 'AI Models') {
                     //   // setSelectedItem(item && item?.children && item?.children[0])
                     // }
