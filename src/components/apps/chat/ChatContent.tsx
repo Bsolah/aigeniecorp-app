@@ -5,14 +5,14 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 // import SimpleBar from "simplebar-react";
 import { formatDistanceToNowStrict } from 'date-fns';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import API from 'src/api/api.ts';
 import { ChatContext } from 'src/context/ChatContext/index.tsx';
-import { AppDispatch } from 'src/redux/store.ts';
-import Spinner from 'src/views/spinner/Spinner';
+// import { AppDispatch } from 'src/redux/store.ts';
+// import Spinner from 'src/views/spinner/Spinner';
 import ChatInsideSidebar from './ChatInsideSidebar';
 import user2 from '/src/assets/images/profile/user-2.jpg';
-import { FaSpinner } from 'react-icons/fa';
+// import { FaSpinner } from 'react-icons/fa';
 
 type Props = {
   onClickMobile: (event: React.MouseEvent<HTMLElement>) => void;
@@ -22,7 +22,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
   const [isRightSide, setIsRightSide] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const chatEndRef = useRef<HTMLDivElement>(null);
-  const [chatContent, setChatContent] = useState({});
+  // const [chatContent, setChatContent] = useState({});
   const [messages, setMessages] = useState([]);
   console.log('message', messages);
 
@@ -37,19 +37,19 @@ const ChatContent = ({ onClickMobile }: Props) => {
 
   const [isOpenMedia, setIsOpenMedia] = useState(false);
   const handleClose = () => setIsOpenMedia(false);
-  const [loading, setLoading] = useState(false);
-  const dispatch: AppDispatch = useDispatch();
+  // const [loading, setLoading] = useState(false);
+  // const dispatch: AppDispatch = useDispatch();
 
   const getChatContents = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const res = (await API.get(`/api/chat/get/${selectedChat?.id}`)).data;
       setMessages(res.chats);
-    } catch (error) {
-      alert('error sending chat', error);
+    } catch (error: any) {
+      alert('error sending chat');
     }
 
-    setLoading(false);
+    // setLoading(false);
   };
   useEffect(() => {
     if (selectedChat) {
@@ -88,17 +88,17 @@ const ChatContent = ({ onClickMobile }: Props) => {
                         alt="user"
                         className="rounded-full sm:h-12 sm:w-12 h-9 w-9"
                       />
-                      {selectedChat.status == 'online' ? (
+                      {selectedChat?.status == 'online' ? (
                         <Badge
                           color={'success'}
                           className="p-0 h-2 w-2 absolute bottom-1 end-0"
                         ></Badge>
-                      ) : selectedChat.status == 'busy' ? (
+                      ) : selectedChat?.status == 'busy' ? (
                         <Badge
                           color={'error'}
                           className="p-0 h-2 w-2 absolute bottom-1 end-0"
                         ></Badge>
-                      ) : selectedChat.status == 'away' ? (
+                      ) : selectedChat?.status == 'away' ? (
                         <Badge
                           color={'warning'}
                           className="p-0 h-2 w-2 absolute bottom-1 end-0"
@@ -111,9 +111,9 @@ const ChatContent = ({ onClickMobile }: Props) => {
                       )}
                     </div>
                     <div>
-                      <h5 className="text-base sm:mb-1">{selectedChat.name}</h5>
+                      <h5 className="text-base sm:mb-1">{selectedChat?.name}</h5>
                       <div className="text-sm text-ld opacity-90 line-clamp-1">
-                        {selectedChat.status}
+                        {selectedChat?.status}
                       </div>
                     </div>
                   </div>

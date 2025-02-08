@@ -117,7 +117,7 @@ export const getChatByRoomId = createAsyncThunk(
 
 export const getChatAllRooms = createAsyncThunk(
   'chat/get',
-  async (identity, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       // alert('gh');
       const { data } = await API.get(`/api/chat/get/rooms`, {

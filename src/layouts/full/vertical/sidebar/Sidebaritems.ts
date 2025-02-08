@@ -7,6 +7,7 @@ export interface ChildItem {
   selector?: boolean;
   item?: any;
   url?: any;
+  tag?: string;
   color?: string;
 }
 
@@ -40,6 +41,29 @@ const SidebarContent: MenuItem[] = [
             selector: true, 
             id: uniqueId(),
             url: "/#",
+            children: [
+              {
+                id: uniqueId(),
+                name: "Open AI",
+                tag: "oai",
+                selector: true, 
+                url: "/#",
+              },
+              {
+                id: uniqueId(),
+                name: "Gemini AI",
+                tag: "gai",
+                selector: true, 
+                url: "/#",
+              },
+              {
+                id: uniqueId(),
+                name: "Deepseek AI",
+                tag: "dai",
+                selector: true, 
+                url: "/#",
+              },
+            ],
           },
           {
             name: "Internal",
@@ -48,6 +72,22 @@ const SidebarContent: MenuItem[] = [
             selector: true,
             id: uniqueId(),
             url: "/#",
+            children: [
+              {
+                id: uniqueId(),
+                name: "Knowledge Base",
+                tag: "knb",
+                selector: true, 
+                url: "/#",
+              },
+              {
+                id: uniqueId(),
+                name: "Others",
+                tag: "oth",
+                selector: true, 
+                url: "/#",
+              }
+            ],
           }
 
         ],

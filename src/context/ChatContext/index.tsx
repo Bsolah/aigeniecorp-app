@@ -101,11 +101,11 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const newMessage: MessageType = response.data;
         setSelectedChat((prevChat) => ({
           ...prevChat!,
-          messages: [...prevChat!.messages, newMessage],
+          messages: [...(prevChat!.messages || []), newMessage],
         }));
         setChatData((prevChats) =>
           prevChats.map((chat) =>
-            chat.id === chatId ? { ...chat, messages: [...chat.messages, newMessage] } : chat,
+            chat.id === chatId ? { ...chat, messages: [...(chat.messages || []), newMessage] } : chat,
           ),
         );
       } else {

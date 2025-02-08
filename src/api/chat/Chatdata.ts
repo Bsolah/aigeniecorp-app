@@ -554,7 +554,11 @@ mock.onPost('/api/sendMessage').reply((config: any) => {
     // Find the chat by chatId and push the new message
     const chat = ChatData?.find((chat) => chat.id === chatId);
     if (chat) {
-      chat.messages.push(newMessage);
+      if (chat?.messages) {
+        chat.messages?.push(newMessage);
+      } else {
+        return [500, { error: 'Chat messages are undefined.' }];
+      }
     } else {
       return [404, { error: 'Chat not found.' }];
     }

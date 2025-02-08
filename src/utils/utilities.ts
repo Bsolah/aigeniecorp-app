@@ -51,7 +51,7 @@ export const generateBsonId = (): string => {
 
 export const groupMessagesByReceiver = (data: MessageData[]): GroupedMessagesType[] => {
   const grouped = data.reduce<Record<string, GroupedMessagesType>>((acc, item) => {
-    const { messages, id, email, name, role, status } = item;
+    const { messages, id, name, status } = item;
     console.log(item, 'item');
     const receiver = messages.receiver;
 
@@ -72,13 +72,6 @@ export const groupMessagesByReceiver = (data: MessageData[]): GroupedMessagesTyp
   }, {});
 
   return Object.values(grouped);
-};
-
-type GroupedChats = {
-  today: MessageData[];
-  yesterday: MessageData[];
-  lastWeek: MessageData[];
-  older: MessageData[];
 };
 
 export const groupChatsByDate = (chats: MessageData[]) => {

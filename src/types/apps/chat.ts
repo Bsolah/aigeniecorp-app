@@ -18,11 +18,16 @@ export type MessageType = {
 
 export interface ChatsType {
   id: number | string;
-  name: string;
-  status: string;
-  thumb: string;
-  recent: boolean;
-  excerpt: string;
+  name?: string;
+  status?: string;
+  thumb?: string;
+  recent?: boolean;
+  excerpt?: string;
   chatHistory?: any[];
-  messages: MessageType[];
+  isNewChat?: boolean;
+  messages?: MessageType[];
+  latestMessage?: string;
+  msg?: string
+  createdAt?: any;
+  type?: string
 }

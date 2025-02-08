@@ -42,7 +42,7 @@ const chatRoomSlice = createSlice({
         state.loading = true;
         state.error = false;
       })
-      .addCase(getChatsByUser.fulfilled, (state, action) => {
+      .addCase(getChatsByUser.fulfilled, (state:any, action) => {
         state.chatRooms = action.payload;
         state.loading = false;
       })

@@ -19,7 +19,7 @@ const ChatMsgSent = () => {
   const dispatch: AppDispatch = useDispatch();
   const [type, setType] = useState<string>('text');
   // const initialPrompts = selectedChat?.messages[selectedChat?.messages.length - 1]?.prompts ?? null;
-  const [showPrompts, setShowPrompts] = useState(true);
+  // const [showPrompts, setShowPrompts] = useState(true);
   const [emoji, setEmoji] = useState('');
 
   const handleEmojiClick = (emojiObject: any) => {
@@ -39,22 +39,18 @@ const ChatMsgSent = () => {
     setMsg(e.target.value);
   };
 
-  const handleEmojiSelect = (emoji: string) => {
-    setMsg((prev) => prev + emoji);
-  };
-
   const onChatMsgSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!msg.trim() || !selectedChat) return;
     sendMessages({});
-    setShowPrompts(false);
+    // setShowPrompts(false);
     setMsg('');
     setSelectedFile(null);
   };
 
-  const handleSubmit = (selectedPrompt: any) => {
-    sendMessages({ type: 'text' });
-    setShowPrompts(false);
+  const handleSubmit = () => {
+    sendMessages({ type: type });
+    // setShowPrompts(false);
     setMsg('');
   };
 
@@ -73,8 +69,8 @@ const ChatMsgSent = () => {
   const removeFile = () => {
     setSelectedFile(null);
   };
-  console.log('selected file', selectedFile);
-  const sendMessages = async ({ media }: { media?: any }) => {
+  // console.log('selected file', selectedFile);
+  const sendMessages = async ({ media, type }: { media?: any; type?: any }) => {
     const messageToSend = msg;
     dispatch(
       type === 'text' || !selectedFile
@@ -161,7 +157,7 @@ const ChatMsgSent = () => {
             className="form-control-chat border-0 w-full"
             sizing="md"
             required
-            value={msg}
+            value={`${msg} + ${emoji}`}
             onChange={handleChatMsgChange}
           />
           <div className="flex gap-3 items-center">

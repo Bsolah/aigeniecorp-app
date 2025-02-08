@@ -1,6 +1,6 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 import { getChatsByUser } from '../slices/chatRoomSlice.ts';
-import { getChatAllRooms, saveChat, saveChatWithMedia } from '../slices/chatSlice.ts';
+import { saveChat, saveChatWithMedia } from '../slices/chatSlice.ts';
 
 // Create middleware
 const listenerMiddleware = createListenerMiddleware();

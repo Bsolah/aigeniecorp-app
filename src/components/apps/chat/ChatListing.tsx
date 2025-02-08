@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Badge, Dropdown, Label, TextInput } from 'flowbite-react';
-import { last } from 'lodash';
+// import { last } from 'lodash';
 import * as React from 'react';
 import { useContext } from 'react';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
@@ -49,27 +49,28 @@ const ChatListing = () => {
       divider: false,
     },
   ];
-  const lastActivity = (chat: ChatsType) => last(chat.messages)?.createdAt;
+  // const lastActivity = (chat: ChatsType) => last(chat.messages)?.createdAt;
 
   const getDetails = (conversation: ChatsType | any) => {
     let displayText = '';
 
-    const lastMessage =
-      conversation?.messages ||
+    console.log({conversation})
+
+    const lastMessage = conversation?.messages ||
       conversation?.msg ||
-      conversation?.messages[conversation.messages.length - 1] ||
+      conversation?.messages[conversation?.messages?.length - 1] ||
       '';
 
     if (lastMessage) {
-      const sender = lastMessage.senderId === conversation.id ? 'You: ' : '';
+      const sender = lastMessage?.senderId === conversation.id ? 'You: ' : '';
       const message =
         conversation.type === 'image'
           ? 'Sent a photo'
           : conversation.type === 'media'
           ? 'Sent a media'
-          : lastMessage.msg || lastMessage;
-      // console.log('data', sender, message, lastMessage);
-      displayText = `${sender}${message}`;
+          : lastMessage?.msg || lastMessage;
+
+          displayText = `${sender}${message}`;
     }
 
     return displayText;
@@ -78,10 +79,10 @@ const ChatListing = () => {
     chatData,
     chatSearch,
     setChatSearch,
-    setSelectedChat,
-    setActiveChatId,
+    // setSelectedChat,
+    // setActiveChatId,
     activeChatId,
-    setChatData,
+    // setChatData,
   } = useContext(ChatContext);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,13 +96,13 @@ const ChatListing = () => {
   const agentChats = filteredChats?.filter((item: any) => item.name === 'Genie Bot');
   const nonAgentChats = filteredChats?.filter((item: any) => item.name !== 'Genie Bot');
 
-  const handleChatSelect = (chat: ChatsType) => {
-    console.log(chat);
-    const chatId = chat.id;
-    // typeof chat.id === "string" ? parseInt(chat.id) : chat.id;
-    setSelectedChat(chat);
-    setActiveChatId(chatId);
-  };
+  // const handleChatSelect = (chat: ChatsType) => {
+  //   console.log(chat);
+  //   const chatId = chat.id;
+  //   // typeof chat.id === "string" ? parseInt(chat.id) : chat.id;
+  //   setSelectedChat(chat);
+  //   setActiveChatId(chatId);
+  // };
 
   const chatListMapping = (arrItems: any) => {
     const isAgent = arrItems?.find((item: any) => item.name === 'Genie Bot');
@@ -121,7 +122,7 @@ const ChatListing = () => {
                     ? 'bg-lighthover dark:bg-darkmuted'
                     : 'initial'
                 }`}
-                onClick={() => handleChatSelect({ ...chat?.latestMessage, isNewChat: false })}
+                // onClick={() => handleChatSelect({ ...chat, latestMessage: { ...chat.latestMessage, isNewChat: false, msg: chat.latestMessage.msg || '' }, messages: chat. || [] })}
               >
                 <div className="flex items-center gap-3 max-w-[235px] w-full">
                   <div className="relative min-w-12">
@@ -157,7 +158,7 @@ const ChatListing = () => {
                   <div>
                     <h5 className="text-sm mb-1">{chat.latestMessage?.name}</h5>
                     <div className="text-sm text-ld opacity-90 line-clamp-1">
-                      {getDetails(chat.latestMessage)}
+                      {getDetails(chat?.latestMessage)}
                     </div>
                   </div>
                 </div>
@@ -168,14 +169,14 @@ const ChatListing = () => {
                     })} */}
                   {chat.latestMessage?.name === 'Genie Bot' && (
                     <div
-                      onClick={() => {
-                        setSelectedChat({
-                          ...chat?.latestMessage,
-                          isNewChat: true,
-                        });
-                        // setActiveChatId(null);
-                        setChatData([]);
-                      }}
+                      // onClick={() => {
+                      //   setSelectedChat({
+                      //     ...chat?.latestMessage,
+                      //     isNewChat: true,
+                      //   });
+                      //   // setActiveChatId(null);
+                      //   setChatData([]);
+                      // }}
                       className="pt-1 text-sm text-ld opacity-90 line-clamp-1 flex justify-end"
                     >
                       <Icon icon="ri:chat-new-fill" height="20" />
@@ -190,7 +191,7 @@ const ChatListing = () => {
                   {labels.map((cur, i) => (
                     <PreviousConversationsGrouped
                       date={cur.label}
-                      data={groupChatsByDate(chat.conversations)[cur.value]}
+                      data={groupChatsByDate(chat.conversations)[cur.value as keyof ReturnType<typeof groupChatsByDate>] as any || []}
                       key={i}
                     />
                   ))}
@@ -201,16 +202,10 @@ const ChatListing = () => {
       </>
     );
   };
-  const conversation = [
-    {
-      title: '',
-      date: '',
-      id: '',
-    },
-  ];
+
   return (
     <>
-      <div className="left-part  w-full px-0 max-h-[700px] h-[620px]">
+      <div className="left-part  w-full px-0 max-h-[1200px] h-[810px]">
         <div className="flex justify-between items-center px-6">
           <div className="flex items-center gap-3">
             <div className="relative">

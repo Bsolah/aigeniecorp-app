@@ -1,0 +1,10 @@
+.editorContent div {
+    min-height: 500px;
+}
+
+.editorContent div:focus {
+    background-color: transparent;
+    outline: none;
+    /* Ensures no outline on focus */
+    box-shadow: none;
+}
