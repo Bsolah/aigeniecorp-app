@@ -17,6 +17,8 @@ const folderTree: MenuItem = {
 
 export const structureFolder = (rawFolder: FolderType) => {
 
+    console.log('raw folder ', rawFolder)
+
     folderTree.name = rawFolder?.name;
     folderTree.id = rawFolder?.id;
 
