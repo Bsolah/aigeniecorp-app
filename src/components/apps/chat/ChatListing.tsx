@@ -3,8 +3,8 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Badge, Dropdown, TextInput, Label } from "flowbite-react";
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
-import { last } from "lodash";
-import { formatDistanceToNowStrict } from "date-fns";
+// import { last } from "lodash";
+// import { formatDistanceToNowStrict } from "date-fns";
 // import * as SimpleBar from "simplebar-react";
 import { ChatContext, ChatsType } from "src/context/ChatContext/index.tsx";
 import { useSelector } from "react-redux"
@@ -33,14 +33,14 @@ const ChatListing = () => {
       divider: false,
     },
   ];
-  const lastActivity = (chat: ChatsType) => last(chat.messages)?.createdAt;
+  // const lastActivity = (chat: ChatsType) => last(chat.messages)?.createdAt;
 
   const getDetails = (conversation: ChatsType) => {
     let displayText = "";
 
     const lastMessage = conversation.messages[conversation.messages.length - 1];
     if (lastMessage) {
-      const sender = lastMessage.senderId === conversation.id ? "You: " : "";
+      const sender = lastMessage?.senderId === conversation.id ? "You: " : "";
       const message =
         lastMessage.type === "image" ? "Sent a photo" : lastMessage.msg;
       displayText = `${sender}${message}`;
@@ -79,6 +79,9 @@ const ChatListing = () => {
   const chatListMapping = (arrItems: any) => {
 
     const isAgent = arrItems?.find((item: any) => item.name === 'Genie Bot');
+
+      console.log('aarritems ', arrItems)
+
 
     return <>
       <Label className="flex justify-start h-8 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : 'Employees'}</Label>
@@ -130,9 +133,9 @@ const ChatListing = () => {
             </div>
           </div>
           <div className="text-xs pt-1">
-            {formatDistanceToNowStrict(new Date(lastActivity(chat)), {
+            {/* {formatDistanceToNowStrict(new Date(lastActivity(chat)), {
               addSuffix: false,
-            })}
+            })} */}
             {chat.name === 'Genie Bot' &&
               <div className="pt-1 text-sm text-ld opacity-90 line-clamp-1 flex justify-end" >
                 <Icon icon="ri:chat-new-fill" height="20" />
@@ -144,7 +147,7 @@ const ChatListing = () => {
 
   return (
     <>
-      <div className="left-part  w-full px-0 ">
+      <div className="left-part w-full px-0 ">
         <div className="flex justify-between items-center px-6">
           <div className="flex items-center gap-3">
             <div className="relative">

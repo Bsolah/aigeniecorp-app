@@ -3,7 +3,12 @@ import { twMerge } from "tailwind-merge";
 import { Switch } from "@headlessui/react";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
+import React, { useState } from "react";
+
+const isParentEnabled: any = {
+  "ext": true,
+  "int": false,
+} 
 
 const CustomCollapse: React.FC<{
   label: string;
@@ -14,6 +19,8 @@ const CustomCollapse: React.FC<{
   icon: string;
   className?: string;
 }> = ({ label, open, onClick, icon, children, className, selector }) => {
+  const [isParentEnable, setIsParentEnabled] = useState<{ [key: string]: boolean }>(isParentEnabled);
+
   return (
     <div className={twMerge("transition-all duration-300")}>
       <div
@@ -23,10 +30,11 @@ const CustomCollapse: React.FC<{
         <div className="flex items-center gap-3">
           {!selector ? <Icon icon={icon} height={18} /> :
           <Switch
-          checked={true}
-          className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
+          checked={isParentEnable[label]}
+          onClick={() => setIsParentEnabled(prevState => ({ ...prevState, [label]: !prevState[label] }))}
+          className="group inline-flex h-4 w-7 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
         >
-          <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+          <span className="size-4 translate-x-0.5 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
         </Switch> }
           <span className="truncate text-bold text-xs max-w-28"  >{label}</span>
         </div>

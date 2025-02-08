@@ -2,7 +2,7 @@
 // @ts-ignore
 import React, { useState, useRef } from 'react';
 import ViewContent from './ViewContent.tsx';
-import NewContent from './NewContent.tsx';
+// import NewContent from './NewContent.tsx';
 import WelcomeContent from './WelcomeContent.tsx';
 import { useSelector } from 'react-redux';
 
@@ -14,11 +14,11 @@ const Repository = () => {
     console.log({article})
 
 
-    if(article) {
-        return <NewContent />
-    }
-    if(article && article.length) {
-        return <ViewContent />
+    // if(article) {
+    //     return <NewContent />
+    // }
+    if(article && article.data) {
+        return <ViewContent item={article.data} />
     }
 
     return (

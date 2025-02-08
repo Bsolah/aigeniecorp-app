@@ -19,6 +19,8 @@ const ChatContent = ({ onClickMobile }: Props) => {
   const { user } = useSelector((state: any) => state.auth);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  console.log('selected chat 1', selectedChat)
+
   useEffect(() => {
     if (selectedChat) {
       scrollToBottom();

@@ -6,13 +6,10 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { CustomCollapse } from "../CustomCollapse.tsx";
 import React from "react";
-// import { useDispatch } from "react-redux";
-// import { AppDispatch } from "src/redux/store";
-// import { getArticleById } from "src/redux/slices/articleSlice.ts";
-
 interface NavCollapseProps {
   item: ChildItem;
 }
+
 
 const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
   const location = useLocation();
@@ -20,7 +17,7 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
 
   // Determine if any child matches the current path
   const activeDD = item.children.find((t: { url: string }) => t.url === pathname);
-  // const dispatch = useDispatch<AppDispatch>();  
+  
 
   const { t, i18n } = useTranslation();
   const [translatedLabel, setTranslatedLabel] = useState<string | null>(null);
@@ -39,7 +36,6 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
   // Toggle the collapse
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
-
   };
 
   return (
@@ -67,7 +63,7 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
               )}
             </React.Fragment>
           ))}
-        </div> 
+        </div>
       )}
     </CustomCollapse>
   );
