@@ -6,13 +6,11 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { formatDistanceToNowStrict } from 'date-fns';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import API from 'src/api/api.ts';
 import { ChatContext } from 'src/context/ChatContext/index.tsx';
+import { getSingleChatInfo } from 'src/redux/slices/chatSlice';
 import { AppDispatch } from 'src/redux/store.ts';
-import Spinner from 'src/views/spinner/Spinner';
 import ChatInsideSidebar from './ChatInsideSidebar';
 import user2 from '/src/assets/images/profile/user-2.jpg';
-import { FaSpinner } from 'react-icons/fa';
 
 type Props = {
   onClickMobile: (event: React.MouseEvent<HTMLElement>) => void;
@@ -22,7 +20,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
   const [isRightSide, setIsRightSide] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const chatEndRef = useRef<HTMLDivElement>(null);
-  const [chatContent, setChatContent] = useState({});
+
   const [messages, setMessages] = useState([]);
   console.log('message', messages);
 
@@ -42,12 +40,12 @@ const ChatContent = ({ onClickMobile }: Props) => {
 
   const getChatContents = async () => {
     setLoading(true);
-    try {
-      const res = (await API.get(`/api/chat/get/${selectedChat?.id}`)).data;
-      setMessages(res.chats);
-    } catch (error) {
-      alert('error sending chat', error);
-    }
+    const content = await dispatch(
+      getSingleChatInfo({
+        id: selectedChat?.id,
+      }),
+    );
+    setMessages(content.payload);
 
     setLoading(false);
   };
@@ -56,12 +54,15 @@ const ChatContent = ({ onClickMobile }: Props) => {
       scrollToBottom();
     }
   }, [messages]);
-
+  console.log(selectedChat, 'selected chat');
   useEffect(() => {
-    if (selectedChat?.id) {
+    if (selectedChat?.id && !selectedChat?.isNewChat) {
       getChatContents();
     }
   }, [selectedChat]);
+  useEffect(() => {
+    setMessages([]);
+  }, [selectedChat?.isNewChat]);
   return (
     <div>
       {false ? (
@@ -70,7 +71,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
         <>
           <div className="px-5">
             <div>
-              {!selectedChat?.isNewChat ? (
+              {selectedChat ? (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 p-3">
                     <Button
@@ -88,17 +89,17 @@ const ChatContent = ({ onClickMobile }: Props) => {
                         alt="user"
                         className="rounded-full sm:h-12 sm:w-12 h-9 w-9"
                       />
-                      {selectedChat.status == 'online' ? (
+                      {selectedChat?.status == 'online' ? (
                         <Badge
                           color={'success'}
                           className="p-0 h-2 w-2 absolute bottom-1 end-0"
                         ></Badge>
-                      ) : selectedChat.status == 'busy' ? (
+                      ) : selectedChat?.status == 'busy' ? (
                         <Badge
                           color={'error'}
                           className="p-0 h-2 w-2 absolute bottom-1 end-0"
                         ></Badge>
-                      ) : selectedChat.status == 'away' ? (
+                      ) : selectedChat?.status == 'away' ? (
                         <Badge
                           color={'warning'}
                           className="p-0 h-2 w-2 absolute bottom-1 end-0"
@@ -111,9 +112,9 @@ const ChatContent = ({ onClickMobile }: Props) => {
                       )}
                     </div>
                     <div>
-                      <h5 className="text-base sm:mb-1">{selectedChat.name}</h5>
+                      <h5 className="text-base sm:mb-1">{selectedChat?.name}</h5>
                       <div className="text-sm text-ld opacity-90 line-clamp-1">
-                        {selectedChat.status}
+                        {selectedChat?.status}
                       </div>
                     </div>
                   </div>
@@ -163,80 +164,86 @@ const ChatContent = ({ onClickMobile }: Props) => {
                 >
                   <div>
                     <>
-                      {messages?.map((msg: any) => (
-                        <div className="flex gap-3 mb-[30px]  " key={msg.id + msg.createdAt}>
-                          {!(user.username === msg.senderId?.username) ? (
-                            <div
-                              className="flex gap-3"
-                              style={{
-                                flexDirection: 'column',
-                              }}
-                            >
-                              <div className="w-10">
-                                <img
-                                  src={user2}
-                                  height={40}
-                                  width={40}
-                                  alt="user"
-                                  className="rounded-full"
-                                />
-                              </div>
-                              <div>
-                                {msg.type === 'image' ? (
-                                  <img
-                                    src={msg.attachments}
-                                    height={150}
-                                    width={150}
-                                    alt="user"
-                                    className="rounded-md"
-                                  />
-                                ) : null}
-                              </div>
+                      {messages?.length > 0 &&
+                        messages
+                          ?.sort(
+                            (a: any, b: any) =>
+                              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+                          )
+                          ?.map((msg: any) => (
+                            <div className="flex gap-3 mb-[30px]" key={msg.id + msg.createdAt}>
+                              {!(user.username === msg.senderId?.username) ? (
+                                <div
+                                  className="flex gap-3"
+                                  style={{
+                                    flexDirection: 'column',
+                                  }}
+                                >
+                                  <div className="w-10">
+                                    <img
+                                      src={user2}
+                                      height={40}
+                                      width={40}
+                                      alt="user"
+                                      className="rounded-full"
+                                    />
+                                  </div>
+                                  <div>
+                                    {msg.type === 'image' ? (
+                                      <img
+                                        src={msg.attachments}
+                                        height={150}
+                                        width={150}
+                                        alt="user"
+                                        className="rounded-md"
+                                      />
+                                    ) : null}
+                                  </div>
 
-                              <div>
-                                <div className="text-xs text-ld opacity-60 font-medium mb-1 block">
-                                  {selectedChat.name},{' '}
-                                  {formatDistanceToNowStrict(new Date(msg.createdAt), {
-                                    addSuffix: false,
-                                  })}
-                                  ago
-                                </div>
-                                <div className="p-2 bg-muted dark:bg-darkmuted text-ld rounded-md">
-                                  {msg.msg || msg.content}
-                                </div>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex  justify-end w-full">
-                              <div>
-                                {msg.createdAt ? (
-                                  <div className="text-xs text-ld opacity-60 font-medium mb-1 block text-end">
-                                    {msg?.createdAt &&
-                                      formatDistanceToNowStrict(new Date(msg?.createdAt), {
+                                  <div>
+                                    <div className="text-xs text-ld opacity-60 font-medium mb-1 block">
+                                      {selectedChat.name},{' '}
+                                      {formatDistanceToNowStrict(new Date(msg.createdAt), {
                                         addSuffix: false,
-                                      })}{' '}
-                                    ago
+                                      })}
+                                      ago
+                                    </div>
+                                    <div className="p-2 bg-muted dark:bg-darkmuted text-ld rounded-md">
+                                      {msg.msg || msg.content}
+                                    </div>
                                   </div>
-                                ) : null}
-                                {msg.type === 'text' ? (
-                                  <div className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
-                                    {msg.content}
+                                </div>
+                              ) : (
+                                <div className="flex justify-end w-full">
+                                  <div>
+                                    {msg.createdAt ? (
+                                      <div className="text-xs text-ld opacity-60 font-medium mb-1 block text-end">
+                                        {msg?.createdAt &&
+                                          formatDistanceToNowStrict(new Date(msg?.createdAt), {
+                                            addSuffix: false,
+                                          })}{' '}
+                                        ago
+                                      </div>
+                                    ) : null}
+                                    {msg.type === 'text' ? (
+                                      <div className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
+                                        {msg.content}
+                                      </div>
+                                    ) : null}
+                                    {msg.type === 'image' ? (
+                                      <img
+                                        src={msg.msg}
+                                        height={150}
+                                        width={150}
+                                        alt="user"
+                                        className="rounded-md"
+                                      />
+                                    ) : null}
                                   </div>
-                                ) : null}
-                                {msg.type === 'image' ? (
-                                  <img
-                                    src={msg.msg}
-                                    height={150}
-                                    width={150}
-                                    alt="user"
-                                    className="rounded-md"
-                                  />
-                                ) : null}
-                              </div>
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      ))}
+                          ))}
                     </>
                     <div ref={chatEndRef} />
                   </div>

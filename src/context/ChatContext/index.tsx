@@ -99,12 +99,12 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (response.status === 201) {
         // Update local state if API call succeeds
         const newMessage: MessageType = response.data;
-        setSelectedChat((prevChat) => ({
+        setSelectedChat((prevChat: any) => ({
           ...prevChat!,
           messages: [...prevChat!.messages, newMessage],
         }));
         setChatData((prevChats) =>
-          prevChats.map((chat) =>
+          prevChats.map((chat: any) =>
             chat.id === chatId ? { ...chat, messages: [...chat.messages, newMessage] } : chat,
           ),
         );

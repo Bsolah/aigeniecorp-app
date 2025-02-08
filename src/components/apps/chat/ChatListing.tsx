@@ -112,8 +112,8 @@ const ChatListing = () => {
           {isAgent ? 'Agents' : 'Employees'}
         </Label>
         {arrItems &&
-          groupMessagesByReceiver(arrItems)?.map((chat) => (
-            <div>
+          [...groupMessagesByReceiver(arrItems)]?.map((chat, i) => (
+            <div key={i}>
               <div
                 key={chat.latestMessage.id}
                 className={`cursor-pointer py-4 px-6 gap-0 flex justify-between group bg-hover ${
@@ -121,7 +121,11 @@ const ChatListing = () => {
                     ? 'bg-lighthover dark:bg-darkmuted'
                     : 'initial'
                 }`}
-                onClick={() => handleChatSelect({ ...chat?.latestMessage, isNewChat: false })}
+                onClick={() => {
+                  isAgent
+                    ? () => {}
+                    : handleChatSelect({ ...chat?.latestMessage, isNewChat: false });
+                }}
               >
                 <div className="flex items-center gap-3 max-w-[235px] w-full">
                   <div className="relative min-w-12">
@@ -137,12 +141,12 @@ const ChatListing = () => {
                         color={'success'}
                         className="p-0 h-2 w-2 absolute bottom-1 end-0"
                       ></Badge>
-                    ) : chat.latestMessage?.status == 'busy' ? (
+                    ) : chat?.latestMessage?.status == 'busy' ? (
                       <Badge
                         color={'error'}
                         className="p-0 h-2 w-2 absolute bottom-1 end-0"
                       ></Badge>
-                    ) : chat.latestMessage?.status == 'away' ? (
+                    ) : chat?.latestMessage?.status == 'away' ? (
                       <Badge
                         color={'warning'}
                         className="p-0 h-2 w-2 absolute bottom-1 end-0"
@@ -155,9 +159,9 @@ const ChatListing = () => {
                     )}
                   </div>
                   <div>
-                    <h5 className="text-sm mb-1">{chat.latestMessage?.name}</h5>
+                    <h5 className="text-sm mb-1">{chat?.name}</h5>
                     <div className="text-sm text-ld opacity-90 line-clamp-1">
-                      {getDetails(chat.latestMessage)}
+                      {getDetails(chat?.latestMessage)}
                     </div>
                   </div>
                 </div>
@@ -166,15 +170,13 @@ const ChatListing = () => {
                     formatDistanceToNowStrict(new Date(lastActivity(chat)), {
                       addSuffix: false,
                     })} */}
-                  {chat.latestMessage?.name === 'Genie Bot' && (
+                  {isAgent && (
                     <div
                       onClick={() => {
                         setSelectedChat({
                           ...chat?.latestMessage,
                           isNewChat: true,
                         });
-                        // setActiveChatId(null);
-                        setChatData([]);
                       }}
                       className="pt-1 text-sm text-ld opacity-90 line-clamp-1 flex justify-end"
                     >
@@ -187,10 +189,10 @@ const ChatListing = () => {
                 <div>
                   <div className="h-[1px2] w-[100%] bg-[#aaa]" />
 
-                  {labels.map((cur, i) => (
+                  {labels.map((cur: any, i) => (
                     <PreviousConversationsGrouped
                       date={cur.label}
-                      data={groupChatsByDate(chat.conversations)[cur.value]}
+                      data={groupChatsByDate(chat?.conversations || [])?.[cur.value] || []}
                       key={i}
                     />
                   ))}

@@ -20,17 +20,18 @@ type User = {
   status: string;
 };
 export type MessageData = {
-  status: string;
+  status?: string;
   name: string;
-  email: string;
-  role: string;
-  id: string | null;
-  messages: Message;
+  email?: string;
+  role?: string;
+  id?: string | null;
+  messages?: Message;
 };
 
 export type GroupedMessagesType = {
   receiver: string;
-  latestMessage: Message;
+  name: string;
+  latestMessage: any;
   conversations: MessageData[];
 };
 export function getLatestMessageObject(users: User[]): User | null {
@@ -50,27 +51,29 @@ export const generateBsonId = (): string => {
 };
 
 export const groupMessagesByReceiver = (data: MessageData[]): GroupedMessagesType[] => {
-  const grouped = data.reduce<Record<string, GroupedMessagesType>>((acc, item) => {
-    const { messages, id, email, name, role, status } = item;
-    console.log(item, 'item');
-    const receiver = messages.receiver;
+  const grouped = data.reduce<Record<string, GroupedMessagesType>>((acc, item: any) => {
+    const { messages, id, email, name, role, status, receiverId } = item;
 
+    console.log(item, 'item');
+    const receiver = messages?.receiver!;
+    console.log(receiverId, 'receiver id');
     if (!acc[receiver]) {
       acc[receiver] = {
         receiver,
-        latestMessage: messages,
+        name: name,
+        latestMessage: item,
         conversations: [],
       };
     }
 
-    if (new Date(messages.createdAt) > new Date(acc[receiver].latestMessage.createdAt)) {
-      acc[receiver].latestMessage = { ...messages, id, name, status };
+    if (new Date(messages!?.createdAt) > new Date(acc[receiver].latestMessage.createdAt)) {
+      acc[receiver].latestMessage = item;
     }
 
     acc[receiver].conversations.push(item);
     return acc;
   }, {});
-
+  console.log(grouped, 'data');
   return Object.values(grouped);
 };
 
@@ -88,22 +91,31 @@ export const groupChatsByDate = (chats: MessageData[]) => {
   const older: MessageData[] = [];
 
   const todayStart = moment().startOf('day');
-  const yesterdayStart = moment().subtract(1, 'days').startOf('day');
-  const lastWeekStart = moment().subtract(7, 'days').startOf('day');
+  const yesterdayStart = moment().subtract(2, 'days').startOf('day');
+  const lastWeekStart = moment().subtract(8, 'days').startOf('day');
 
   chats.forEach((chat) => {
-    const chatDate = moment(chat.messages.createdAt);
+    const chatDate = moment(chat.messages?.createdAt); // Ensure createdAt is parsed correctly
+
+    if (!chatDate.isValid()) {
+      console.warn(`Invalid date detected: ${chat.messages?.createdAt}`);
+      return;
+    }
+
     if (chatDate.isSame(todayStart, 'day')) {
       today.push(chat);
     } else if (chatDate.isSame(yesterdayStart, 'day')) {
       yesterday.push(chat);
-    } else if (chatDate.isAfter(lastWeekStart)) {
+    } else if (chatDate.isAfter(lastWeekStart, 'day')) {
       lastWeek.push(chat);
     } else {
       older.push(chat);
     }
   });
-  var d = { today: today, yesterday: yesterday, lastWeek: lastWeek, older: older };
-  console.log(d.today, 'ghj');
-  return d;
+
+  const groupedChats = { today, yesterday, lastWeek, older };
+
+  console.log('Final Grouped Chats:', JSON.stringify(groupedChats, null, 2));
+
+  return groupedChats;
 };

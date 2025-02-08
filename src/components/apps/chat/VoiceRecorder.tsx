@@ -3,8 +3,8 @@ import { FaMicrophone, FaStop, FaTimes, FaTrash } from 'react-icons/fa';
 
 interface VoiceRecorderProps {
   onRecording?: () => void;
-  onRecordingStop?: any;
-  onClose?: () => void;
+  onRecordingStop?: (audioFile: Blob) => void;
+  onClose: () => void;
 }
 
 const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onRecording, onRecordingStop, onClose }) => {
@@ -23,7 +23,7 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onRecording, onRecordingS
       }
     };
   }, []);
-  const [data, setData] = useState<any>();
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -34,17 +34,16 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onRecording, onRecordingS
         audioChunksRef.current.push(event.data);
       };
 
-      mediaRecorderRef.current.onstop = async () => {
+      mediaRecorderRef.current.onstop = () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
         const url = URL.createObjectURL(audioBlob);
         setAudioURL(url);
         audioChunksRef.current = [];
 
-        // Convert to FormData
-        // const formData = new FormData();
-        // formData.append('audio', audioBlob, 'recording.wav');
-        // formData.append('duration', duration.toString());
-        setData(audioBlob);
+        // Pass the recorded audio file to onRecordingStop
+        if (onRecordingStop) {
+          onRecordingStop(audioBlob);
+        }
       };
 
       mediaRecorderRef.current.start();
@@ -72,7 +71,6 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onRecording, onRecordingS
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => track.stop());
     }
-    onRecordingStop && onRecordingStop(data);
   };
 
   const resetRecorder = () => {
@@ -80,6 +78,7 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onRecording, onRecordingS
     setAudioURL(null);
     setDuration(0);
     stopRecording();
+    onClose();
   };
 
   const formatDuration = (seconds: number) => {

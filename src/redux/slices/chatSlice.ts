@@ -35,8 +35,13 @@ export const saveChat = createAsyncThunk(
         },
         { withCredentials: true },
       );
-      console.log('got here 3');
-      return data; // Assume response includes token and user data
+      getSingleChatInfo({
+        id: chatRoomId!,
+      });
+      return {
+        data: data,
+        chatRoomId: chatRoomId,
+      }; // Assume response includes token and user data
     } catch (error: any) {
       console.log('error trying to send message', error?.response);
       // if (axios.isAxiosError(error) && error.response) {
@@ -90,8 +95,13 @@ export const saveChatWithMedia = createAsyncThunk(
         withCredentials: true,
       });
 
-      console.log('got here 3');
-      return data;
+      getSingleChatInfo({
+        id: chatRoomId!,
+      });
+      return {
+        data: data,
+        chatRoomId: chatRoomId,
+      };
     } catch (error: any) {
       console.log('error trying to send message', error?.response);
       alert(error?.response?.data?.message);
@@ -147,6 +157,25 @@ export const deleteChatByRoomId = createAsyncThunk(
     }
   },
 );
+export const getSingleChatInfo = createAsyncThunk(
+  '/api/chat/get/',
+  async ({ id }: { id: string }, { rejectWithValue }) => {
+    console.log('he reacg');
+    try {
+      const res = (
+        await API.get(`/api/chat/get/${id}`, {
+          withCredentials: true,
+        })
+      ).data;
+      return res.chats;
+    } catch (error) {
+      // if (axios.isAxiosError(error) && error.response) {
+      //   return rejectWithValue(error.response.data);
+      // }
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const chatSlice = createSlice({
   name: 'chat',
@@ -173,7 +202,7 @@ const chatSlice = createSlice({
       })
       .addCase(saveChat.fulfilled, (state, action) => {
         state.loading = false;
-        state.status = action.payload;
+        state.status = action.payload?.data || null;
       })
       .addCase(saveChat.rejected, (state, action: any) => {
         state.loading = false;

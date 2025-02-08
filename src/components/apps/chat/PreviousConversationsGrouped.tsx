@@ -1,6 +1,6 @@
 import PreviousConversation from './PreviousConversation';
 
-function PreviousConversationsGrouped({ data, date }: { data: []; date: string }) {
+function PreviousConversationsGrouped({ data, date }: { data: any[]; date: string }) {
   return (
     data?.length > 0 && (
       <div>

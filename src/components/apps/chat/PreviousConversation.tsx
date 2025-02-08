@@ -7,12 +7,15 @@ import { getChatsByUser } from 'src/redux/slices/chatRoomSlice';
 import { AppDispatch } from 'src/redux/store';
 
 function PreviousConversation({ data }: { data: any }) {
-  const { setSelectedChat, setActiveChatId, activeChatId } = useContext(ChatContext);
+  const { setSelectedChat, setActiveChatId, activeChatId, selectedChat } = useContext(ChatContext);
   const [showConfirm, setShowConfirm] = useState(false);
   const handleChatSelect = (chat: ChatsType) => {
     const chatId = chat.id;
     // typeof chat.id === "string" ? parseInt(chat.id) : chat.id;
-    setSelectedChat(chat);
+    setSelectedChat({
+      ...chat,
+      isNewChat: false,
+    });
     setActiveChatId(chatId);
   };
   const dispatch: AppDispatch = useDispatch();
@@ -21,7 +24,11 @@ function PreviousConversation({ data }: { data: any }) {
       console.log(data);
       const res = await API.delete(`/api/chat/delete/${data?.id}`);
       dispatch(getChatsByUser());
+      setSelectedChat({
+        isNewChat: true,
+      });
       setShowConfirm(false);
+      setActiveChatId(null);
     } catch (error: any) {
       alert(error?.response?.data?.message);
     }
@@ -44,7 +51,7 @@ function PreviousConversation({ data }: { data: any }) {
           handleChatSelect(data);
         }}
         className={`px-6 py-3 rounded-sm  ${
-          activeChatId === data?.id && 'bg-[#dddd]'
+          activeChatId === data?.id && !selectedChat?.isNewChat && 'bg-[#dddd]'
         } hover:bg-[#dddd] group  cursor-pointer  `}
       >
         <div className="flex items-center gap-2 justify-between w-[100%]">

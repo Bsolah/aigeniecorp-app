@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChatContext } from 'src/context/ChatContext/index.tsx';
 import { saveChat, saveChatWithMedia } from 'src/redux/slices/chatSlice.ts';
 import { AppDispatch } from 'src/redux/store.ts';
+import { generateBsonId } from 'src/utils/utilities';
 import VoiceRecorder from './VoiceRecorder';
 
 const ChatMsgSent = () => {
   const chatEndRef = useRef<HTMLDivElement>(null);
   const [showRecording, setShowRecording] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const { selectedChat, chatData, activeChatId } = useContext(ChatContext);
+  const { selectedChat, chatData, activeChatId, setSelectedChat } = useContext(ChatContext);
   const user = useSelector((state: any) => state.auth.user);
   const [msg, setMsg] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -26,7 +27,7 @@ const ChatMsgSent = () => {
     setEmoji(emojiObject.emoji);
   };
   const selectedCartData: any = chatData?.find((cur) => cur.id === activeChatId) || [];
-
+  console.log(activeChatId, 'yhj');
   // useEffect(() => {
   //   if (selectedChat?.messages[selectedChat?.messages.length - 1]?.prompts) {
   //     setShowPrompts(true);
@@ -45,17 +46,32 @@ const ChatMsgSent = () => {
 
   const onChatMsgSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!msg.trim() || !selectedChat) return;
+    // if (!msg.trim() || !selectedChat) return;
     sendMessages({});
     setShowPrompts(false);
     setMsg('');
     setSelectedFile(null);
+    setType('text');
+    setShowRecording(false);
+    // if (selectedChat?.isNewChat) {
+    //   setSelectedChat({
+    //     isNewChat: false,
+    //   });
+    // }
   };
 
   const handleSubmit = (selectedPrompt: any) => {
-    sendMessages({ type: 'text' });
+    sendMessages({});
     setShowPrompts(false);
     setMsg('');
+    setType('text');
+    setSelectedFile(null);
+    setShowRecording(false);
+    // if (selectedChat?.isNewChat) {
+    //   setSelectedChat({
+    //     isNewChat: false,
+    //   });
+    // }
   };
 
   const handleFileSelect = (
@@ -73,28 +89,34 @@ const ChatMsgSent = () => {
   const removeFile = () => {
     setSelectedFile(null);
   };
-  console.log('selected file', selectedFile);
+
   const sendMessages = async ({ media }: { media?: any }) => {
     const messageToSend = msg;
-    dispatch(
+    const res: any = await dispatch(
       type === 'text' || !selectedFile
         ? saveChat({
-            receiverId: selectedCartData?.receiverId,
+            receiverId: selectedChat?.receiverId,
             senderId: user._id,
             content: messageToSend,
 
-            chatRoomId: selectedCartData?.id,
+            chatRoomId: selectedChat?.isNewChat === true ? generateBsonId() : selectedCartData?.id,
             type: type,
           })
         : saveChatWithMedia({
-            receiverId: selectedCartData?.receiverId,
+            receiverId: selectedChat?.receiverId,
             senderId: user._id,
             content: messageToSend,
-            chatRoomId: selectedCartData?.id,
+            chatRoomId: selectedChat?.isNewChat === true ? generateBsonId() : selectedCartData?.id,
             type: type,
             media: media || selectedFile,
           }),
     );
+    setSelectedChat({
+      ...selectedChat,
+      id: res.payload?.chatRoomId,
+      isNewChat: false,
+    });
+
     setSelectedFile(null);
   };
 
@@ -123,11 +145,12 @@ const ChatMsgSent = () => {
           }}
           onClose={() => {
             setShowRecording(false);
+            // setSelectedFile(null);
           }}
         />
       )}
 
-      {selectedFile && (
+      {selectedFile && type != 'audio' && (
         <div className="p-3 border rounded-lg mb-3 flex items-center justify-between">
           <div>
             {selectedFile.type.startsWith('image') ? (
