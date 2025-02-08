@@ -21,7 +21,7 @@ export const structureFolder = (rawFolder: FolderType) => {
     folderTree.id = rawFolder?.id;
 
     const articleArr = rawFolder?.articles?.map((item: any) => ({ ...item, type: DocType.FILE, name: item.title, id: item._id, icon: 'flat-color-icons:file', url: `${folderTree.url}/${item["_id"]}` }));
-    const childrenArr = rawFolder?.child?.map(item => ({ ...item, icon: "flat-color-icons:opened-folder", id: item.id, }));
+    const childrenArr = rawFolder?.child?.map(item => ({ ...item, icon: "flat-color-icons:opened-folder", id: item.id, url: `${folderTree.url}`}));
 
     // console.log("ds ", rawFolder.child)
     

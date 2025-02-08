@@ -23,7 +23,7 @@ const SidebarLayout = () => {
   );
   const {folder} = useSelector((state: any) => state.folders)
 
-  if(folder && folder.length > 1) {
+  if(folder && folder.length > 0) {
     const resultFolders = structureFolder(folder[0]);
     selectedContent?.items?.forEach((item: any) =>  {
       if(item.heading === 'Knowledge Base') {
