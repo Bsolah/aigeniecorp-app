@@ -22,14 +22,17 @@ const SidebarLayout = () => {
     (data) => data.id === selectedIconId
   );
   const {folder} = useSelector((state: any) => state.folders)
-  const resultFolders = structureFolder(folder[0]);
-  selectedContent?.items?.forEach((item: any) =>  {
-    if(item.heading === 'Knowledge Base') {
 
-      item.children = [resultFolders];
-    }
-    return item;
-  })
+  if(folder && folder.length > 1) {
+    const resultFolders = structureFolder(folder[0]);
+    selectedContent?.items?.forEach((item: any) =>  {
+      if(item.heading === 'Knowledge Base') {
+        
+        item.children = [resultFolders];
+      }
+      return item;
+    })
+  }
 
   const location = useLocation();
   const pathname = location.pathname;
