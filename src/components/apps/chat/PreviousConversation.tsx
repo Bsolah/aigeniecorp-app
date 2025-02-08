@@ -22,7 +22,7 @@ function PreviousConversation({ data }: { data: any }) {
   const handleDeleteConversation = async () => {
     try {
       console.log(data);
-      const res = await API.delete(`/api/chat/delete/${data?.id}`);
+      await API.delete(`/api/chat/delete/${data?.id}`);
       dispatch(getChatsByUser());
       setSelectedChat({
         isNewChat: true,

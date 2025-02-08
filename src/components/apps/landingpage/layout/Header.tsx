@@ -1,14 +1,14 @@
 import 'flowbite';
 import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router';
+// import { Link, useLocation } from 'react-router';
 import FullLogo from 'src/layouts/full/shared/logo/FullLogo';
 import MobileMenu from './MobileMenu';
 import Navigation from './Navigation';
 
 const FrontHeader = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +38,7 @@ const FrontHeader = () => {
         </div>
         <Button
           as="button"
-          onClick={(e) => {
+          onClick={(e: any) => {
             e.preventDefault();
             const targetElement = document.querySelector('#contact');
             if (targetElement) {

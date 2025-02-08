@@ -77,13 +77,6 @@ export const groupMessagesByReceiver = (data: MessageData[]): GroupedMessagesTyp
   return Object.values(grouped);
 };
 
-type GroupedChats = {
-  today: MessageData[];
-  yesterday: MessageData[];
-  lastWeek: MessageData[];
-  older: MessageData[];
-};
-
 export const groupChatsByDate = (chats: MessageData[]) => {
   const today: MessageData[] = [];
   const yesterday: MessageData[] = [];

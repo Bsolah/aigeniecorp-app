@@ -6,18 +6,30 @@ import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext.tsx";
 import { Switch } from "@headlessui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 interface NavItemsProps {
   item: ChildItem;
 }
+
+
+const enabled: any = {
+  "oai": false,
+  "gai": false,
+  "dai": false,
+  "knb": false,
+  "oth": false,
+} 
+
+
 const NavItems: React.FC<NavItemsProps> = ({ item }) => {
   const location = useLocation();
   const pathname = location.pathname;
   const { t } = useTranslation();
 
+  const [enable, setEnabled] = useState<{ [key: string]: boolean }>(enabled);
+
   const { setIsMobileSidebarOpen } = useContext(DashboardContext);
-  
   return (
     <>
       <Sidebar.Item
@@ -32,10 +44,11 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
         <span className="flex gap-3 align-center items-center">
 
           {item.selector ? (<Switch
-            checked={true}
-            className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
+            checked={item.tag ? enable[item.tag] : false}
+            onChange={(checked) => item.tag ? setEnabled(prevState => ({ ...prevState, [item.tag as string]: checked })) : undefined}
+            className="group inline-flex h-4 w-7 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
           >
-            <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+            <span className="size-3 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-3.5" />
           </Switch>) :
             <>  {item.icon ? (
               <Icon icon={item.icon} className={`${item.color}`} height={18} />

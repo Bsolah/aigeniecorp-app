@@ -9,12 +9,12 @@ import NavCollapse from "./NavCollapse/index.tsx";
 // import "simplebar-react/dist/simplebar.min.css";
 import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
 import React from "react";
-import {
-  Description,
-  Field,
-  Label,
-  Switch
-} from "@headlessui/react";
+// import {
+//   Description,
+//   Field,
+//   Label,
+//   Switch
+// } from "@headlessui/react";
 
 const MobileSidebar = () => {
   const { selectedIconId } = useContext(CustomizerContext) || {};
@@ -24,30 +24,30 @@ const MobileSidebar = () => {
   );
     
   const sidebarSelection = (item: any) => {
-    if (item.heading === 'AI Models') {
+    // if (item.heading === 'AI Models') {
 
-      return <>
-        {item.children?.map((child: any) => (
-          <Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
-            <Switch
-              checked={true}
-              className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
-            >
-              <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
-            </Switch>
-            <div>
-              <Label className="text-ld cursor-pointer">{child.name}</Label>
-              <Description className="text-bodytext text-xs">
-                {child.description}
-              </Description>
-            </div>
-          </Field>
-        ))}
-      </>
-    }
-    else if (item.heading === 'Knowledge Base') {
-      // addPopover = true; 
-    }
+    //   return <>
+    //     {item.children?.map((child: any) => (
+    //       <Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
+    //         <Switch
+    //           checked={true}
+    //           className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
+    //         >
+    //           <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+    //         </Switch>
+    //         <div>
+    //           <Label className="text-ld cursor-pointer">{child.name}</Label>
+    //           <Description className="text-bodytext text-xs">
+    //             {child.description}
+    //           </Description>
+    //         </div>
+    //       </Field>
+    //     ))}
+    //   </>
+    // }
+    // else if (item.heading === 'Knowledge Base') {
+    //   // addPopover = true; 
+    // }
     return defaultSidebar(item);
   }
 

@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { CustomCollapse } from "../CustomCollapse.tsx";
 import React from "react";
-
 interface NavCollapseProps {
   item: ChildItem;
 }
+
 
 const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
   const location = useLocation();

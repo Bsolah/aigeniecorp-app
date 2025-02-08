@@ -1,8 +1,7 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import mainbanner from '/src/assets/images/front-pages/background/feature-image.png';
 const About = () => {
   // Custom Tab
-  const [activeTab, setActiveTab] = useState('Team Scheduling');
 
   return (
     <div id="about">
@@ -13,7 +12,7 @@ const About = () => {
               <img src={mainbanner} className="w-full" alt="banner" />
             </div>
             <div className="lg:col-span-6 col-span-12 lg:ps-7">
-              {activeTab === 'Team Scheduling' && (
+              { (
                 <>
                   <p
                     style={{

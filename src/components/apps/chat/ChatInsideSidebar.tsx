@@ -7,8 +7,8 @@ import React from 'react';
 const ChatInsideSidebar = () => {
 
   const { selectedChat } = useContext(ChatContext);
-  const totalAttachment = uniq(flatten(selectedChat?.messages.map((item) => item.attachment))).length;
-  const totalMedia = uniq(flatten(selectedChat?.messages.map((item) => (item?.type === 'image' ? item.msg : null)))).length - 1;
+  const totalAttachment = selectedChat?.messages ? uniq(flatten(selectedChat.messages.map((item) => item.attachment))).length : 0;
+  const totalMedia = selectedChat?.messages ? uniq(flatten(selectedChat.messages.map((item) => (item?.type === 'image' ? item.msg : null)))).length - 1 : 0;
 
 
   return (
@@ -19,7 +19,7 @@ const ChatInsideSidebar = () => {
         <div className="mt-3">
           <>
             <React.Fragment>
-              {selectedChat?.messages.map((c, index) => {
+              {selectedChat?.messages?.map((c, index) => {
                 return (
                   <div
                     className="md:col-span-4 sm:col-span-6 col-span-12"
@@ -44,7 +44,7 @@ const ChatInsideSidebar = () => {
         <div className="mt-8">
           <h6 className="text-sm">  Attachments ({totalAttachment})</h6>
           <div>
-            {selectedChat?.messages.map((c, index) => {
+            {selectedChat?.messages?.map((c, index) => {
               return (
                 <div key={index}>
                   <div className="flex flex-col gap-4 mt-4">
