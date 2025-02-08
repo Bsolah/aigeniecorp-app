@@ -22,7 +22,7 @@ const SidebarLayout = () => {
     );
     const {folder} = useSelector((state: any) => state.folders)
     
-    if(folder && folder.length > 0) {
+    if(folder && folder.length > 1) {
     console.log('I am here ', selectedIconId, folder)
     const resultFolders = structureFolder(folder[0]);
     selectedContent?.items?.forEach((item: any) =>  {
