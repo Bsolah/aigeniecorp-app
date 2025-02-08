@@ -1,8 +1,7 @@
 
 import * as React from "react";
 import  { createContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
-import axios from "../../utils/axios.js";
-import { ChatsType, MessageType } from '../../types/apps/chat.js';
+import { ChatsType } from '../../types/apps/chat.js';
 import { useSelector } from 'react-redux';
 
 // Define context props interface
@@ -17,7 +16,7 @@ export interface ChatContextProps {
     setChatSearch: Dispatch<SetStateAction<string>>;
     setSelectedChat: Dispatch<SetStateAction<ChatsType | null>>;
     setActiveChatId: Dispatch<SetStateAction<any | null>>;
-    sendMessage: (chatId: number | string, message: MessageType) => void;
+    // sendMessage: (chatId: number | string, message: MessageType) => void;
     setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -33,7 +32,7 @@ export const ChatContext = createContext<ChatContextProps>({
     setChatSearch: () => { },
     setSelectedChat: () => { },
     setActiveChatId: () => { },
-    sendMessage: () => { },
+    // sendMessage: () => { },
     setLoading: () => { },
 });
 
@@ -88,36 +87,36 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     //     fetchChatData();
     // }, []);
 
-    // Function to send a message to a chat identified by `chatId` using an API call.
-    const sendMessage = async (chatId: number | string, message: MessageType) => {
-        try {
-            // Send message via API
-            const response = await axios.post(`/api/sendMessage`, {
-                chatId,
-                message,
-            });
+    // // Function to send a message to a chat identified by `chatId` using an API call.
+    // const sendMessage = async (chatId: number | string, message: MessageType) => {
+    //     try {
+    //         // Send message via API
+    //         const response = await axios.post(`/api/sendMessage`, {
+    //             chatId,
+    //             message,
+    //         });
 
-            if (response.status === 201) {
-                // Update local state if API call succeeds
-                const newMessage: MessageType = response.data;
-                setSelectedChat((prevChat) => ({
-                    ...prevChat!,
-                    messages: [...prevChat!.messages, newMessage],
-                }));
-                setChatData((prevChats) =>
-                    prevChats.map((chat) =>
-                        chat.id === chatId
-                            ? { ...chat, messages: [...chat.messages, newMessage] }
-                            : chat
-                    )
-                );
-            } else {
-                console.error('Failed to send message:');
-            }
-        } catch (error) {
-            console.error('Error sending message:', error);
-        }
-    };
+    //         if (response.status === 201) {
+    //             // Update local state if API call succeeds
+    //             const newMessage: MessageType = response.data;
+    //             setSelectedChat((prevChat) => ({
+    //                 ...prevChat!,
+    //                 messages: [...prevChat!.messages, newMessage],
+    //             }));
+    //             setChatData((prevChats) =>
+    //                 prevChats.map((chat) =>
+    //                     chat.id === chatId
+    //                         ? { ...chat, messages: [...chat.messages, newMessage] }
+    //                         : chat
+    //                 )
+    //             );
+    //         } else {
+    //             console.error('Failed to send message:');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error sending message:', error);
+    //     }
+    // };
     const value: ChatContextProps = {
         chatData,
         chatContent,
@@ -129,7 +128,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setChatSearch,
         setSelectedChat,
         setActiveChatId,
-        sendMessage,
+        // sendMessage,
         setLoading,
     };
     return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

@@ -11,6 +11,7 @@ export interface ChildItem {
   selector?: boolean;
   item?: any;
   url?: any;
+  tag?: string;
   color?: string;
   type?: DocType;
 }
@@ -23,6 +24,7 @@ export interface MenuItem {
   to?: string;
   items?: MenuItem[];
   children?: ChildItem[];
+  tag?: string;
   url?: any;
   type?: DocType;
 }
@@ -41,9 +43,32 @@ const SidebarContent: MenuItem[] = [
             name: "External",
             // icon: "solar:home-angle-outline",
             description: "Sources from Web",
-            selector: true,
+            selector: true, 
             id: uniqueId(),
             url: "/#",
+            children: [
+              {
+                id: uniqueId(),
+                name: "Open AI",
+                tag: "oai",
+                selector: true, 
+                url: "/#",
+              },
+              {
+                id: uniqueId(),
+                name: "Gemini AI",
+                tag: "gai",
+                selector: true, 
+                url: "/#",
+              },
+              {
+                id: uniqueId(),
+                name: "Deepseek AI",
+                tag: "dai",
+                selector: true, 
+                url: "/#",
+              },
+            ],
           },
           {
             name: "Internal",
@@ -52,6 +77,22 @@ const SidebarContent: MenuItem[] = [
             selector: true,
             id: uniqueId(),
             url: "/#",
+            children: [
+              {
+                id: uniqueId(),
+                name: "Knowledge Base",
+                tag: "knb",
+                selector: true, 
+                url: "/#",
+              },
+              {
+                id: uniqueId(),
+                name: "Others",
+                tag: "oth",
+                selector: true, 
+                url: "/#",
+              }
+            ],
           }
 
         ],
@@ -79,8 +120,8 @@ const SidebarContent: MenuItem[] = [
           },
           {
             id: uniqueId(),
-            url: "/id/repository/new-folder",
-            name: "New Folder",
+            url: "/id/repository/drafts",
+            name: "Drafts",
             icon: "whh:addfolderalt",
             color: "text-primary",
           }
@@ -91,23 +132,23 @@ const SidebarContent: MenuItem[] = [
         children: [
           {
             id: uniqueId(),
-            url: "/id/repository/google-docs",
-            name: "Google Docs",
-            icon: "arcticons:google-docs",
+            url: "/id/repository/google-drive",
+            name: "Google Drive",
+            icon: "ri:google-fill",
             color: "text-primary",
           },
           {
             id: uniqueId(),
-            url: "/id/repository/google-sheets",
-            name: "Google Sheets",
-            icon: "arcticons:google-docs",
+            url: "/id/repository/sharepoint",
+            name: "Sharepoint",
+            icon: "ri:windows-fill",
             color: "text-primary",
           },
           {
             id: uniqueId(),
-            url: "/id/repository/google-slides",
-            name: "Google Slides",
-            icon: "arcticons:google-docs",
+            url: "/id/repository/notion",
+            name: "Notion",
+            icon: "ri:notion-fill",
             color: "text-primary",
           }
         ],

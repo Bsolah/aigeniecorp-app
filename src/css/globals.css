@@ -11,6 +11,7 @@
 @import './override/reboot.css';
 @import './layouts/rtl.css';
 @import './pages/landingpages.css';
+@import './pages/repository.css';
 
 @tailwind base;
 @tailwind components;

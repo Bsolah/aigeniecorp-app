@@ -10,38 +10,26 @@ import NavCollapse from "./NavCollapse/index.tsx";
 import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
 import { useLocation } from "react-router";
 import FullLogo from "../../shared/logo/FullLogo.tsx";
-import {
-  Description,
-  Field,
-  Label,
-  Switch
-} from "@headlessui/react";
 import React from "react";
-import { structureFolder } from "src/utils/commonFunctions.ts";
 import { useSelector } from "react-redux";
+import { structureFolder } from "src/utils/commonFunctions.ts";
 
 const SidebarLayout = () => {
   const { selectedIconId, setSelectedIconId } =
     useContext(CustomizerContext) || {};
-  const { folder } = useSelector((state: any) => state.folders)
-  console.log('I am here ', folder)
-
-  // 'flat-color-icons:file',"flat-color-icons:opened-folder",
-
-  const convertedFolderTree = structureFolder(folder[0])
-
-  SidebarContent.forEach(item => item["items"]?.forEach(item => {
-
-    if (item.heading === "Knowledge Base") {
-      item.children = [convertedFolderTree]
-    }
-    return item;
-  }
-  ))
-
+  console.log('I am here ', selectedIconId)
   const selectedContent = SidebarContent.find(
     (data) => data.id === selectedIconId
   );
+  const {folder} = useSelector((state: any) => state.folders)
+  const resultFolders = structureFolder(folder[0]);
+  selectedContent?.items?.forEach((item: any) =>  {
+    if(item.heading === 'Knowledge Base') {
+
+      item.children = [resultFolders];
+    }
+    return item;
+  })
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -74,30 +62,51 @@ const SidebarLayout = () => {
 
 
   const sidebarSelection = (item: any) => {
-    if (item.heading === 'AI Models') {
+    // if (item.heading === 'AI Models') {
 
-      return <div>
-        {item.children?.map((child: any) => (
-          <Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
-            <Switch
-              checked={true}
-              className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
-            >
-              <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
-            </Switch>
-            <div >
-              <Label className="text-ld cursor-pointer">{child.name}</Label>
-              <Description className="text-bodytext text-xs">
-                {child.description}
-              </Description>
-            </div>
-          </Field>
-        ))}
-      </div>
-    }
-    else if (item.heading === 'Knowledge Base') {
+      // const switchBars = (child: any) => {
+
+      //   console.log('4 ', {child})
+
+      //   return (<Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
+      //     <Switch
+      //       checked={true}
+      //       className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
+      //     >
+      //       <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+      //     </Switch>
+      //     <div >
+      //       <Label className="text-ld cursor-pointer">{child.name}</Label>
+      //       <Description className="text-bodytext text-xs">
+      //         {child.description}
+      //       </Description>
+      //     </div>
+      //   </Field>)
+
+      // }
+
+    //   return <div>
+    //     {item.children?.map((child: any) => {
+
+    //       console.log({ child })
+
+    //       if (child.children) {
+    //         console.log('2 ', { child })
+    //         child.children?.map((item: any) => {
+    //           console.log('3 ', { item })
+    //           return <NavCollapse item={child} />
+
+    //           // return switchBars(item);
+    //         })
+    //       }
+
+    //       return switchBars(child);
+    //     })}
+    //   </div>
+    // }
+    // else if (item.heading === 'Knowledge Base') {
       // addPopover = true; 
-    }
+    // }
     return defaultSidebar(item);
   }
 
@@ -116,6 +125,7 @@ const SidebarLayout = () => {
 
   useEffect(() => {
     const result = findActiveUrl(SidebarContent, pathname);
+    console.log('find path result ', result)
     if (result) {
       setSelectedIconId(result);
     }
@@ -139,6 +149,7 @@ const SidebarLayout = () => {
               <Sidebar.ItemGroup className="sidebar-nav hide-menu">
                 {selectedContent &&
                   selectedContent.items?.map((item, index) => {
+                    // console.log('item ', item)
                     // if(item.heading === 'AI Models') {
                     //   // setSelectedItem(item && item?.children && item?.children[0])
                     // }

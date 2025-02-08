@@ -1,5 +1,6 @@
 // src/store/store.js
 import { configureStore } from '@reduxjs/toolkit';
+import aiReducer from './slices/aiSlice.ts';
 import articleReducer from './slices/articleSlice.ts';
 import authReducer from './slices/authSlice.ts';
 import chatReducer from './slices/chatSlice.ts';
@@ -24,6 +25,7 @@ const persistedFolderReducer = persistReducer(persistConfig, folderReducer);
 
 export const store = configureStore({
     reducer: {
+        ai: aiReducer,
         article: persistedArticleReducer,
         auth: persistedAuthReducer,
         chat: persistedChatReducer,

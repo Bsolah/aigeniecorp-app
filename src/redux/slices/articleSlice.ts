@@ -19,16 +19,46 @@ export const createArticle = createAsyncThunk(
     }
 );
 
+export const writeArticleWithAI = createAsyncThunk(
+    'article/aiCreate',
+    async ({ title, content, parentId, tags, categories}: any, { rejectWithValue }) => {
+        try {
+            const { data } = await API.post(`/api/article/create/ai`, {  content, title, tags, categories, parentId }, { withCredentials: true });
+            return data;
+            // Assume response includes token and user data
+        } catch (error) {
+            // if (axios.isAxiosError(error) && error.response) {
+            //   return rejectWithValue(error.response.data);
+            // }
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const publishArticle = createAsyncThunk(
+    'article/publish',
+    async ({ id, content }: any, { rejectWithValue }) => {
+        try {
+            const { data } = await API.post(`/api/article/publish/${id}`, {  content }, { withCredentials: true });
+            return data;
+            // Assume response includes token and user data
+        } catch (error) {
+            // if (axios.isAxiosError(error) && error.response) {
+            //   return rejectWithValue(error.response.data);
+            // }
+            return rejectWithValue(error);
+        }
+    }
+);
+
 export const getArticleById = createAsyncThunk('article/get', async (id: any, { rejectWithValue }) => {
     try {
-        console.log('mo wa ni bi')
-        const { data } = await API.get(`/api/article/get/${id}`, { withCredentials: true });      
+        console.log("mo ti wo le")
+        const { data } = await API.get(`/api/articles/${id}`, { withCredentials: true });    
+        console.log("getting article 3 ", data)  
         return data;
 
     } catch (error) {
-        // if (axios.isAxiosError(error) && error.response) {
-        //   return rejectWithValue(error.response.data);
-        // }
         return rejectWithValue(error);
     }
 });

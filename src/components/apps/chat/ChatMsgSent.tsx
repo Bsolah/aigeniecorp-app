@@ -68,6 +68,7 @@ const ChatMsgSent = () => {
           <TextInput
             className="form-control-chat border-0 w-full"
             sizing="md"
+            placeholder="Start typing..."
             required
             value={msg}
             onChange={handleChatMsgChange}
