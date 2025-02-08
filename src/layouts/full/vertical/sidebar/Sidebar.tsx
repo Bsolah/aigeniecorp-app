@@ -17,13 +17,13 @@ import { structureFolder } from "src/utils/commonFunctions.ts";
 const SidebarLayout = () => {
   const { selectedIconId, setSelectedIconId } =
     useContext(CustomizerContext) || {};
-  console.log('I am here ', selectedIconId)
-  const selectedContent = SidebarContent.find(
-    (data) => data.id === selectedIconId
-  );
-  const {folder} = useSelector((state: any) => state.folders)
-
-  if(folder && folder.length > 0) {
+    const selectedContent = SidebarContent.find(
+      (data) => data.id === selectedIconId
+    );
+    const {folder} = useSelector((state: any) => state.folders)
+    
+    if(folder && folder.length > 0) {
+    console.log('I am here ', selectedIconId, folder)
     const resultFolders = structureFolder(folder[0]);
     selectedContent?.items?.forEach((item: any) =>  {
       if(item.heading === 'Knowledge Base') {
