@@ -1,6 +1,8 @@
 // src/api/api.js
 const API_URL = import.meta.env.VITE_API_URL; // || "http://localhost:5000" // "https://aigeniecorp-api.vercel.app"; // Fallback URL in case no env var is set
 import axios from 'axios';
+import { logout } from 'src/redux/slices/authSlice';
+import dispatch from 'src/redux/store';
 
 const API = axios.create({
   baseURL: API_URL, // Update with your backend URL
@@ -21,7 +23,7 @@ const API = axios.create({
 //   (response) => response,
 //   (error) => {
 //     if (error.response?.status === 401) {
-//       store.dispatch(logout()); // Dispatch logout action
+//       dispatch(logout()); // Dispatch logout action
 //     }
 //     return Promise.reject(error);
 //   }

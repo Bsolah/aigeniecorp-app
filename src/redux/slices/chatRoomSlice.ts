@@ -6,7 +6,8 @@ export const getChatsByCurrentUser = createAsyncThunk('chat/get/rooms', async (_
     const { data } = await API.get(`/api/chat/get/rooms`, { withCredentials: true });
     return data;
   } catch (error) {
-    return rejectWithValue(error);  }
+    return rejectWithValue(error);
+  }
 });
 
 const chatRoomSlice = createSlice({

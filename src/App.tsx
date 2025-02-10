@@ -14,8 +14,8 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(getChatsByCurrentUser())
     dispatch(getFolders())
+    dispatch(getChatsByCurrentUser())
   }, [])
 
   return (
