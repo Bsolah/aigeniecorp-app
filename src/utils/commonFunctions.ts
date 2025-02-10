@@ -11,17 +11,19 @@ const folderTree: MenuItem = {
     children: [],
     id: "",
     type: DocType.FOLDER,
-    icon: "flat-color-icons:opened-folder",
+    icon: "ri:home-office-fill",
     url: "/id/repository"
 }
 
 export const structureFolder = (rawFolder: FolderType) => {
 
-    folderTree.name = rawFolder.name;
-    folderTree.id = rawFolder.id;
+    console.log('raw folder ', rawFolder)
 
-    const articleArr = rawFolder?.articles?.map((item: any) => ({ ...item, type: DocType.FILE, name: item.title, id: item._id, icon: 'flat-color-icons:file', url: `${folderTree.url}/${item["_id"]}` }));
-    const childrenArr = rawFolder?.child?.map(item => ({ ...item, icon: "flat-color-icons:opened-folder", id: item.id, }));
+    folderTree.name = rawFolder?.name || "";
+    folderTree.id = rawFolder?.id || "";
+
+    const articleArr = rawFolder?.articles?.map((item: any) => ({ ...item, type: DocType.FILE, name: item?.title, id: item?._id, icon: 'flat-color-icons:file', url: `${folderTree.url}/${item["_id"]}` }));
+    const childrenArr = rawFolder?.child?.map(item => ({ ...item, icon: "flat-color-icons:opened-folder", id: item?.id, url: `${folderTree.url}`, children: item?.child}));
 
     // console.log("ds ", rawFolder.child)
     

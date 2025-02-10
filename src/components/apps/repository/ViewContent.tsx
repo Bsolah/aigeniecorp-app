@@ -1,10 +1,13 @@
 import { Input, Textarea } from '@headlessui/react';
 import { useRef } from 'react';
 import { Icon } from "@iconify/react";
+import { useSelector } from 'react-redux';
 
 
-const ViewContent = ({ item }: any) => {
+const ViewContent = () => {
+    const {article} = useSelector((state: any) => state.article);
     const textareaRef = useRef(null);
+    const item = article.data;
 
     console.log('final log ', item, item.title)
 

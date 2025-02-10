@@ -12,6 +12,7 @@
 @import './layouts/rtl.css';
 @import './pages/landingpages.css';
 @import './pages/repository.css';
+@import './pages/chat.css';
 
 @tailwind base;
 @tailwind components;

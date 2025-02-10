@@ -1,11 +1,9 @@
-import { useState, useContext, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { Icon } from '@iconify/react';
 import { Badge, Button, Drawer, HR } from 'flowbite-react';
-// import SimpleBar from "simplebar-react";
 import ChatInsideSidebar from './ChatInsideSidebar.tsx';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { ChatContext } from 'src/context/ChatContext/index.tsx';
 import user2 from '/src/assets/images/profile/user-2.jpg';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -14,18 +12,17 @@ type Props = {
   onClickMobile: (event: React.MouseEvent<HTMLElement>) => void;
 };
 const ChatContent = ({ onClickMobile }: Props) => {
-  const { selectedChat }: any = useContext(ChatContext);
   const [isRightSide, setIsRightSide] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const chatEndRef = useRef<HTMLDivElement>(null);
-
-  console.log('selected chat 1', selectedChat)
-
+  const selectedChat = useSelector((state: any) => state.chat.chat);
+  
   useEffect(() => {
     if (selectedChat) {
       scrollToBottom();
     }
-  }, [selectedChat, selectedChat?.messages]);
+
+  }, [selectedChat]);
 
   const handleButtonClick = () => {
     setIsRightSide(!isRightSide);
@@ -127,9 +124,9 @@ const ChatContent = ({ onClickMobile }: Props) => {
             >
               <div>
                 <>
-                  {selectedChat?.messages?.map((msg: any) => (
+                  {selectedChat && selectedChat?.map((msg: any) => (
                     <div className="flex gap-3 mb-[30px]" key={msg.id + msg.createdAt}>
-                      {!(user.username === msg.sender) ? (
+                      {!(user.username === msg?.senderId?.username) ? (
                         <div className="flex gap-3">
                           <div className="w-10">
                             <img
@@ -150,7 +147,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
                                 ago
                               </div>
                               <div className="p-2 bg-muted dark:bg-darkmuted text-ld rounded-md">
-                                {msg.msg}
+                                {msg.content}
                               </div>
                             </div>
                           ) : null}
@@ -177,7 +174,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
                             ) : null}
                             {msg.type === 'text' ? (
                               <div className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
-                                {msg.msg}
+                                {msg.content}
                               </div>
                             ) : null}
                             {msg.type === 'image' ? (

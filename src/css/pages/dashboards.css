@@ -20,6 +20,10 @@ body .apexcharts-tooltip-marker {
     height: 4px;
 }
 
+.sidebar-dropdown li button:hover {
+    background-color: #a9a9a945 !important;
+}
+
 body .apexcharts-tooltip.apexcharts-theme-dark {
     background: rgba(17, 28, 45, 0.8);
 

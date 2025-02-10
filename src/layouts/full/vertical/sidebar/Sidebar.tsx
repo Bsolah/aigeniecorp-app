@@ -13,23 +13,35 @@ import FullLogo from "../../shared/logo/FullLogo.tsx";
 import React from "react";
 import { useSelector } from "react-redux";
 import { structureFolder } from "src/utils/commonFunctions.ts";
+// import { getFolders } from "src/redux/slices/folderSlice.ts";
+// import { useDispatch } from "react-redux";
+// import type { AppDispatch } from '../../../../redux/store.ts';
 
 const SidebarLayout = () => {
   const { selectedIconId, setSelectedIconId } =
     useContext(CustomizerContext) || {};
-  console.log('I am here ', selectedIconId)
   const selectedContent = SidebarContent.find(
     (data) => data.id === selectedIconId
   );
-  const {folder} = useSelector((state: any) => state.folders)
-  const resultFolders = structureFolder(folder[0]);
-  selectedContent?.items?.forEach((item: any) =>  {
-    if(item.heading === 'Knowledge Base') {
+  const { folder } = useSelector((state: any) => state.folders);
+  // const dispatch = useDispatch<AppDispatch>();
 
-      item.children = [resultFolders];
-    }
-    return item;
-  })
+
+  // useEffect(() => {
+  //   dispatch(getFolders());
+  // }, [dispatch]);
+
+  if (folder && folder.length > 0 ) {
+    console.log('I am here ', selectedIconId, folder)
+    const resultFolders = structureFolder(folder[0]);
+    selectedContent?.items?.forEach((item: any) => {
+      if (item.heading === 'Knowledge Base') {
+
+        item.children = [resultFolders];
+      }
+      return item;
+    })
+  }
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -64,26 +76,26 @@ const SidebarLayout = () => {
   const sidebarSelection = (item: any) => {
     // if (item.heading === 'AI Models') {
 
-      // const switchBars = (child: any) => {
+    // const switchBars = (child: any) => {
 
-      //   console.log('4 ', {child})
+    //   console.log('4 ', {child})
 
-      //   return (<Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
-      //     <Switch
-      //       checked={true}
-      //       className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
-      //     >
-      //       <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
-      //     </Switch>
-      //     <div >
-      //       <Label className="text-ld cursor-pointer">{child.name}</Label>
-      //       <Description className="text-bodytext text-xs">
-      //         {child.description}
-      //       </Description>
-      //     </div>
-      //   </Field>)
+    //   return (<Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
+    //     <Switch
+    //       checked={true}
+    //       className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
+    //     >
+    //       <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+    //     </Switch>
+    //     <div >
+    //       <Label className="text-ld cursor-pointer">{child.name}</Label>
+    //       <Description className="text-bodytext text-xs">
+    //         {child.description}
+    //       </Description>
+    //     </div>
+    //   </Field>)
 
-      // }
+    // }
 
     //   return <div>
     //     {item.children?.map((child: any) => {
@@ -105,7 +117,7 @@ const SidebarLayout = () => {
     //   </div>
     // }
     // else if (item.heading === 'Knowledge Base') {
-      // addPopover = true; 
+    // addPopover = true; 
     // }
     return defaultSidebar(item);
   }

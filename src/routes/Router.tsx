@@ -46,7 +46,7 @@ const Router = [
         element: <PrivateRoute children={<RepositoryPage />} />,
       },
       { path: '/id/repository/new-page', exact: true, element: <PrivateRoute children={<NewRepositoryPage />} /> },
-      { path: '/id/repository/new-folder', exact: true, element: <PrivateRoute children={<ViewRepositoryPage />} /> },
+      { path: '/id/repository/:idr', exact: true, element: <PrivateRoute children={<ViewRepositoryPage />} /> },
       { path: '/id/repository/google-drive', exact: true, element: <PrivateRoute children={<ViewGDrivePage />} /> },
       { path: '/id/repository/sharepoint', exact: true, element: <PrivateRoute children={<ViewSharepointPage />} /> },
       { path: '/id/repository/notion', exact: true, element: <PrivateRoute children={<ViewNotionPage />} /> },
