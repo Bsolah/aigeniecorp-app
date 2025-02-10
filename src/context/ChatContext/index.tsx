@@ -1,12 +1,12 @@
 
 import * as React from "react";
-import  { createContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
+import  { createContext, useState, Dispatch, SetStateAction, ReactNode } from 'react';
 import { ChatsType } from '../../types/apps/chat.js';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 // Define context props interface
 export interface ChatContextProps {
-    chatData: ChatsType[];
+    // chatData: ChatsType[];
     chatContent: any[];
     chatSearch: string;
     selectedChat: ChatsType | null;
@@ -19,7 +19,7 @@ export interface ChatContextProps {
 
 // Create the context
 export const ChatContext = createContext<ChatContextProps>({
-    chatData: [],
+    // chatData: [],
     chatContent: [],
     chatSearch: '',
     selectedChat: null,
@@ -32,7 +32,7 @@ export const ChatContext = createContext<ChatContextProps>({
 
 // Create the provider component
 export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [chatData, setChatData] = useState<ChatsType[]>([]);
+    // const [chatData, setChatData] = useState<ChatsType[]>([]);
     const [chatContent, setChatContent] = useState<any[]>([]);
     const [chatSearch, setChatSearch] = useState<string>('');
     const [selectedChat, setSelectedChat] = useState<ChatsType | null>(null);
@@ -46,7 +46,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     // }, [chatContent, chatSearch, chatRooms, chatData])
  
     const value: ChatContextProps = {
-        chatData,
+        // chatData,
         chatContent,
         chatSearch,
         selectedChat,
