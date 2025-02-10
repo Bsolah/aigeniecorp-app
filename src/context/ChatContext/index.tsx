@@ -44,11 +44,11 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [loading, setLoading] = useState<boolean>(true);
 
     const { chatRooms } = useSelector((state: any) => state.chatRoom);
-
+    console.log({chatRooms})
 
     useEffect(() => {
         setChatData(chatRooms);
-    }, [chatContent, chatSearch, chatRooms])
+    }, [chatContent, chatSearch, chatRooms, chatData])
  
     const value: ChatContextProps = {
         chatData,
