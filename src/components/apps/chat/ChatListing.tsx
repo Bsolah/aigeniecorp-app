@@ -11,9 +11,9 @@ import user2 from '/src/assets/images/profile/user-2.jpg';
 import { getChatByRoomId, startNewChat, deleteChatByRoomId } from "src/redux/slices/chatSlice";
 import { AppDispatch } from "src/redux/store";
 import { MessageType } from "src/types/apps/chat";
-import { getChatsByCurrentUser } from "src/redux/slices/chatRoomSlice";
-import { AnimatePresence, motion } from "framer-motion";
-import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+// import { getChatsByCurrentUser } from "src/redux/slices/chatRoomSlice";
+// import { AnimatePresence, motion } from "framer-motion";
+// import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 const ChatListing = () => {
 
@@ -43,48 +43,48 @@ const ChatListing = () => {
     },
   ];
 
-  if (error && error.message) {
-    return (
-      <div>
-      <AnimatePresence>
-        {!!error && (
-          <Dialog
-            static
-            open={!!error}
-            onClose={() => {}}
-            className="relative z-50"
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/30"
-            />
-            <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-              <DialogPanel
-                as={motion.div}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="w-full max-w-md rounded-lg bg-white dark:bg-darkgray p-6 shadow-md dark:dark-shadow-md"
-              >
-                <DialogTitle className="text-lg font-semibold text-ld">
-                  Oops... Somthing went wrong
-                </DialogTitle>
+  // if (error && error.message) {
+  //   return (
+  //     <div>
+  //     <AnimatePresence>
+  //       {!!error && (
+  //         <Dialog
+  //           static
+  //           open={!!error}
+  //           onClose={() => {}}
+  //           className="relative z-50"
+  //         >
+  //           <motion.div
+  //             initial={{ opacity: 0 }}
+  //             animate={{ opacity: 1 }}
+  //             exit={{ opacity: 0 }}
+  //             className="fixed inset-0 bg-black/30"
+  //           />
+  //           <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+  //             <DialogPanel
+  //               as={motion.div}
+  //               initial={{ opacity: 0, scale: 0.95 }}
+  //               animate={{ opacity: 1, scale: 1 }}
+  //               exit={{ opacity: 0, scale: 0.95 }}
+  //               className="w-full max-w-md rounded-lg bg-white dark:bg-darkgray p-6 shadow-md dark:dark-shadow-md"
+  //             >
+  //               <DialogTitle className="text-lg font-semibold text-ld">
+  //                 Oops... Something went wrong
+  //               </DialogTitle>
 
-                <p>{error.message} </p>
-                <div className="flex justify-end gap-3 mt-5">
+  //               <p>{error.message} </p>
+  //               <div className="flex justify-end gap-3 mt-5">
 
-                  {/* <button onClick={() => setIsOpen(false)} className="ui-button-small px-6 bg-lighterror">Cancel</button> */}
-                  <button onClick={() => dispatch(getChatsByCurrentUser())} className="ui-button-small px-6 bg-primary">Retry</button>
-                </div>
-              </DialogPanel>
-            </div>
-          </Dialog>
-        )}
-      </AnimatePresence>
-    </div>)
-  }
+  //                 {/* <button onClick={() => setIsOpen(false)} className="ui-button-small px-6 bg-lighterror">Cancel</button> */}
+  //                 <button onClick={() => dispatch(getChatsByCurrentUser())} className="ui-button-small px-6 bg-primary">Retry</button>
+  //               </div>
+  //             </DialogPanel>
+  //           </div>
+  //         </Dialog>
+  //       )}
+  //     </AnimatePresence>
+  //   </div>)
+  // }
 
   if (loading || !data) {
     <div className="h-screen flex items-center justify-center bg-gray-100">
