@@ -34,11 +34,11 @@ export const login = createAsyncThunk(
         { email, password },
         { withCredentials: true },
       );
+
+      window.location.reload(); // 🔹 Reload to apply the cookie immediately
+
       return data?.data; // Assume response includes token and user data
     } catch (error) {
-      // if (axios.isAxiosError(error) && error.response) {
-      //   return rejectWithValue(error.response.data);
-      // }
       return rejectWithValue(error);
     }
   },
@@ -49,9 +49,6 @@ export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValu
     await API.post('/api/auth/logout');
     return true;
   } catch (error) {
-    // if (axios.isAxiosError(error) && error.response) {
-    //   return rejectWithValue(error.response.data);
-    // }
     return rejectWithValue(error);
   }
 });

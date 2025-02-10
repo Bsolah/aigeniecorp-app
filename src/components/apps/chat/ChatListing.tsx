@@ -11,12 +11,19 @@ import user2 from '/src/assets/images/profile/user-2.jpg';
 import { getChatByRoomId, startNewChat, deleteChatByRoomId } from "src/redux/slices/chatSlice";
 import { AppDispatch } from "src/redux/store";
 import { MessageType } from "src/types/apps/chat";
+import { getChatsByCurrentUser } from "src/redux/slices/chatRoomSlice";
+import { AnimatePresence, motion } from "framer-motion";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 const ChatListing = () => {
 
   const { user } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
   const selectedChat = useSelector((state: any) => state.chat.chat);
+  const { data, loading, error } = useSelector((state: any) => state.chatRoom);
+  console.log({error})
+  console.log({loading})
+  console.log({data})
 
   const DropdownAction = [
     {
@@ -36,10 +43,59 @@ const ChatListing = () => {
     },
   ];
 
+  if (error && error.message) {
+    return (
+      <div>
+      <AnimatePresence>
+        {!!error && (
+          <Dialog
+            static
+            open={!!error}
+            onClose={() => {}}
+            className="relative z-50"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/30"
+            />
+            <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+              <DialogPanel
+                as={motion.div}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="w-full max-w-md rounded-lg bg-white dark:bg-darkgray p-6 shadow-md dark:dark-shadow-md"
+              >
+                <DialogTitle className="text-lg font-semibold text-ld">
+                  Oops... Somthing went wrong
+                </DialogTitle>
+
+                <p>{error.message} </p>
+                <div className="flex justify-end gap-3 mt-5">
+
+                  {/* <button onClick={() => setIsOpen(false)} className="ui-button-small px-6 bg-lighterror">Cancel</button> */}
+                  <button onClick={() => dispatch(getChatsByCurrentUser())} className="ui-button-small px-6 bg-primary">Retry</button>
+                </div>
+              </DialogPanel>
+            </div>
+          </Dialog>
+        )}
+      </AnimatePresence>
+    </div>)
+  }
+
+  if (loading || !data) {
+    <div className="h-screen flex items-center justify-center bg-gray-100">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500">Loading...</div>
+    </div>
+  }
+
   const {
-    chatData,
+    // chatData,
     chatSearch,
-    
+
     setChatSearch,
     setActiveChatId,
     activeChatId,
@@ -49,7 +105,7 @@ const ChatListing = () => {
     setChatSearch(event.target.value);
   };
 
-  const filteredChats = chatData?.filter((chat: any) =>
+  const filteredChats = data?.filter((chat: any) =>
     chat.name.toLowerCase().includes(chatSearch.toLowerCase())
   );
 
@@ -58,7 +114,7 @@ const ChatListing = () => {
 
   const handleChatSelect = (chat: ChatsType) => {
     const chatId = chat.id;
-    dispatch(getChatByRoomId({chatRoomId: chatId}))
+    dispatch(getChatByRoomId({ chatRoomId: chatId }))
     setActiveChatId(chatId);
   };
 
@@ -66,7 +122,7 @@ const ChatListing = () => {
     dispatch(startNewChat())
   }
   const handleDeleteChatRoom = (chat: MessageType) => {
-    dispatch(deleteChatByRoomId({room: chat.id}))
+    dispatch(deleteChatByRoomId({ room: chat.id }))
   }
 
   const chatListMapping = (arrItems: any) => {
@@ -82,11 +138,11 @@ const ChatListing = () => {
 
         // If the id doesn't exist in the accumulator, initialize it
         if (existingObj) {
-          existingObj.lastMessage.push({content: obj.lastMessageContent, date: obj.lastMessageDate, id: obj.id}); // [{content: item.lastMessageContent, date: item.lastMessageDate, id: item.id}],
+          existingObj.lastMessage.push({ content: obj.lastMessageContent, date: obj.lastMessageDate, id: obj.id }); // [{content: item.lastMessageContent, date: item.lastMessageDate, id: item.id}],
         } else {
 
           // Push the item to the corresponding id group
-          acc.push({ ...obj, lastMessage: [{content: obj.lastMessageContent, date: obj.lastMessageDate, id: obj.id}] })
+          acc.push({ ...obj, lastMessage: [{ content: obj.lastMessageContent, date: obj.lastMessageDate, id: obj.id }] })
         }
 
         return acc;
@@ -99,12 +155,12 @@ const ChatListing = () => {
       <Label className="flex justify-start h-8 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : 'Employees'}</Label>
       {newArrItems?.map((chat: any) => (<>
         <div
-          key={chat.id}
+          key={chat.chatRoomId}
           className={`cursor-pointer py-4 px-6 gap-0 flex justify-between group bg-hover ${activeChatId === chat.id
             ? "bg-lighthover dark:bg-darkmuted"
             : "initial"
             }`}
-          onClick={() => isAgent ? ()=>{} : handleChatSelect(chat)}
+          onClick={() => isAgent ? () => { } : handleChatSelect(chat)}
         >
           <div className="flex items-center gap-3 max-w-[235px] w-full">
             <div className="relative min-w-12">
@@ -149,22 +205,20 @@ const ChatListing = () => {
               addSuffix: false,
             })}
             {isAgent &&
-              <div onClick={()=>handleNewBotChat()} className="pt-1 text-sm text-ld opacity-90 line-clamp-1 flex justify-end" >
+              <div onClick={() => handleNewBotChat()} className="pt-1 text-sm text-ld opacity-90 line-clamp-1 flex justify-end" >
                 <Icon icon="ri:chat-new-fill" height="20" />
               </div>}
           </div>
           {/* } */}
         </div>
         {isAgent && chat.lastMessage.map((item: any) => {
-
-          console.log('selected chat ', selectedChat, item)
           return (<div key={item.id} onClick={() => handleChatSelect(item)} className="flex justify-between p-2 text-xs text-ld opacity-90 cursor-pointer px-6 hover:bg-lightsecondary hover:dark:bg-lightsecondary bg-gray-50 border-gray-100 border-t  delete-icon-container">
             <div className="truncated ">
               {item?.content}
             </div>
-           {chat.lastMessage.length > 1 && (selectedChat && selectedChat[0]?.chatRoomId !== item.id) && <div onClick={()=>handleDeleteChatRoom(item)} className="delete-icon" >
-                <Icon color="text-error" icon="ri:delete-bin-6-line" height="16" />
-              </div>}
+            {chat.lastMessage.length > 1 && (selectedChat && selectedChat[0]?.chatRoomId !== item.id) && <div onClick={() => handleDeleteChatRoom(item)} className="delete-icon" >
+              <Icon color="text-error" icon="ri:delete-bin-6-line" height="16" />
+            </div>}
             <div>
               {formatDistanceToNowStrict(new Date(item.date), {
                 addSuffix: false,

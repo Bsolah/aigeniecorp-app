@@ -12,7 +12,7 @@ export const getChatsByCurrentUser = createAsyncThunk('chat/get/rooms', async (_
 const chatRoomSlice = createSlice({
   name: 'chatRoom',
   initialState: {
-    chatRooms: [] as any[],
+    data: [] as any[],
     loading: false,
     status: null,
     error: null,
@@ -22,7 +22,7 @@ const chatRoomSlice = createSlice({
       state.error = null;
     },
     clearChat: (state, action) => {
-      state.chatRooms = action.payload;
+      state.data = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -33,11 +33,11 @@ const chatRoomSlice = createSlice({
         state.error = false;
       })
       .addCase(getChatsByCurrentUser.fulfilled, (state, action) => {
-        state.chatRooms = action.payload;
+        state.data = action.payload;
         state.loading = false;
       })
       .addCase(getChatsByCurrentUser.rejected, (state, action: any) => {
-        state.loading = true;
+        state.loading = false;
         state.error = action.payload;
       })
   },
