@@ -13,9 +13,9 @@ import FullLogo from "../../shared/logo/FullLogo.tsx";
 import React from "react";
 import { useSelector } from "react-redux";
 import { structureFolder } from "src/utils/commonFunctions.ts";
-import { getFolders } from "src/redux/slices/folderSlice.ts";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from '../../../../redux/store.ts';
+// import { getFolders } from "src/redux/slices/folderSlice.ts";
+// import { useDispatch } from "react-redux";
+// import type { AppDispatch } from '../../../../redux/store.ts';
 
 const SidebarLayout = () => {
   const { selectedIconId, setSelectedIconId } =
@@ -24,12 +24,12 @@ const SidebarLayout = () => {
     (data) => data.id === selectedIconId
   );
   const { folder } = useSelector((state: any) => state.folders);
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 
 
-  useEffect(() => {
-    dispatch(getFolders());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getFolders());
+  // }, [dispatch]);
 
   if (folder && folder.length > 0 ) {
     console.log('I am here ', selectedIconId, folder)

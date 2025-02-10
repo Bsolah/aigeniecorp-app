@@ -6,12 +6,13 @@ type attachType = {
 
 export type MessageType = {
   createdAt?: any;
-  timestamp?: any;
+  chatRoomId?: string;
   msg?: string;
   prompts?: string[];
   content?: string;
   senderId: number | string;
   type: string;
+  userId?: string;
   attachment: attachType[];
   id: string;
 };
@@ -19,10 +20,12 @@ export type MessageType = {
 export interface ChatsType {
   id: number | string;
   name: string;
+  excerpt: string;
   status: string;
   thumb: string;
-  recent: boolean;
-  excerpt: string;
+  chatRoomId?: string;
+  recent?: boolean;
+  userId?: string;
   chatHistory?: any[];
   messages: MessageType[];
 }

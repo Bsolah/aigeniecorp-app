@@ -1,24 +1,18 @@
-// src/store/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
 import API from "../../api/api"
 
-
-export const getChatsByUser = createAsyncThunk('chat/all', async (_, { rejectWithValue }) => {
+export const getChatsByCurrentUser = createAsyncThunk('chat/get/rooms', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await API.get(`/api/chat/all`, { withCredentials: true });
+    const { data } = await API.get(`/api/chat/get/rooms`, { withCredentials: true });
     return data;
   } catch (error) {
-    // if (axios.isAxiosError(error) && error.response) {
-    //   return rejectWithValue(error.response.data);
-    // }
     return rejectWithValue(error);  }
 });
 
 const chatRoomSlice = createSlice({
   name: 'chatRoom',
   initialState: {
-    chatRooms: [],
+    chatRooms: [] as any[],
     loading: false,
     status: null,
     error: null,
@@ -34,15 +28,15 @@ const chatRoomSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Get Chat
-      .addCase(getChatsByUser.pending, (state: any) => {
+      .addCase(getChatsByCurrentUser.pending, (state: any) => {
         state.loading = true;
         state.error = false;
       })
-      .addCase(getChatsByUser.fulfilled, (state, action) => {
+      .addCase(getChatsByCurrentUser.fulfilled, (state, action) => {
         state.chatRooms = action.payload;
         state.loading = false;
       })
-      .addCase(getChatsByUser.rejected, (state, action: any) => {
+      .addCase(getChatsByCurrentUser.rejected, (state, action: any) => {
         state.loading = true;
         state.error = action.payload;
       })

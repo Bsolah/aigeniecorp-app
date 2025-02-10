@@ -1,0 +1,20 @@
+.truncated {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 180px;
+}
+
+.delete-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.delete-icon {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.delete-icon-container:hover .delete-icon {
+    opacity: 1;
+}
