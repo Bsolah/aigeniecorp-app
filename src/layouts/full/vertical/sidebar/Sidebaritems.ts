@@ -80,7 +80,7 @@ const SidebarContent: MenuItem[] = [
             children: [
               {
                 id: uniqueId(),
-                name: "Knowledge Base",
+                name: "Company Test AI",
                 tag: "knb",
                 selector: true, 
                 url: "/id/chats",
