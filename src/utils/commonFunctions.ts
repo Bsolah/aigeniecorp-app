@@ -32,3 +32,20 @@ export const structureFolder = (rawFolder: FolderType) => {
 
     return folderTree;
 } 
+
+
+export const formatChatMessage = (text: string) => {
+
+    console.log('text ', text)
+    if (text.includes("Private Data Detected:")) {
+        return text
+        .replace("Private Data Detected:", `<strong>Private Data Detected:</strong> <br>`)
+        .replace("CEO’s Name (Jane Doe): Personal data under GDPR (identifies an individual).", `<li><strong>CEO’s Name (Jane Doe):</strong> Personal data under GDPR (identifies an individual).</li>`)
+        .replace("Revenue ($2.5M): Confidential business data (not personal data, but sensitive for competition).", "<li><strong>Revenue ($2.5M):</strong> Confidential business data (not personal data, but sensitive for competition).</li>")
+        .replace("Discount Code (YC2025): Proprietary business data (could expose internal pricing strategies).", `<li><strong>Discount Code (YC2025):</strong> Proprietary business data (could expose internal pricing strategies).</li> <br>`)
+        .replace(/:warning:WARNING:warning:/g, "⚠️ <strong>WARNING</strong> ⚠️")
+        .replace(/An IT alert has been triggered\./, "<br><em>An IT alert has been triggered.</em>");
+    } else {
+        return text;
+    }
+}

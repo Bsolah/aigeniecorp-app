@@ -18,3 +18,34 @@
 .delete-icon-container:hover .delete-icon {
     opacity: 1;
 }
+
+.confidential-container {
+    /* background-color: #fff3cd; */
+    /* border: 1px solid #ffeeba; */
+    padding: 15px;
+    border-radius: 5px;
+    /* color: #856404; */
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .warning-text {
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  strong {
+    font-weight: bold;
+    color: black;
+  }
+  

@@ -7,6 +7,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import user2 from '/src/assets/images/profile/user-2.jpg';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { formatChatMessage } from '../../../utils/commonFunctions.ts';
 
 type Props = {
   onClickMobile: (event: React.MouseEvent<HTMLElement>) => void;
@@ -147,7 +148,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
                                 ago
                               </div>
                               <div className="p-2 bg-muted dark:bg-darkmuted text-ld rounded-md">
-                                {msg.content}
+                              <div className='confidential-container' dangerouslySetInnerHTML={{__html: formatChatMessage(msg.content) }} />
                               </div>
                             </div>
                           ) : null}
@@ -175,6 +176,7 @@ const ChatContent = ({ onClickMobile }: Props) => {
                             {msg.type === 'text' ? (
                               <div className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
                                 {msg.content}
+                                
                               </div>
                             ) : null}
                             {msg.type === 'image' ? (

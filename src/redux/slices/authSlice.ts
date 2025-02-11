@@ -35,8 +35,6 @@ export const login = createAsyncThunk(
         { withCredentials: true },
       );
 
-      window.location.reload(); // 🔹 Reload to apply the cookie immediately
-
       return data?.data; // Assume response includes token and user data
     } catch (error) {
       return rejectWithValue(error);
@@ -104,6 +102,7 @@ const authSlice = createSlice({
       });
   },
 });
+
 
 export const { resetError } = authSlice.actions;
 export default authSlice.reducer;

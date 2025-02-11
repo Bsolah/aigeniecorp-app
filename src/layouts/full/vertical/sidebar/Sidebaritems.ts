@@ -45,28 +45,28 @@ const SidebarContent: MenuItem[] = [
             description: "Sources from Web",
             selector: true, 
             id: uniqueId(),
-            url: "/#",
+            url:  "/id/chats",
             children: [
               {
                 id: uniqueId(),
                 name: "Open AI",
                 tag: "oai",
                 selector: true, 
-                url: "/#",
+                url:  "/id/chats",
               },
               {
                 id: uniqueId(),
                 name: "Gemini AI",
                 tag: "gai",
                 selector: true, 
-                url: "/#",
+                url:  "/id/chats",
               },
               {
                 id: uniqueId(),
                 name: "Deepseek AI",
                 tag: "dai",
                 selector: true, 
-                url: "/#",
+                url:  "/id/chats",
               },
             ],
           },
@@ -76,21 +76,21 @@ const SidebarContent: MenuItem[] = [
             description: "Sources internally",
             selector: true,
             id: uniqueId(),
-            url: "/#",
+            url:  "/id/chats",
             children: [
               {
                 id: uniqueId(),
                 name: "Knowledge Base",
                 tag: "knb",
                 selector: true, 
-                url: "/#",
+                url: "/id/chats",
               },
               {
                 id: uniqueId(),
-                name: "Others",
+                name: "Slack",
                 tag: "oth",
                 selector: true, 
-                url: "/#",
+                url: "/id/chats",
               }
             ],
           }
