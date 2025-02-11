@@ -49,7 +49,7 @@ export const formatChatMessage = (text: string) => {
     } else if (text.includes("Subject: Follow-Up & Exclusive Offer for Acme Corp")) {
         return text
             .replace("Subject: Follow-Up & Exclusive Offer for Acme Corp", `<strong>Subject: Follow-Up & Exclusive Offer for Acme Corp:</strong> <br>`)
-            .replace("Hi Acme Corp,", `Hi Acme Corp, <br>`)
+            .replace("Hi Acme Corp,", `Hi, <br>`)
             .replace("Acme Corp team for this milestone.", "Acme Corp team for this milestone. <br>")
             .replace("best serve your upcoming needs.", `best serve your upcoming needs. <br>`)
             .replace("Looking forward to your thoughts.", `Looking forward to your thoughts. <br>`)
