@@ -55,6 +55,22 @@ export const formatChatMessage = (text: string) => {
             .replace("Looking forward to your thoughts.", `Looking forward to your thoughts. <br>`)
             .replace("Best regards,", `Best regards, <br> <br>`)
             .replace("Kawtar Lahlou", `Kawtar Lahlou<br>`)
+    } else if (text.includes("There appears to be a discrepancy in your knowledge base")) {
+        console.log('text ', text)
+        return text
+            .replace(":warning: There appears to be a discrepancy in your knowledge base.", `⚠️ <strong>There appears to be a discrepancy in your knowledge base.</strong> <br> <br>`)
+            .replace("cash transactions is $10,000,", `cash transactions is <strong>$10,000</strong>`)
+            .replace("Bank Secrecy Act (BSA).", `<strong>Bank Secrecy Act (BSA).</strong> <br><br>`)
+            .replace("This applies to two primary scenarios:", "This applies to two primary scenarios: <br>")
+            .replace(`      Financial Institutions under which your "Test Company" falls: Banks and other financial entities must file a Currency Transaction Report (CTR) with the Financial Crimes Enforcement Network (FinCEN) for cash transactions exceeding $10,000 in a single business day.
+      Source: FinCEN CTR Requirements.`, 
+                `<li><strong>Financial Institutions under which your "Test Company" falls: </strong> Banks and other financial entities must file a <strong>Currency Transaction Report (CTR)</strong> with the Financial Crimes Enforcement Network (FinCEN) for cash transactions exceeding $10,000 in a single business day. Source: <span> <a> FinCEN CTR Requirements. </a></span></li>`)
+            .replace(`      Businesses (Non-Financial Sectors): Businesses (e.g., retailers, car dealers) receiving cash payments over $10,000 must file IRS Form 8300.
+      Source: IRS Form 8300 Guidance.`, 
+                `<li><strong>Businesses (Non-Financial Sectors):</strong> Businesses (e.g., retailers, car dealers) receiving cash payments over $10,000 must file <strong>IRS Form 8300.</strong> Source: <span> <a> IRS Form 8300 Guidance. </a> </span> </li><br>`)
+            .replace("Please refer to the audit trail below that you can extract:", `<i>Please refer to the audit trail below that you can extract:<i><br>`)
+            .replace(`V1. Created by "John Dow" 17.02.2020 and approved by "Alicia Johnson"  01.02.2020`, `<li><i>V1. Created by "John Dow" 17.02.2020 and approved by "Alicia Johnson"  01.02.2020</i></li>`)
+            .replace(`V2. Updated by "Alex Thompson "20.12.2024" and approved by "Chloe Warren" 20.12.2024`, `<li><i>V2. Updated by "Alex Thompson "20.12.2024" and approved by "Chloe Warren" 20.12.2024</i></li>`)
     } else {
         return text;
     }

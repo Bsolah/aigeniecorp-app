@@ -49,3 +49,12 @@
     color: black;
   }
   
+  i {
+    font-size: 11px;
+  }
+
+  span a {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
