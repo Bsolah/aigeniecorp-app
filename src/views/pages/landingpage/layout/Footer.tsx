@@ -1,7 +1,7 @@
 
 import { Tooltip } from "flowbite-react";
 import logo from "/src/assets/images/front-pages/background/white-icon-logo.svg";
-import FullLogo from "../../../../assets/images/front-pages/background/ai_genie_logo.svg"; // Ensure this path is correct and the file exists
+import FullLogo from "../../../../assets/images/front-pages/background/aigenie_logo.svg"; // Ensure this path is correct and the file exists
 import { Link } from "react-router";
 import linkedIn from "/src/assets/images/front-pages/background/linkedIn.png"
 import twitter from "/src/assets/images/front-pages/background/twitter.svg"

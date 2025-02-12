@@ -10,9 +10,9 @@ const About = () => {
       <div className="bg-lightgray dark:bg-darkgray lg:py-24 py-12">
         <div className="container-1218 mx-auto">
           <div className="grid grid-cols-12 gap-30  items-center">
-            <div className="lg:col-span-7 col-span-12">
+            {/* <div className="lg:col-span-7 col-span-12">
               <RevenueByProduct />
-            </div>
+            </div> */}
             <div className="lg:col-span-5 col-span-12 lg:ps-7">
                 <>
                   <p
