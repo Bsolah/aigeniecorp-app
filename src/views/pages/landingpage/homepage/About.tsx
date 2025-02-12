@@ -41,13 +41,16 @@ const About = () => {
                       paddingTop: 12,
                     }}
                   >
-                    <b>Why Choose Us?</b>
+                    <b>Why Choose AI Genie?</b>
                     <br />
                     <ul className='text-xs pt-2 flex flex-col' style={{listStyle: "circle", paddingLeft: 'revert'}}>
-                      <li className='text-sm mt-3'><b>Accuracy First:</b> Avoid AI hallucinations with enterprise-grade validation and source citations. </li>
-                      <li className='text-sm mt-3'> <b>No Engineering Required:</b> Design workflows in minutes, not weeks.</li>
-                      <li className='text-sm mt-3'> <b>Adaptive Intelligence:</b> AI agents learn your team’s patterns and optimize over time.</li>
-                      <li className='text-sm mt-3'> <b>Enterprise-Grade Security:</b> GDPR, ISO, and SOC2 compliant with end-to-end encryption.</li>
+                      <li className='text-sm mt-3'><b>✅ Security First: </b> Enterprise-grade security with no risk of leaks thanks to our interceptor.</li>
+                      <li className='text-sm mt-3'> <b>✅ Always Accurate:</b> Continuous updates ensure compliance and consistency.</li>
+                      <li className='text-sm mt-3'> <b>✅ One Hub, All Knowledge:</b> No more searching through scattered documents.</li>
+                      <li className='text-sm mt-3'> <b>✅ Seamless Integration:</b> Works with your existing tools, APIs, and regulatory databases.</li>
+                      <li className='text-sm mt-3'> <b>✅ AI-Powered Compliance:</b> Context-aware responses, change tracking, and automatic updates.</li>
+                      <li className='text-sm mt-3'> <b>✅ Cheaper Than DIY:</b> Save $500k+ vs. building in-house.
+                      </li>
                     </ul>
                   </p>
                 </>

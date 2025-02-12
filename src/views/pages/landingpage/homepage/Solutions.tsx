@@ -2,36 +2,36 @@ import { Icon } from '@iconify/react';
 
 const Feature = [
   {
-    icon: 'tabler:chart-bubble',
-    title: 'Centralized Knowledge Management',
+    icon: 'mdi:security',
+    title: 'Enterprise-Grade Security',
     subtitle:
-      'AI-powered knowledge base for seamless organization, secure access, and accurate retrieval. Integrates with Confluence, Notion, SharePoint, and more. AI chat delivers precise answers, refines SOPs, flags conflicts, and aligns teams effortlessly.',
+      'Your data stays protected at all times. With end-to-end encryption, access control, and zero external leaks, AI Genie ensures your company’s sensitive information remains private and secure.',
     bgcolor: 'bg-lighterror',
     color: 'text-error',
   },
   {
-    icon: 'tabler:building-store',
-    title: 'AI Workflow Automation',
+    icon: 'octicon:zap',
+    title: 'Efficiency Without Compromise',
     subtitle:
-      'Fully project-aware AI automates tasks, tracks meetings, and updates workflows—securely and effortlessly. Drag-and-drop builder simplifies summaries, follow-ups, data collection, and reporting, with seamless Slack, Teams, and chat integrations',
+      'Boost employee productivity while staying compliant. AI Genie leverages your company’s private LLM, ensuring accuracy, real-time updates, and context-aware responses tailored to your business needs.',
     bgcolor: 'bg-lightprimary',
     color: 'text-primary',
   },
   {
-    icon: 'material-symbols:category-outline',
-    title: 'Customizable Industry Templates',
+    icon: 'fluent-mdl2:compliance-audit',
+    title: 'Regulatory Continuous Monitoring',
     subtitle:
-      'Pre-built Sales, HR, Ops, Finance, and Industry-specific templates for workflow automation, reports, and SOPs. Auto-fill with real-time data, customize, and deploy instantly—no setup needed.',
+      'Stay compliant with real-time web crawling and API integrations with regulatory bodies. Audit logs track all content changes, ensuring transparency and accountability across your organization.',
     bgcolor: 'bg-lightsuccess',
     color: 'text-success',
   },
   {
-    icon: 'material-symbols:earthquake',
-    title: 'AI-Powered Execution & Insights',
+    icon: 'icon-park-outline:brain',
+    title: 'Unified Knowledge Hub',
     subtitle:
-      'AI analyzes data, suggests next steps, assigns tasks, and tracks progress with timeline, Kanban, and list views. Gain real-time insights for projects, feedback, risks, and reporting—without manual work.',
-    bgcolor: 'bg-lightgray dark:bg-darkgray',
-    color: 'text-dark dark:text-white',
+      'No more scattered information. AI Genie centralizes all company knowledge into a single, dynamic hub, delivering fast, reliable answers to employees with AI-powered precision.',
+    bgcolor: 'bg-lightwarning',
+    color: 'text-warning',
   },
 ];
 
@@ -43,11 +43,10 @@ const Solution = () => {
           <div className="grid grid-cols-12 gap-30">
             <div className="lg:col-span-5 col-span-12">
               <h2 className="sm:text-44 text-3xl font-bold !leading-[48px] text-darklink dark:text-white">
-                Our solutions
+                What We Offer
               </h2>
               <p className="text-17 leading-[32px] text-ld opacity-80 py-6">
-              Empowering your business with personalized, scalable solutions that drive growth.
-              </p>
+                Empower Your Workforce with Secure, Compliant & Accurate AI              </p>
             </div>
             <div className="lg:col-span-7 col-span-12 lg:ps-5 ">
               <div className="grid grid-cols-12 md:gap-12 gap-6">

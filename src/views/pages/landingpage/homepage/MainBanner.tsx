@@ -2,9 +2,48 @@ import { Button,  } from "flowbite-react";
 import WelcomeBox from "../layout/WelcomeBox";
 import Customer from "../layout/Customer";
 import Project from "../layout/Project";
+import { useEffect } from "react";
+
+let index = 0;
+
+const messages = [
+  "Enterprise Security.",
+  "Zero Data Leaks.",
+  "Faster Decisions.",
+  "AI-Powered Precision.",
+  "Continuous Compliance.",
+  "Always Audit-Ready.",
+  "Centralized Knowledge.",
+  "Instant Access.",
+  "Seamless Integration.",
+  "Secure AI Access.",
+  "Regulatory Updates.",
+  "Always in Sync.",
+  "Accurate Insights.",
+  "Every Single Time.",
+  "Smarter Searches.",
+  "Maximum Efficiency.",
+];
 
 
 const MainBanner = () => {
+
+
+  useEffect(() => {
+      setInterval(rotateBanner, 5000); // Change text every 3 seconds
+  }, [])
+
+
+  const rotateBanner = () => {
+    const banner: any = document.getElementById("bannerL");
+    // banner.style.opacity = 0;  // Fade out effect
+
+    setTimeout(() => {
+        index = (index + 1) % messages.length; // Rotate messages
+        banner.innerText = messages[index];
+        banner.style.opacity = 1;  // Fade in effect
+    }, 500); // Match transition duration
+}
 
   return (
     <>
@@ -13,12 +52,11 @@ const MainBanner = () => {
           <div className="grid grid-cols-12 gap-30  items-center ">
             <div className="xl:col-span-6 col-span-12 lg:text-start text-center md:mb-28">
               <h1 className="lg:text-56 text-4xl text-darklink dark:text-white lg:leading-[64px] leading-[50px]">
-                <b>Your All-in-One </b>AI Assistant
+                 The AI Model That Knows, Protects & Complies
               </h1>
               <div className="   py-6">
-                <h5 className="text-17 text-ld font-medium opacity-80 md:pt-0 pt-3">
-                  Your virtual AI partner for seamless operations, accurate documentation, and
-                  turning hours of work into minutes
+                <h5 className="text-17 text-ld justify-start font-medium opacity-80 md:pt-0 pt-3">
+                  <span style={{display: 'flex', textAlign: 'left'}}><span style={{fontWeight: 'bold'}}>With AI Genie, you get:</span> <span id="bannerL"></span> </span>
                 </h5>
               </div>
               <ul className="flex flex-wrap lg:justify-start justify-center gap-5 pb-7 md:pt-4 ml-0">
