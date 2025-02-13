@@ -1,5 +1,5 @@
 
-import LogoIcon from '/src/assets/images/logos/ai_genie_logo.svg';
+import LogoIcon from '/src/assets/images/logos/aigenie_logo.svg';
 import { Link } from "react-router";
 
 const Logo = () => {
