@@ -8,13 +8,13 @@ const FrontNav = [
     badge: false,
   },
   {
-    menu: 'About',
-    link: '#about',
+    menu: 'Services',
+    link: '#services',
     badge: false,
   },
   {
-    menu: 'Services',
-    link: '#services',
+    menu: 'About',
+    link: '#about',
     badge: false,
   },
 ];

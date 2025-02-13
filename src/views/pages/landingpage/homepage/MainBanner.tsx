@@ -50,10 +50,13 @@ const MainBanner = () => {
         <div className="container-1218 mx-auto sm:pt-10 pt-6 xl:pb-0 pb-10">
           <div className="grid grid-cols-12 gap-30  items-center ">
             <div className="xl:col-span-6 col-span-12 lg:text-start text-center md:mb-28">
-              <h1 className="lg:text-56 text-4xl text-darklink dark:text-white lg:leading-[64px] leading-[50px]">
-                AI Model That Knows. Protect. Complies.
-              </h1>
-              <div className="  py-6">
+              <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px] ">
+               The AI Model That
+              </h2>
+              <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px]">
+                Knows. Protects. Complies.
+              </h2>
+              <div className=" py-6">
                 <h5 className="text-17 text-ldfont-medium opacity-80 md:pt-0 pt-3">
                   <span style={{ fontWeight: 'bold' }}>With AI Genie, you get: </span>
                 </h5>

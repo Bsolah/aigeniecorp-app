@@ -37,7 +37,7 @@ const ContactForm = () => {
           <div className="lg:col-span-4 col-span-12 h-full">
             <div className="overflow-hidden rounded-tw bg-primary relative p-30 h-full flex flex-col after:absolute after:content-[''] after:bg-[url('/src/assets/images/front-pages/background/contact-icon.png')] after:bg-no-repeat after:bg-right-top after:top-0 after:right-0 after:w-[325px] after:h-[325px]">
               <h5 className="text-lg font-bold text-white pb-4">CONTACT US</h5>
-              <p className="text-base text-white leading-7">Reach out to our sales team now</p>
+              <p className="text-base text-white leading-7">Reach out to our team now</p>
               <HR className="border-t border-white/10 !bg-transparent" />
               <h5 className="text-lg font-bold text-white pb-4">  TAILORED DEMO  </h5>
               <p className="text-base text-white leading-7">

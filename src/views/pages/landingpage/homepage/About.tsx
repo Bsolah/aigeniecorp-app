@@ -13,46 +13,43 @@ const About = () => {
               <RevenueByProduct />
             </div> */}
             <div className="lg:col-span-5 col-span-12 lg:ps-7">
-                <>
-                  <p
-                    style={{
-                      marginBottom: 5,
-                    }}
-                  >
-                    ABOUT US
-                  </p>
-                  <h2 className="sm:text-44 text-3xl font-bold !leading-[43px] text-darklink dark:text-white pb-6">
-                    Work Smarter, Grow Faster
-                  </h2>
-                  <p
-                    style={{
-                      lineHeight: 2,
-                      marginBottom: 7,
-                      color: '#333',
-                    }}
-                  >
-                    At AI Genie Corp, we democratize AI for businesses of all sizes, turning complexity into clarity. Founded by a team of AI specialists and operations experts, we build tools that adapt to your needs—not the other way around.
-                  </p>
-                  <p
-                    style={{
-                      lineHeight: 2,
-                      color: '#333',
-                      paddingTop: 12,
-                    }}
-                  >
-                    <b>Why Choose AI Genie?</b>
-                    <br />
-                    <ul className='text-xs pt-2 flex flex-col' style={{listStyle: "circle", paddingLeft: 'revert'}}>
-                      <li className='text-sm mt-3'><b>✅ Security First: </b> Enterprise-grade security with no risk of leaks thanks to our interceptor.</li>
-                      <li className='text-sm mt-3'> <b>✅ Always Accurate:</b> Continuous updates ensure compliance and consistency.</li>
-                      <li className='text-sm mt-3'> <b>✅ One Hub, All Knowledge:</b> No more searching through scattered documents.</li>
-                      <li className='text-sm mt-3'> <b>✅ Seamless Integration:</b> Works with your existing tools, APIs, and regulatory databases.</li>
-                      <li className='text-sm mt-3'> <b>✅ AI-Powered Compliance:</b> Context-aware responses, change tracking, and automatic updates.</li>
-                      <li className='text-sm mt-3'> <b>✅ Cheaper Than DIY:</b> Save $500k+ vs. building in-house.
-                      </li>
-                    </ul>
-                  </p>
-                </>
+              <>
+                <p
+                  style={{
+                    marginBottom: 5,
+                  }}
+                >
+                  ABOUT US
+                </p>
+                <h2 className="sm:text-44 text-3xl font-bold !leading-[43px] text-darklink dark:text-white pb-6">
+                  Work Smarter, Grow Faster
+                </h2>
+                <p
+                  style={{
+                    lineHeight: 2,
+                    marginBottom: 7,
+                    color: '#333',
+                  }}
+                > At AI Genie Corp, we make AI secure, compliant, and efficient for businesses. Our private AI models prevent data leaks, automate compliance, and keep knowledge bases accurate—effortlessly. Built by experts in AI, security, and compliance, we help enterprises harness AI without risk or complexity.                </p>
+                <p
+                  style={{
+                    lineHeight: 2,
+                    color: '#333',
+                    paddingTop: 12,
+                  }}
+                >
+                  <b>Why Choose AI Genie?</b>
+                  <br />
+                  <div className='text-xs pt-2 flex flex-col' style={{ listStyle: "circle", paddingLeft: 'revert' }}>
+                    <div className='text-sm mt-3 mx-3'><b>✅ Security First: </b> Enterprise-grade security with no risk of leaks thanks to our interceptor.</div>
+                    <div className='text-sm mt-3 mx-3'> <b>✅ Always Accurate:</b> Continuous updates ensure compliance and consistency.</div>
+                    <div className='text-sm mt-3 mx-3'> <b>✅ One Hub, All Knowledge:</b> No more searching through scattered documents.</div>
+                    <div className='text-sm mt-3 mx-3'> <b>✅ Seamless Integration:</b> Works with your existing tools, APIs, and regulatory databases.</div>
+                    <div className='text-sm mt-3 mx-3'> <b>✅ AI-Powered Compliance:</b> Context-aware responses, change tracking, and automatic updates.</div>
+                    <div className='text-sm mt-3 mx-3'> <b>✅ Cheaper Than DIY:</b> Save $500k+ vs. building in-house. </div>
+                  </div>
+                </p>
+              </>
             </div>
           </div>
         </div>
