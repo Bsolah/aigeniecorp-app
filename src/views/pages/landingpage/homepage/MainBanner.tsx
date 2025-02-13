@@ -1,7 +1,4 @@
 import { Button, } from "flowbite-react";
-import WelcomeBox from "../layout/WelcomeBox";
-import Customer from "../layout/Customer";
-import Project from "../layout/Project";
 import { useEffect } from "react";
 
 let index = 0;

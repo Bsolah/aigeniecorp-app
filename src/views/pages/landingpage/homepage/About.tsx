@@ -1,5 +1,4 @@
 
-import RevenueByProduct from "../layout/RevenueByProduct";
 
 const About = () => {
   // Custom Tab
