@@ -1,44 +1,24 @@
 
 import { Badge, Table, Dropdown, Progress, Checkbox } from "flowbite-react";
-import * as basicTable4 from "../../tables/tableData.ts";
-import { IconDotsVertical } from "@tabler/icons-react";
-import { Icon } from "@iconify/react";
 import TitleCard from "src/components/shared/TitleBorderCard.tsx";
-
-type Item = {
-  id: number;
-  title: string;
-  description: string;
-  icon: string;
-};
-
-const tableActionData = [
-    {
-      icon: "tabler:plus",
-      listtitle: "Add",
-    },
-    {
-      icon: "tabler:edit",
-      listtitle: "Edit",
-    },
-    {
-      icon: "tabler:trash",
-      listtitle: "Delete",
-    },
-  ];
-
-const items: Item[] = [
-  { id: 1, title: "Project Proposal", description: "I am writing a proposal", icon: "📄" },
-  { id: 2, title: "Financial Report", description: "I am doing a financial proposal", icon: "📊" },
-  { id: 3, title: "Marketing Plan", description: "I am making up a marketing plan", icon: "📈" },
-  { id: 4, title: "Meeting Notes", description: "I am taking meeting notes", icon: "📝" },
-  { id: 5, title: "Sales Data", description: "I am populating sales data", icon: "📉" },
-];
+import { IconDotsVertical } from "@tabler/icons-react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function ViewDraftList() {
+
+  const {drafts} = useSelector((state: any ) => state.article);
+  const navigate = useNavigate();
+
+  console.log('drafts  ', drafts)
+
+  const handleClick = (id: any) => {
+    navigate(`/id/repository/${id}`);
+  }
+
   return (
     <>
-    Option 1
+    {/* Option 1
     <div className="flex items-center justify-center bg-gray-100 p-6">
       <div className="w-full max-w-2xl">
         <h2 className="text-2xl font-bold mb-3 text-gray-800">📂 Drafts</h2>
@@ -57,12 +37,9 @@ export default function ViewDraftList() {
           ))}
         </div>
       </div>
-    </div>
+    </div> */}
 
-
-
-    Option 2
-    <TitleCard title="Drafts">
+    <TitleCard title="My Draft Pages">
         <div className="border rounded-md border-ld overflow-hidden">
           <div className="overflow-x-auto">
             <Table className="">
@@ -84,24 +61,24 @@ export default function ViewDraftList() {
                 </Table.HeadCell>
                 <Table.HeadCell className="text-base font-semibold py-3"></Table.HeadCell>
               </Table.Head>
-              <Table.Body className="divide-y divide-border dark:divide-darkborder ">
-                {basicTable4.basicTableData4.map((item: any, index: number) => (
-                  <Table.Row key={index}>
+              <Table.Body className="divide-y divide-border dark:divide-darkborder  cursor-pointer">
+                {drafts?.data?.map((item: any, index: number) => (
+                  <Table.Row onClick={() => handleClick(item?.id)} key={index}>
                     <Table.Cell className="whitespace-nowrap">
                       <Checkbox className="checkbox" />
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap">
-                      <h6 className="text-sm">{item.invoice}</h6>
+                      <h6 className="text-sm">{item?.name}</h6>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap">
                       <Badge
-                        color={`light${item.statuscolor}`}
+                        color={`lightprimary`}
                         className="capitalize "
-                        icon={() => (
-                          <item.statusicon size={15} className="me-1" />
-                        )}
+                        // icon={() => (
+                        //   <item.statusicon size={15} className="me-1" />
+                        // )}
                       >
-                        {item.status}
+                        {"Reviewed"}
                       </Badge>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap">
@@ -112,8 +89,8 @@ export default function ViewDraftList() {
                           className="h-10 w-10 rounded-full"
                         />
                         <div className="truncat line-clamp-2 max-w-56">
-                          <h6 className="text-base">{item.name}</h6>
-                          <p className="text-sm text-bodytext">{item.handle}</p>
+                          <h6 className="text-base">{item.access}</h6>
+                          <p className="text-sm text-bodytext">{item.access}</p>
                         </div>
                       </div>
                     </Table.Cell>
@@ -122,13 +99,13 @@ export default function ViewDraftList() {
                       <div className="text-bodytext text-sm flex items-center gap-3">
                         <div className="w-full">
                           <Progress
-                            progress={item.progress}
+                            progress={80}
                             className="w-full"
                             color="primary"
                             size={"sm"}
                           />
                         </div>
-                        {item.progress}%
+                        {80}%
                       </div>
                     </Table.Cell>
                     <Table.Cell className="whitespace-nowrap">
@@ -141,12 +118,12 @@ export default function ViewDraftList() {
                           </span>
                         )}
                       >
-                        {tableActionData.map((items, index1) => (
+                        {/* {tableActionData.map((items, index1) => (
                           <Dropdown.Item key={index1} className="flex gap-3">
                             <Icon icon={`${items.icon}`} height={18} />
                             <span>{items.listtitle}</span>
                           </Dropdown.Item>
-                        ))}
+                        ))} */}
                       </Dropdown>
                     </Table.Cell>
                   </Table.Row>

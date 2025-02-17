@@ -15,8 +15,7 @@ export const saveChat = createAsyncThunk(
       formData.append('type', type);
       formData.append('media', media);
       formData.append('internalAI', internalAI);
-      formData.append('externalAI', externalAI);
-
+      formData.append('externalAI', JSON.stringify(externalAI));
 
       console.log('formData ',formData);      
       const { data } = await API.post(`/api/chat/save/${senderId}`, formData, { withCredentials: true });

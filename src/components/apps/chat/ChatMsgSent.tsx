@@ -80,7 +80,7 @@ const ChatMsgSent = () => {
 
     const messageToSend = selectedPrompt ? selectedPrompt : msg;
     
-    console.log('I am here now ', selectedAttachment)
+    console.log('I am here now ', isChildSwitch)
 
     dispatch(saveChat({
       receiverId: selectedChat?.receiverId._id,
@@ -90,7 +90,7 @@ const ChatMsgSent = () => {
       media: selectedAttachment,
       type: type,
       internalAI: isChildSwitch["knb"] ? "knb" : null,
-      externalAI: isChildSwitch["dai"] ? "dai": null,
+      externalAI: isChildSwitch,
     }));
     // 
     // const currentSelectedId = selectedChat?.chatRoomId;

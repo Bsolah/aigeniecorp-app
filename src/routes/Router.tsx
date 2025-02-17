@@ -25,7 +25,7 @@ const LandingPage = Loadable(lazy(() => import('../views/pages/landingpage/index
 
 const ChatPage = Loadable(lazy(() => import('../views/pages/chats/ChatPage.tsx')));
 const RepositoryPage = Loadable(lazy(() => import('../views/pages/repository/RepositoryPage.tsx')));
-const NewRepositoryPage = Loadable(lazy(() => import('../components/apps/repository/NewContent.tsx')));
+const NewRepositoryPage = Loadable(lazy(() => import('../components/apps/repository/CreateContent.tsx')));
 const ViewRepositoryPage = Loadable(lazy(() => import('../components/apps/repository/ViewContent.tsx')));
 const ViewGDrivePage = Loadable(lazy(() => import('../components/apps/repository/ViewGoogleDrive')));
 const ViewSharepointPage = Loadable(lazy(() => import('../components/apps/repository/ViewSharepoint')));
@@ -46,7 +46,7 @@ const Router = [
         element: <PrivateRoute children={<RepositoryPage />} />,
       },
       { path: '/id/repository/new-page', exact: true, element: <PrivateRoute children={<NewRepositoryPage />} /> },
-      { path: '/id/repository/:idr', exact: true, element: <PrivateRoute children={<ViewRepositoryPage />} /> },
+      { path: '/id/repository/:id', exact: true, element: <PrivateRoute children={<ViewRepositoryPage />} /> },
       { path: '/id/repository/google-drive', exact: true, element: <PrivateRoute children={<ViewGDrivePage />} /> },
       { path: '/id/repository/sharepoint', exact: true, element: <PrivateRoute children={<ViewSharepointPage />} /> },
       { path: '/id/repository/notion', exact: true, element: <PrivateRoute children={<ViewNotionPage />} /> },

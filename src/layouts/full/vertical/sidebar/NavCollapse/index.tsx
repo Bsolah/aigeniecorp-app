@@ -8,10 +8,11 @@ import { CustomCollapse } from "../CustomCollapse.tsx";
 import React from "react";
 interface NavCollapseProps {
   item: ChildItem;
+  tab?: string
 }
 
 
-const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
+const NavCollapse: React.FC<NavCollapseProps> = ({ item, tab }: any) => {
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -57,9 +58,9 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
           {item.children.map((child: any) => (
             <React.Fragment key={child.id}>
               {child.children ? (
-                <NavCollapse item={child} /> // Recursive call for nested collapse
+                <NavCollapse item={child} tab={tab} /> // Recursive call for nested collapse
               ) : (
-                <NavItems item={child} /> 
+                <NavItems item={child} tab={tab}  /> 
               )}
             </React.Fragment>
           ))}

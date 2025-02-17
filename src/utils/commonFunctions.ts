@@ -15,24 +15,50 @@ const folderTree: MenuItem = {
     url: "/id/repository"
 }
 
-export const structureFolder = (rawFolder: FolderType) => {
+// export const structureFolder = (rawFolder: FolderType) => {
 
-    console.log('raw folder ', rawFolder)
+//     // console.log('raw folder ', rawFolder)
 
-    folderTree.name = rawFolder?.name || "";
-    folderTree.id = rawFolder?.id || "";
+//     folderTree.name = rawFolder?.name || "";
+//     folderTree.id = rawFolder?.id || rawFolder?._id || "";
 
-    const articleArr = rawFolder?.articles?.map((item: any) => ({ ...item, type: DocType.FILE, name: item?.title, id: item?._id, icon: 'flat-color-icons:file', url: `${folderTree.url}/${item["_id"]}` }));
-    const childrenArr = rawFolder?.child?.map(item => ({ ...item, icon: "flat-color-icons:opened-folder", id: item?.id, url: `${folderTree.url}`, children: item?.child }));
+//     const articleArr = rawFolder?.articles?.map((item: any) => ({ ...item, type: DocType.FILE, name: item?.name, id: item?._id, icon: 'flat-color-icons:file', url: `${folderTree.url}/${item["_id"]}` }));
+//     const childrenArr = rawFolder?.child?.map(item => ({ ...item, icon: "flat-color-icons:opened-folder", id: item?.id, url: `${folderTree.url}`, children: item?.child }));
 
-    // console.log("ds ", rawFolder.child)
+//     // console.log("ds ", rawFolder.child)
 
-    folderTree.children = [...childrenArr, ...articleArr];
-    // console.log({ folderTree })
+//     folderTree.children = [...childrenArr, ...articleArr];
+//     // console.log({ folderTree })
 
-    return folderTree;
-}
+//     return folderTree;
+// }
 
+export const structureFolder = (rawFolder: FolderType): MenuItem => {
+    if (!rawFolder) return {} as FolderType;
+
+    return {
+        name: rawFolder?.name || "",
+        id: rawFolder?.id || rawFolder?._id || "",
+        icon: "flat-color-icons:opened-folder",
+        url: folderTree.url || "",
+
+        
+        children: [
+            // Recursively process child folders
+            ...(rawFolder?.child?.map(item => structureFolder(item)) || []),
+
+            // Process articles
+            ...(rawFolder?.articles?.map((item: any) => ({
+                ...item,
+                type: DocType.FILE,
+                name: item?.name,
+                id: item?._id,
+                icon: "flat-color-icons:file",
+                url: `${folderTree.url}/${item["_id"]}`
+            })) || []),
+        ]
+    };
+};
 
 export const formatChatMessage = (text: string) => {
 
@@ -63,10 +89,10 @@ export const formatChatMessage = (text: string) => {
             .replace("Bank Secrecy Act (BSA).", `<strong>Bank Secrecy Act (BSA).</strong> <br><br>`)
             .replace("This applies to two primary scenarios:", "This applies to two primary scenarios: <br>")
             .replace(`      Financial Institutions under which your "Test Company" falls: Banks and other financial entities must file a Currency Transaction Report (CTR) with the Financial Crimes Enforcement Network (FinCEN) for cash transactions exceeding $10,000 in a single business day.
-      Source: FinCEN CTR Requirements.`, 
+      Source: FinCEN CTR Requirements.`,
                 `<li><strong>Financial Institutions under which your "Test Company" falls: </strong> Banks and other financial entities must file a <strong>Currency Transaction Report (CTR)</strong> with the Financial Crimes Enforcement Network (FinCEN) for cash transactions exceeding $10,000 in a single business day. Source: <span> <a> FinCEN CTR Requirements. </a></span></li>`)
             .replace(`      Businesses (Non-Financial Sectors): Businesses (e.g., retailers, car dealers) receiving cash payments over $10,000 must file IRS Form 8300.
-      Source: IRS Form 8300 Guidance.`, 
+      Source: IRS Form 8300 Guidance.`,
                 `<li><strong>Businesses (Non-Financial Sectors):</strong> Businesses (e.g., retailers, car dealers) receiving cash payments over $10,000 must file <strong>IRS Form 8300.</strong> Source: <span> <a> IRS Form 8300 Guidance. </a> </span> </li><br>`)
             .replace("Please refer to the audit trail below that you can extract:", `<i>Please refer to the audit trail below that you can extract:<i><br>`)
             .replace(`V1. Created by "John Dow" 17.02.2020 and approved by "Alicia Johnson"  01.02.2020`, `<li><i>V1. Created by "John Dow" 17.02.2020 and approved by "Alicia Johnson"  01.02.2020</i></li>`)

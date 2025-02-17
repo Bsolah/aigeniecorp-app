@@ -7,12 +7,15 @@ import { useTranslation } from "react-i18next";
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext.tsx";
 import { Switch } from "@headlessui/react";
 import { useContext } from "react";
+import dispatch from "src/redux/store.ts";
+import { getArticleById, getDraftArticles } from "src/redux/slices/articleSlice.ts";
 
 interface NavItemsProps {
   item: ChildItem;
+  tab?: string;
 }
 
-const NavItems: React.FC<NavItemsProps> = ({ item }: any) => {
+const NavItems: React.FC<NavItemsProps> = ({ item, tab }: any) => {
   const location = useLocation();
   const pathname = location.pathname;
   const { t } = useTranslation();
@@ -23,6 +26,19 @@ const NavItems: React.FC<NavItemsProps> = ({ item }: any) => {
   } = useContext(DashboardContext);
 
   const { setIsMobileSidebarOpen } = useContext(DashboardContext);
+
+  const handleClick = () => {
+    // setIsMobileSidebarOpen(false);
+
+
+    if (tab === 'Knowledge Base') {
+      dispatch(getArticleById(item?.id))
+    }
+    if (tab === 'Add More') {
+      dispatch(getDraftArticles())
+    }
+  }
+
   return (
     <>
       <Sidebar.Item
@@ -55,7 +71,7 @@ const NavItems: React.FC<NavItemsProps> = ({ item }: any) => {
             )}</>
           }
 
-          <span
+          <span onClick={handleClick}
             className={`max-w-36 overflow-hidden text-xs`}
           >
             {t(`${item.name}`)}

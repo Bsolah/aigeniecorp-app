@@ -7,11 +7,13 @@ export type FolderType = {
   child: FolderType[];
   articles: ArticleType[];
   id: string;
+  _id: string;
+  url?: string;
 };
 
 export interface ArticleType {
   id: number | string;
-  title: string;
+  name: string;
   content: string;
   tags: string[];
   categories: string[];

@@ -107,7 +107,6 @@ const SidebarContent: MenuItem[] = [
         heading: "Knowledge Base",
         children: [],
       },
-
       {
         heading: "Add More",
         children: [

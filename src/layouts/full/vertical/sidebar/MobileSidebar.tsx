@@ -17,34 +17,6 @@ const MobileSidebar = () => {
     (data) => data.id === selectedIconId
   );
     
-  const sidebarSelection = (item: any) => {
-    // if (item.heading === 'AI Models') {
-
-    //   return <>
-    //     {item.children?.map((child: any) => (
-    //       <Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
-    //         <Switch
-    //           checked={true}
-    //           className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
-    //         >
-    //           <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
-    //         </Switch>
-    //         <div>
-    //           <Label className="text-ld cursor-pointer">{child.name}</Label>
-    //           <Description className="text-bodytext text-xs">
-    //             {child.description}
-    //           </Description>
-    //         </div>
-    //       </Field>
-    //     ))}
-    //   </>
-    // }
-    // else if (item.heading === 'Knowledge Base') {
-    //   // addPopover = true; 
-    // }
-    return defaultSidebar(item);
-  }
-
   const defaultSidebar = (item: any) => {
 
     return item?.children?.map((child: any, index: any) => (
@@ -77,7 +49,7 @@ const MobileSidebar = () => {
                       <h5 className="text-link font-semibold text-sm caption">
                         {item.heading}
                       </h5>
-                      {sidebarSelection(item)}
+                      {defaultSidebar(item)}
                     </React.Fragment>
                   ))}
               </Sidebar.ItemGroup>

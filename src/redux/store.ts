@@ -9,7 +9,9 @@ import folderReducer from './slices/folderSlice.ts';
 import leadReducer from './slices/leadSlice.ts';
 import { persistStore as reduxPersistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import listenerMiddleware from './middleware/listenerMiddleware.ts';
+import chatListener from './middleware/chatListener.ts';
+import folderListener from './middleware/folderListener.ts';
+import articleListener from './middleware/articleListener.ts';
 
 
 const persistConfig = {
@@ -42,7 +44,9 @@ export const store = configureStore({
                     ignoredPaths: ['register'], // Ignore non-serializable paths
                 },
             }
-        ).prepend(listenerMiddleware.middleware),
+        ).prepend(chatListener.middleware,
+            folderListener.middleware, 
+            articleListener.middleware),
 });
 
 

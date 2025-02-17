@@ -1,6 +1,7 @@
 
 .editorContent div {
     min-height: 500px;
+    padding: 12px;
 }
 
 .editorContent div:focus {

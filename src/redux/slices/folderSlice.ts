@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from "../../api/api";
 
-export const createFolder = createAsyncThunk('folder/create', async ({ folderName, folderParentId }: any, { rejectWithValue }) => {
+export const createFolder = createAsyncThunk('folder/create', async ({ name, parent }: any, { rejectWithValue }) => {
     try {
-        const { data } = await API.post(`/api/folder/create/`, { folderName, folderParentId }, { withCredentials: true });
+        const { data } = await API.post(`/api/folders/create/`, { name, parent }, { withCredentials: true });
         return data;
     } catch (error) {
         return rejectWithValue(error);

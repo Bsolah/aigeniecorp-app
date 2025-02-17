@@ -13,9 +13,6 @@ import FullLogo from "../../shared/logo/FullLogo.tsx";
 import React from "react";
 import { useSelector } from "react-redux";
 import { structureFolder } from "src/utils/commonFunctions.ts";
-// import { getFolders } from "src/redux/slices/folderSlice.ts";
-// import { useDispatch } from "react-redux";
-// import type { AppDispatch } from '../../../../redux/store.ts';
 
 const SidebarLayout = () => {
   const { selectedIconId, setSelectedIconId } =
@@ -24,15 +21,8 @@ const SidebarLayout = () => {
     (data) => data.id === selectedIconId
   );
   const { folder } = useSelector((state: any) => state.folders);
-  // const dispatch = useDispatch<AppDispatch>();
-
-
-  // useEffect(() => {
-  //   dispatch(getFolders());
-  // }, [dispatch]);
 
   if (folder && folder.length > 0 ) {
-    console.log('I am here ', selectedIconId, folder)
     const resultFolders = structureFolder(folder[0]);
     selectedContent?.items?.forEach((item: any) => {
       if (item.heading === 'Knowledge Base') {
@@ -72,64 +62,13 @@ const SidebarLayout = () => {
     return null; // URL not found
   }
 
-
-  const sidebarSelection = (item: any) => {
-    // if (item.heading === 'AI Models') {
-
-    // const switchBars = (child: any) => {
-
-    //   console.log('4 ', {child})
-
-    //   return (<Field key={child.name} className="flex items-center gap-3 bg-lightgray dark:bg-dark py-2 px-4 rounded-md mb-2 ">
-    //     <Switch
-    //       checked={true}
-    //       className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
-    //     >
-    //       <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
-    //     </Switch>
-    //     <div >
-    //       <Label className="text-ld cursor-pointer">{child.name}</Label>
-    //       <Description className="text-bodytext text-xs">
-    //         {child.description}
-    //       </Description>
-    //     </div>
-    //   </Field>)
-
-    // }
-
-    //   return <div>
-    //     {item.children?.map((child: any) => {
-
-    //       console.log({ child })
-
-    //       if (child.children) {
-    //         console.log('2 ', { child })
-    //         child.children?.map((item: any) => {
-    //           console.log('3 ', { item })
-    //           return <NavCollapse item={child} />
-
-    //           // return switchBars(item);
-    //         })
-    //       }
-
-    //       return switchBars(child);
-    //     })}
-    //   </div>
-    // }
-    // else if (item.heading === 'Knowledge Base') {
-    // addPopover = true; 
-    // }
-    return defaultSidebar(item);
-  }
-
   const defaultSidebar = (item: any) => {
-
     return item?.children?.map((child: any, index: any) => (
       <React.Fragment key={child.id && index}>
         {child.children ? (
-          <NavCollapse item={child} />
+          <NavCollapse item={child} tab={item.heading} />
         ) : (
-          <NavItems item={child} />
+          <NavItems item={child} tab={item.heading} />
         )}
       </React.Fragment>
     ))
@@ -137,7 +76,6 @@ const SidebarLayout = () => {
 
   useEffect(() => {
     const result = findActiveUrl(SidebarContent, pathname);
-    console.log('find path result ', result)
     if (result) {
       setSelectedIconId(result);
     }
@@ -161,17 +99,13 @@ const SidebarLayout = () => {
               <Sidebar.ItemGroup className="sidebar-nav hide-menu">
                 {selectedContent &&
                   selectedContent.items?.map((item, index) => {
-                    // console.log('item ', item)
-                    // if(item.heading === 'AI Models') {
-                    //   // setSelectedItem(item && item?.children && item?.children[0])
-                    // }
                     return (
                       <div className="caption" key={item.heading}>
                         <React.Fragment key={index}>
                           <h5 className="text-link dark:text-white/70 font-semibold caption font-semibold leading-6 tracking-widest text-xs text-sm  pb-2 uppercase">
                             {item.heading}
                           </h5>
-                          {sidebarSelection(item)}
+                          {defaultSidebar(item)}
                         </React.Fragment>
                       </div>
                     )
