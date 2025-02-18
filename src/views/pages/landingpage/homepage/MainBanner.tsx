@@ -5,22 +5,22 @@ import ColorBoxes from "../layout/ColorBoxes";
 let index = 0;
 
 const messages = [
-  " Enterprise Security.",
-  " Zero Data Leaks.",
-  " Faster Decisions.",
-  " AI-Powered Precision.",
-  " Continuous Compliance.",
-  " Always Audit-Ready.",
-  " Centralized Knowledge.",
-  " Instant Access.",
-  " Seamless Integration.",
-  " Secure AI Access.",
-  " Regulatory Updates.",
-  " Always in Sync.",
-  " Accurate Insights.",
-  " Every Single Time.",
-  " Smarter Searches.",
-  " Maximum Efficiency.",
+  " Enterprise Security",
+  " Zero Data Leaks",
+  " Faster Decisions",
+  " AI-Powered Precision",
+  " Continuous Compliance",
+  " Always Audit-Ready",
+  " Centralized Knowledge",
+  " Instant Access",
+  " Seamless Integration",
+  " Secure AI Access",
+  " Regulatory Updates",
+  " Always in Sync",
+  " Accurate Insights",
+  " Every Single Time",
+  " Smarter Searches",
+  " Maximum Efficiency",
 ];
 
 let banner: any = null;
@@ -51,7 +51,7 @@ const MainBanner = () => {
         <div className="container-1218 mx-auto sm:pt-10 pt-6 xl:pb-0 pb-10">
           <div className="grid grid-cols-12 gap-30  items-center ">
             <div className="xl:col-span-6 col-span-12 lg:text-start text-center md:mb-28">
-              <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px] ">
+              <h2 className="lg:text-30 text-2xl text-darklink dark:text-white leading-[50px] ">
                 The AI Model That
               </h2>
               <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px]">
@@ -59,7 +59,7 @@ const MainBanner = () => {
               </h2>
               <div className=" py-6">
                 <h5 className="text-17 text-ldfont-medium opacity-80 md:pt-0 pt-3">
-                  <span style={{ fontWeight: 'bold' }}>With AI Genie, you get: </span>
+                  <span style={{ fontSize: 'small' }}>With AI Genie, you get: </span>
                 </h5>
                 <div className="lg:justify-self-start trapezoid justify-self-center  p-2 text-dark mt-2 w-45" id="bannerL"></div>
               </div>

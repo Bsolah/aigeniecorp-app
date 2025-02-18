@@ -7,7 +7,7 @@ import CardBox from "src/components/shared/CardBox";
 const ColorboxData = [
   {
     bg: "primary-gradient",
-    icon: "solar:dollar-minimalistic-linear",
+    icon: "hugeicons:gitbook",
     color: "bg-primary",
     title: "Updated Knowledge Base",
     price: "98%",

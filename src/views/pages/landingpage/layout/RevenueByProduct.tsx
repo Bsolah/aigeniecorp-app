@@ -1,5 +1,5 @@
 
-import  { useState } from "react";
+import { useState } from "react";
 import CardBox from "../../../../components/shared/CardBox";
 import { Badge, Select, Table } from "flowbite-react";
 import { Icon } from "@iconify/react";
@@ -29,7 +29,7 @@ const RevenueByProduct = () => {
       statuscolor: "lightwarning",
       statustextcolor: "text-warning",
       statustext: "Approved",
-      money: "$3.5K",
+      money: "Jan 25th, 2025",
     },
     {
       img: product2,
@@ -39,7 +39,7 @@ const RevenueByProduct = () => {
       statuscolor: "lightsecondary",
       statustextcolor: "text-secondary",
       statustext: "Pending",
-      money: "$24.5K",
+      money: "Feb 2nd, 2025",
     },
     {
       img: product3,
@@ -49,7 +49,7 @@ const RevenueByProduct = () => {
       statuscolor: "lightsuccess",
       statustextcolor: "text-success",
       statustext: "Published",
-      money: "$12.8K",
+      money: "Dec 31st, 2024",
     },
     {
       img: product4,
@@ -59,7 +59,7 @@ const RevenueByProduct = () => {
       statuscolor: "lighterror",
       statustextcolor: "text-error",
       statustext: "Rejected",
-      money: "$2.4K",
+      money: "Jan 17th, 2025",
     },
   ];
 
@@ -71,8 +71,8 @@ const RevenueByProduct = () => {
       progrsss: "100",
       statuscolor: "lightsecondary",
       statustextcolor: "text-secondary",
-      statustext: "Very High",
-      money: "$24.5K",
+      statustext: "Pending",
+      money: "Feb 11th, 2025",
     },
     {
       img: product3,
@@ -81,8 +81,8 @@ const RevenueByProduct = () => {
       progrsss: "73",
       statuscolor: "lightsuccess",
       statustextcolor: "text-success",
-      statustext: "Low",
-      money: "$12.8K",
+      statustext: "Published",
+      money: "Jan 4th, 2025",
     },
     {
       img: product1,
@@ -91,8 +91,8 @@ const RevenueByProduct = () => {
       progrsss: "73",
       statuscolor: "lightwarning",
       statustextcolor: "text-warning",
-      statustext: "Medium",
-      money: "$3.5K",
+      statustext: "Approved",
+      money: "Feb 17th, 2025",
     },
 
     {
@@ -102,8 +102,8 @@ const RevenueByProduct = () => {
       progrsss: "73",
       statuscolor: "lighterror",
       statustextcolor: "text-error",
-      statustext: "High",
-      money: "$2.4K",
+      statustext: "Rejected",
+      money: "Aug 15th, 2024",
     },
   ];
 
@@ -112,7 +112,7 @@ const RevenueByProduct = () => {
       <CardBox className="pb-3">
         <div className="sm:flex justify-between align-baseline">
           <div>
-            <h5 className="card-title">Projects Overview by Team</h5>
+            <h5 className="card-title">Knowledge Base Overview by Team</h5>
           </div>
           <Select required className="form-control select-md w-fit sm:my-0 my-4">
             {dropdownItems.map((items, index) => {
@@ -126,68 +126,60 @@ const RevenueByProduct = () => {
             <div className="flex gap-4">
               <div
                 onClick={() => handleTabClick("App")}
-                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark hover:bg-lightprimary dark:hover:bg-lightprimary ${
-                  activeTab == "App"
-                    ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
-                    : "dark:text-white"
-                }`}
+                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark hover:bg-lightprimary dark:hover:bg-lightprimary ${activeTab == "App"
+                  ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
+                  : "dark:text-white"
+                  }`}
               >
                 <Icon
                   icon="solar:widget-linear"
-                  className={`${
-                    activeTab == "App" ? "opacity-100" : "opacity-50"
-                  }`}
+                  className={`${activeTab == "App" ? "opacity-100" : "opacity-50"
+                    }`}
                   height={16}
                 />
                 Product
               </div>
               <div
                 onClick={() => handleTabClick("Mobile")}
-                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark hover:bg-lightprimary dark:hover:bg-lightprimary ${
-                  activeTab == "Mobile"
-                    ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
-                    : "dark:text-white"
-                }`}
+                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark hover:bg-lightprimary dark:hover:bg-lightprimary ${activeTab == "Mobile"
+                  ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
+                  : "dark:text-white"
+                  }`}
               >
                 <Icon
                   icon="solar:smartphone-line-duotone"
-                  className={`${
-                    activeTab == "Mobile" ? "opacity-100" : "opacity-50"
-                  }`}
+                  className={`${activeTab == "Mobile" ? "opacity-100" : "opacity-50"
+                    }`}
                   height={16}
                 />{" "}
                 Support
               </div>
               <div
                 onClick={() => handleTabClick("SasS")}
-                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark  hover:bg-lightprimary dark:hover:bg-lightprimary ${
-                  activeTab == "SasS"
-                    ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
-                    : "dark:text-white"
-                }`}
+                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark  hover:bg-lightprimary dark:hover:bg-lightprimary ${activeTab == "SasS"
+                  ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
+                  : "dark:text-white"
+                  }`}
               >
                 <Icon
                   icon="solar:calculator-linear"
-                  className={`${
-                    activeTab == "SasS" ? "opacity-100" : "opacity-50"
-                  }`}
+                  className={`${activeTab == "SasS" ? "opacity-100" : "opacity-50"
+                    }`}
                   height={16}
                 />{" "}
                 Sales
               </div>
               <div
                 onClick={() => handleTabClick("Others")}
-                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark hover:bg-lightprimary dark:hover:bg-lightprimary  ${
-                  activeTab == "Others"
-                    ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
-                    : "dark:text-white"
-                }`}
+                className={`py-3 px-6 rounded-tw cursor-pointer text-dark text-sm font-semibold text-center flex gap-2 items-center bg-muted dark:bg-dark hover:bg-lightprimary dark:hover:bg-lightprimary  ${activeTab == "Others"
+                  ? "text-white bg-primary dark:bg-primary hover:bg-primaryemphasis dark:hover:bg-primaryemphasis"
+                  : "dark:text-white"
+                  }`}
               >
                 <Icon
                   icon="solar:folder-open-outline"
-                  className={`${
-                    activeTab == "Others" ? "opacity-100" : "opacity-50"
-                  }`}
+                  className={`${activeTab == "Others" ? "opacity-100" : "opacity-50"
+                    }`}
                   height={16}
                 />{" "}
                 HR
@@ -257,16 +249,16 @@ const RevenueByProduct = () => {
             <Table>
               <Table.Head className="border-b border-bordergray dark:border-darkborder">
                 <Table.HeadCell className="py-2 px-3  ps-0 text-ld font-normal">
-                  Assigned
+                  Article
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Progress
+                  Monthly Views
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Priority
+                  Status
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Budget
+                  Last Edit
                 </Table.HeadCell>
               </Table.Head>
               <Table.Body className="divide-y divide-bordergray dark:divide-darkborder ">
@@ -310,16 +302,16 @@ const RevenueByProduct = () => {
             <Table>
               <Table.Head className="border-b border-bordergray dark:border-darkborder">
                 <Table.HeadCell className="py-2 px-3  ps-0 text-ld font-normal">
-                  Assigned
+                  Article
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Progress
+                  Monthly Views
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Priority
+                  Status
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Budget
+                  Last Edit
                 </Table.HeadCell>
               </Table.Head>
               <Table.Body className="divide-y divide-bordergray dark:divide-darkborder ">
@@ -363,16 +355,16 @@ const RevenueByProduct = () => {
             <Table>
               <Table.Head className="border-b border-bordergray dark:border-darkborder">
                 <Table.HeadCell className="py-2 px-3  ps-0 text-ld font-normal">
-                  Assigned
+                  Article
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Progress
+                  Monthly Views
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Priority
+                  Status
                 </Table.HeadCell>
                 <Table.HeadCell className="text-ld font-normal">
-                  Budget
+                  Last Edit
                 </Table.HeadCell>
               </Table.Head>
               <Table.Body className="divide-y divide-bordergray dark:divide-darkborder ">

@@ -42,7 +42,7 @@ const Solution = () => {
         <div className="container-1218 mx-auto">
           <div className="grid grid-cols-12 gap-30">
             <div className="lg:col-span-5 col-span-12">
-              <h2 className="sm:text-44 text-3xl font-bold !leading-[48px] text-darklink dark:text-white">
+              <h2 className="sm:text-40 text-3xl font-bold !leading-[48px] text-darklink dark:text-white">
                 What We Offer
               </h2>
               <p className="text-17 leading-[32px] text-ld opacity-80 py-6">

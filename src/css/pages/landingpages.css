@@ -17,11 +17,16 @@
 }
 
 .trapezoid {
-    width: 200px;
-    height: 40px;
+    max-width: 240px;
+    height: 60px;
     /* border-left: 100px solid transparent; */
     /* border-right: 50px solid transparent; */
-    clip-path: polygon(0% 0%, 88%  10%, 87% 90%, 0% 80%);
+    clip-path: polygon(0% 0%, 100%  15%, 100% 100%, 0% 90%);
+    align-content: center;
+    /* color:  var(--color-primary) !important; */
+    font-weight: bold;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:larger;
 
     /* border-bottom: 100px solid;  */
     background-color: var(--color-lightprimary);

@@ -19,6 +19,14 @@ export const Footer = () => {
     }
   ];
 
+  const navLinks2 = [
+    {
+      key: "link2",
+      title: "Privacy Policy",
+      link: "/privacy-policy",
+    }
+  ]
+
   return (
     <>
       <div className="bg-sky">
@@ -26,7 +34,7 @@ export const Footer = () => {
           <div className="border-b border-darkborder lg:py-24 py-12">
             <div className="grid grid-cols-12 gap-30 ">
               <div className="lg:col-span-6 sm:col-span-6">
-                <img src={FullLogo} alt="logo" className="mb-1" width="50" />
+                <img src={FullLogo} alt="logo" color="white" className="mb-1" width="50" />
                 <div className="flex flex-col gap-4">
                   {navLinks1.map((item) => {
                     return (
@@ -52,9 +60,9 @@ export const Footer = () => {
                   })}
                 </div>
               </div>
-              {/* <div className="lg:col-span-3 sm:col-span-6 col-span-12">
-                <h4 className="text-17 text-white font-semibold mb-8">
-                  Features
+              <div className="lg:col-span-3 sm:col-span-3 col-span-12">
+                <h4 className="text-17 text-white font-semibold mb-8" >
+                  Legal
                 </h4>
                 <div className="flex flex-col gap-4">
                   {navLinks2.map((item) => {
@@ -69,7 +77,7 @@ export const Footer = () => {
                     );
                   })}
                 </div>
-              </div> */}
+              </div>
               {/* <div className="lg:col-span-3 sm:col-span-6 col-span-12">
                 <h4 className="text-17 text-white font-semibold mb-8">
                   Resources
@@ -88,7 +96,7 @@ export const Footer = () => {
                   })}
                 </div>
               </div> */}
-              <div className="lg:col-span-6 sm:col-span-6 col-span-12 flex flex-col items-end">
+              <div className="lg:col-span-3 sm:col-span-3 col-span-12 flex flex-col items-end">
                 <h4 className="text-17 text-white font-semibold mb-8">
                   Follow us
                 </h4>

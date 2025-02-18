@@ -32,9 +32,11 @@ const ViewSharepointPage = Loadable(lazy(() => import('../components/apps/reposi
 const ViewNotionPage = Loadable(lazy(() => import('../components/apps/repository/ViewNotion')));
 const ViewDrafts = Loadable(lazy(() => import('../components/apps/repository/ViewDraftList')));
 const Error = Loadable(lazy(() => import('../views/authentication/Error.tsx')));
+const PrivacyPolicy = Loadable(lazy(() => import('../views/pages/landingpage/layout/PrivacyPolicy.tsx')));
 
 const Router = [
   { path: '/', element: <LandingPage />},
+  { path: '/privacy-policy', element: <PrivacyPolicy />},
   {
     path: '/id',
     element: <PrivateRoute children={<FullLayout />} />,

@@ -22,8 +22,8 @@ const About = () => {
                 >
                   ABOUT US
                 </p>
-                <h2 className="sm:text-44 text-3xl font-bold !leading-[43px] text-darklink dark:text-white pb-6">
-                  Work Smarter, Grow Faster
+                <h2 className="sm:text-40 text-3xl font-bold !leading-[43px] text-darklink dark:text-white pb-6">
+                  Work Smarter. Grow Faster.
                 </h2>
                 <p
                   style={{
