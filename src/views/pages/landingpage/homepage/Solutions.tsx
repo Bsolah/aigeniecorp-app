@@ -10,6 +10,14 @@ const Feature = [
     color: 'text-error',
   },
   {
+    icon: 'icon-park-outline:brain',
+    title: 'Unified Knowledge Hub',
+    subtitle:
+      'No more scattered information. AI Genie centralizes all company knowledge into a single, dynamic hub, delivering fast, reliable answers to employees with AI-powered precision.',
+    bgcolor: 'bg-lightwarning',
+    color: 'text-warning',
+  },
+  {
     icon: 'octicon:zap',
     title: 'Efficiency Without Compromise',
     subtitle:
@@ -24,14 +32,6 @@ const Feature = [
       'Stay compliant with real-time web crawling and API integrations with regulatory bodies. Audit logs track all content changes, ensuring transparency and accountability across your organization.',
     bgcolor: 'bg-lightsuccess',
     color: 'text-success',
-  },
-  {
-    icon: 'icon-park-outline:brain',
-    title: 'Unified Knowledge Hub',
-    subtitle:
-      'No more scattered information. AI Genie centralizes all company knowledge into a single, dynamic hub, delivering fast, reliable answers to employees with AI-powered precision.',
-    bgcolor: 'bg-lightwarning',
-    color: 'text-warning',
   },
 ];
 
@@ -61,7 +61,7 @@ const Solution = () => {
                       >
                         <Icon icon={item.icon} className={`${item.color}`} height={24} />
                       </div>
-                      <h4 className="font-bold text-darklink dark:text-white py-5 text-22">
+                      <h4 className="font-bold text-darklink dark:text-white py-5 text-22 leading-tight">
                         {item.title}
                       </h4>
                       <p className="text-15 text-ld opacity-80 md:pt-2 leading-6">

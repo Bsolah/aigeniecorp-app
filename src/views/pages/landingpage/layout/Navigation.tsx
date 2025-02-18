@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router';
 const FrontNav = [
   {
     menu: 'Home',
-    link: '/landingpage',
+    link: '/',
     badge: false,
   },
   {
@@ -24,7 +24,7 @@ const Navigation = () => {
 
   // Smooth scrolling function
   const handleScroll = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, link: string) => {
-    if (link === '/landingpage') {
+    if (link === '/') {
       event.preventDefault();
       navigate(link); // Navigate to home
       window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top smoothly
@@ -32,7 +32,16 @@ const Navigation = () => {
       event.preventDefault();
       const targetElement = document.querySelector(link);
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
+        console.log('I am here', targetElement)
+        const offset = 120; // Adjust to stop scrolling above the element-150
+        const topPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+        console.log('I am here 2', targetElement.getBoundingClientRect().top)
+    
+        window.scrollTo({ top: topPosition, behavior: 'smooth' });
+
+      //   setTimeout(() => {
+      //     window.scrollBy({ top: -100, behavior: "smooth" }); // Adjust -50 to your preferred offset
+      //   }, 300); // Delay to ensure the first scroll happens before adjustment
       }
     }
   };

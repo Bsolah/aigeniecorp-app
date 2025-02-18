@@ -23,42 +23,42 @@ const RevenueByProduct = () => {
   const ProductTableData = [
     {
       img: product1,
-      project: "Project Alpha",
+      project: "Procedure Alpha",
       name: "Jason Roy",
-      progrsss: "73.2%",
+      progrsss: "73",
       statuscolor: "lightwarning",
       statustextcolor: "text-warning",
-      statustext: "Medium",
+      statustext: "Approved",
       money: "$3.5K",
     },
     {
       img: product2,
-      project: "Project Beta",
+      project: "Procedure Beta",
       name: "Mathew Flintoff",
-      progrsss: "80.2%",
+      progrsss: "80",
       statuscolor: "lightsecondary",
       statustextcolor: "text-secondary",
-      statustext: "Very High",
+      statustext: "Pending",
       money: "$24.5K",
     },
     {
       img: product3,
-      project: "Project Delta",
+      project: "Procedure Delta",
       name: "Anil Kumar",
-      progrsss: "47.9%",
+      progrsss: "47",
       statuscolor: "lightsuccess",
       statustextcolor: "text-success",
-      statustext: "Low",
+      statustext: "Published",
       money: "$12.8K",
     },
     {
       img: product4,
-      project: "Project Gamma",
+      project: "Procedure Gamma",
       name: "George Cruize",
-      progrsss: "87.1%",
+      progrsss: "21",
       statuscolor: "lighterror",
       statustextcolor: "text-error",
-      statustext: "High",
+      statustext: "Rejected",
       money: "$2.4K",
     },
   ];
@@ -66,9 +66,9 @@ const RevenueByProduct = () => {
   const ProductTableData2 = [
     {
       img: product2,
-      project: "Project Epsilon",
+      project: "Procedure Epsilon",
       name: "Mathew Flintoff",
-      progrsss: "73.2%",
+      progrsss: "100",
       statuscolor: "lightsecondary",
       statustextcolor: "text-secondary",
       statustext: "Very High",
@@ -76,9 +76,9 @@ const RevenueByProduct = () => {
     },
     {
       img: product3,
-      project: "Project Zeta",
+      project: "Procedure Zeta",
       name: "Anil Kumar",
-      progrsss: "73.2%",
+      progrsss: "73",
       statuscolor: "lightsuccess",
       statustextcolor: "text-success",
       statustext: "Low",
@@ -86,9 +86,9 @@ const RevenueByProduct = () => {
     },
     {
       img: product1,
-      project: "Project Lambda",
+      project: "Procedure Lambda",
       name: "Jason Roy",
-      progrsss: "73.2%",
+      progrsss: "73",
       statuscolor: "lightwarning",
       statustextcolor: "text-warning",
       statustext: "Medium",
@@ -97,9 +97,9 @@ const RevenueByProduct = () => {
 
     {
       img: product4,
-      project: "Project Eta",
+      project: "Procedure Eta",
       name: "George Cruize",
-      progrsss: "73.2%",
+      progrsss: "73",
       statuscolor: "lighterror",
       statustextcolor: "text-error",
       statustext: "High",
@@ -203,16 +203,16 @@ const RevenueByProduct = () => {
               <Table>
                 <Table.Head className="border-b border-bordergray dark:border-darkborder">
                   <Table.HeadCell className="py-2 px-3  ps-0 text-ld font-normal">
-                    Assigned
+                    Article
                   </Table.HeadCell>
                   <Table.HeadCell className="text-ld font-normal">
-                    Progress
+                    Monthly Views
                   </Table.HeadCell>
                   <Table.HeadCell className="text-ld font-normal">
-                    Priority
+                    Status
                   </Table.HeadCell>
                   <Table.HeadCell className="text-ld font-normal">
-                    Budget
+                    Last Edit
                   </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y divide-bordergray dark:divide-darkborder ">

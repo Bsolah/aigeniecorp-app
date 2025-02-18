@@ -1,3 +1,4 @@
+import RevenueByProduct from "../layout/RevenueByProduct";
 
 
 const About = () => {
@@ -9,9 +10,9 @@ const About = () => {
       <div className="bg-lightgray dark:bg-darkgray lg:py-24 py-12">
         <div className="container-1218 mx-auto">
           <div className="grid grid-cols-12 gap-30  items-center">
-            {/* <div className="lg:col-span-7 col-span-12">
+            <div className="lg:col-span-7 col-span-12">
               <RevenueByProduct />
-            </div> */}
+            </div>
             <div className="lg:col-span-5 col-span-12 lg:ps-7">
               <>
                 <p
@@ -30,7 +31,7 @@ const About = () => {
                     marginBottom: 7,
                     color: '#333',
                   }}
-                > At AI Genie Corp, we make AI secure, compliant, and efficient for businesses. Our private AI models prevent data leaks, automate compliance, and keep knowledge bases accurate—effortlessly. Built by experts in AI, security, and compliance, we help enterprises harness AI without risk or complexity.                </p>
+                > Built by experts in AI, security, and compliance, we help enterprises harness AI without risk or complexity.                </p>
                 <p
                   style={{
                     lineHeight: 2,

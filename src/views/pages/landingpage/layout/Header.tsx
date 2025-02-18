@@ -40,8 +40,11 @@ const FrontHeader = () => {
             e.preventDefault();
             const targetElement = document.querySelector('#contact');
             if (targetElement) {
-              targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
+              // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              const offset = 210; // Adjust to stop scrolling above the element-150
+              const topPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+          
+              window.scrollTo({ top: topPosition, behavior: 'smooth' });            }
           }}
           className="font-bold xl:flex hidden"
           color="primary"

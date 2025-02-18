@@ -1,5 +1,6 @@
 import { Button, } from "flowbite-react";
 import { useEffect } from "react";
+import ColorBoxes from "../layout/ColorBoxes";
 
 let index = 0;
 
@@ -29,7 +30,7 @@ const MainBanner = () => {
   useEffect(() => {
     banner = document.getElementById("bannerL");
     banner.innerText = messages[0];
-    setInterval(rotateBanner, 5000); // Change text every 3 seconds
+    setInterval(rotateBanner, 6000); // Change text every 3 seconds
   }, [])
 
 
@@ -51,7 +52,7 @@ const MainBanner = () => {
           <div className="grid grid-cols-12 gap-30  items-center ">
             <div className="xl:col-span-6 col-span-12 lg:text-start text-center md:mb-28">
               <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px] ">
-               The AI Model That
+                The AI Model That
               </h2>
               <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px]">
                 Knows. Protects. Complies.
@@ -60,10 +61,10 @@ const MainBanner = () => {
                 <h5 className="text-17 text-ldfont-medium opacity-80 md:pt-0 pt-3">
                   <span style={{ fontWeight: 'bold' }}>With AI Genie, you get: </span>
                 </h5>
-                <div className="bg-lightprimary lg:justify-self-start  justify-self-center  p-2 text-dark mt-2 w-45" id="bannerL"></div>
-            </div>
-            <ul className="flex flex-wrap lg:justify-start justify-center gap-5 pb-7 md:pt-4 ml-0">
-              {/* {Technology.map((item, index) => (
+                <div className="lg:justify-self-start trapezoid justify-self-center  p-2 text-dark mt-2 w-45" id="bannerL"></div>
+              </div>
+              <ul className="flex flex-wrap lg:justify-start justify-center gap-5 pb-7 md:pt-4 ml-0">
+                {/* {Technology.map((item, index) => (
                   <Tooltip
                     content={item.tooltip}
                     className="!text-xs"
@@ -75,40 +76,48 @@ const MainBanner = () => {
                     </li>
                   </Tooltip>
                 ))} */}
-            </ul>
-            <div className="flex lg:justify-start justify-center">
-              <Button
-                color={'primary'}
-                as="button"
-                onClick={(e: any) => {
-                  e.preventDefault();
-                  const targetElement = document.querySelector('#contact');
-                  if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className="px-4 font-bold sm:w-fit w-full"
-              >
-                Get Early Access
-              </Button>
+              </ul>
+              <div className="flex lg:justify-start justify-center">
+                <Button
+                  color={'primary'}
+                  as="button"
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    const targetElement = document.querySelector('#contact');
+                    if (targetElement) {
+                      // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      const offset = 210; // Adjust to stop scrolling above the element-150
+                      const topPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+
+                      window.scrollTo({ top: topPosition, behavior: 'smooth' });
+
+                    }
+                  }}
+                  className="px-4 font-bold sm:w-fit w-full"
+                >
+                  Get Early Access
+                </Button>
+              </div>
+            </div>
+            <div className="lg:col-span-6 col-span-12 xl:block hidden">
+              {/* <div className="xl:col-span-6 col-span-12">
+                <WelcomeBox />
+                <div className="grid grid-cols-12 mt-30 gap-30">
+                  <div className="md:col-span-6 col-span-12">
+                    <Customer />
+                  </div>
+                  <div className="md:col-span-6 col-span-12">
+                    <Project />
+                  </div>
+                </div>
+              </div> */}
+              <div className="col-span-6 mb-8">
+                <ColorBoxes />
+              </div>
             </div>
           </div>
-          {/* <div className="lg:col-span-6 col-span-12 xl:block hidden"> */}
-          {/* <div className="xl:col-span-6 col-span-12">
-            <WelcomeBox />
-            <div className="grid grid-cols-12 mt-30 gap-30">
-              <div className="md:col-span-6 col-span-12">
-                <Customer />
-              </div>
-              <div className="md:col-span-6 col-span-12">
-                <Project />
-              </div>
-            </div>
-          </div> */}
-          {/* </div> */}
         </div>
-      </div>
-    </div >
+      </div >
     </>
   );
 };

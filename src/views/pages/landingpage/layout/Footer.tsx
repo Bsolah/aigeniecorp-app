@@ -4,19 +4,18 @@ import logo from "/src/assets/images/front-pages/background/white-icon-logo.svg"
 import FullLogo from "../../../../assets/images/front-pages/background/aigenie_logo.svg"; // Ensure this path is correct and the file exists
 import { Link } from "react-router";
 import linkedIn from "/src/assets/images/front-pages/background/linkedIn.png"
-import twitter from "/src/assets/images/front-pages/background/twitter.svg"
 
 export const Footer = () => {
   const navLinks1 = [
     {
       key: "link1",
       title: "Contact Us",
-      link: "/#",
+      link: "#contact",
     },
     {
       key: "link2",
       title: "About us",
-      link: "/#",
+      link: "#about",
     }
   ];
 
@@ -31,13 +30,24 @@ export const Footer = () => {
                 <div className="flex flex-col gap-4">
                   {navLinks1.map((item) => {
                     return (
-                      <Link
+                      <div
                         key={item.key}
-                        to={item.link}
                         className="text-sm text-lightmuted hover:text-primary block"
+                        onClick={(e: any) => {
+                          e.preventDefault();
+                          const targetElement = document.querySelector(item.link);
+                          if (targetElement) {
+                            // targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const offset = 210; // Adjust to stop scrolling above the element-150
+                            const topPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+      
+                            window.scrollTo({ top: topPosition, behavior: 'smooth' });
+      
+                          }
+                        }}
                       >
                         {item.title}
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>
@@ -91,20 +101,6 @@ export const Footer = () => {
                     <Link to="https://www.linkedin.com/company/ai-genie-corp/posts/">
                       <img
                         src={linkedIn}
-                        height={22}
-                        width={22}
-                        alt="icon"
-                      />
-                    </Link>
-                  </Tooltip>
-                  <Tooltip
-                    content="Twitter"
-                    placement="bottom"
-                    className="shrink-0"
-                  >
-                    <Link to="/">
-                      <img
-                        src={twitter}
                         height={22}
                         width={22}
                         alt="icon"
