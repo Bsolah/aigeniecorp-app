@@ -29,13 +29,21 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const { data } = await API.post(
+      const resp = await API.post(
         '/api/auth/login',
         { email, password },
         { withCredentials: true },
       );
 
-      return data?.data; // Assume response includes token and user data
+      console.log({resp})
+
+        // Check authentication
+        const { data } = await API.get("/api/auth/check-auth", {
+          withCredentials: true,
+        });
+        return data; // Assume response includes token and user data
+      
+      return;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -44,7 +52,7 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    await API.post('/api/auth/logout');
+    await API.post('/api/auth/logout', { withCredentials: true });
     return true;
   } catch (error) {
     return rejectWithValue(error);
