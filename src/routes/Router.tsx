@@ -35,28 +35,28 @@ const Error = Loadable(lazy(() => import('../views/authentication/Error.tsx')));
 const PrivacyPolicy = Loadable(lazy(() => import('../views/pages/landingpage/layout/PrivacyPolicy.tsx')));
 
 const Router = [
-  { path: '/', element: <LandingPage />},
-  { path: '/privacy-policy', element: <PrivacyPolicy />},
+  { path: '/', element: <LandingPage /> },
+  { path: '/privacy-policy', element: <PrivacyPolicy /> },
   {
-    path: '/id',
+    path: '/:id',
     element: <PrivateRoute children={<FullLayout />} />,
     children: [
-      { path: '/id/chats/*', exact: true, element: <PrivateRoute children={<ChatPage />} /> },
+      { path: '/:id/chats/*', exact: true, element: <PrivateRoute children={<ChatPage />} /> },
       {
-        path: '/id/repository/*',
+        path: '/:id/repository/*',
         exact: true,
         element: <PrivateRoute children={<RepositoryPage />} />,
       },
-      { path: '/id/repository/new-page', exact: true, element: <PrivateRoute children={<NewRepositoryPage />} /> },
-      { path: '/id/repository/:id', exact: true, element: <PrivateRoute children={<ViewRepositoryPage />} /> },
-      { path: '/id/repository/google-drive', exact: true, element: <PrivateRoute children={<ViewGDrivePage />} /> },
-      { path: '/id/repository/sharepoint', exact: true, element: <PrivateRoute children={<ViewSharepointPage />} /> },
-      { path: '/id/repository/notion', exact: true, element: <PrivateRoute children={<ViewNotionPage />} /> },
-      { path: '/id/repository/drafts', exact: true, element: <PrivateRoute children={<ViewDrafts />} /> },
-      { path: '/id/agents', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
-      { path: '/id/projects', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
-      { path: '/id/analytics', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
-      { path: '/id/*', element: <Navigate to="/auth/404" /> },
+      { path: '/:id/repository/new-page', exact: true, element: <PrivateRoute children={<NewRepositoryPage />} /> },
+      { path: '/:id/repository/:id', exact: true, element: <PrivateRoute children={<ViewRepositoryPage />} /> },
+      { path: '/:id/repository/google-drive', exact: true, element: <PrivateRoute children={<ViewGDrivePage />} /> },
+      { path: '/:id/repository/sharepoint', exact: true, element: <PrivateRoute children={<ViewSharepointPage />} /> },
+      { path: '/:id/repository/notion', exact: true, element: <PrivateRoute children={<ViewNotionPage />} /> },
+      { path: '/:id/repository/drafts', exact: true, element: <PrivateRoute children={<ViewDrafts />} /> },
+      { path: '/:id/agents', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
+      { path: '/:id/projects', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
+      { path: '/:id/analytics', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
+      { path: '/:id/*', element: <Navigate to="/auth/404" /> },
     ],
   },
   {
@@ -64,7 +64,7 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <PublicRoute children={<Login />} /> },
-      { path: '/auth/register', element: <Register /> },
+      { path: '/auth/register', element: <PublicRoute children={<Register />} /> },
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
       { path: '/auth/two-steps', element: <TwoSteps /> },
       { path: '/auth/maintenance', element: <Maintainance /> },

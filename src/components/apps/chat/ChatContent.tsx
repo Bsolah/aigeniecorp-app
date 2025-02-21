@@ -1,19 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
-import { HiOutlineDotsVertical } from 'react-icons/hi';
-import { Icon } from '@iconify/react';
-import { Badge, Button, Drawer, HR } from 'flowbite-react';
+import { Drawer, HR } from 'flowbite-react';
 import ChatInsideSidebar from './ChatInsideSidebar.tsx';
 import { formatDistanceToNowStrict } from 'date-fns';
 import user2 from '/src/assets/images/profile/user-2.jpg';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { formatChatMessage } from '../../../utils/commonFunctions.ts';
 
-type Props = {
-  onClickMobile: (event: React.MouseEvent<HTMLElement>) => void;
-};
-const ChatContent = ({ onClickMobile }: Props) => {
-  const [isRightSide, setIsRightSide] = useState(false);
+
+const ChatContent = () => {
+  const [isRightSide] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const selectedChat = useSelector((state: any) => state.chat.chat);
@@ -24,10 +19,6 @@ const ChatContent = ({ onClickMobile }: Props) => {
     }
 
   }, [selectedChat]);
-
-  const handleButtonClick = () => {
-    setIsRightSide(!isRightSide);
-  };
 
   // Function to scroll to bottom
   const scrollToBottom = () => {
@@ -44,14 +35,14 @@ const ChatContent = ({ onClickMobile }: Props) => {
           {selectedChat ? (
             <div className="flex items-center justify-between ">
               <div className="flex items-center gap-2">
-                <Button
+                {/* <Button
                   color={'lightprimary'}
                   className="btn-circle p-0 lg:hidden flex"
                   onClick={onClickMobile}
                 >
                   <Icon icon="solar:hamburger-menu-outline" height={18} />
-                </Button>
-                <div className="relative sm:min-w-12 min-w-9">
+                </Button> */}
+                {/* <div className="relative sm:min-w-12 min-w-9">
                   <img
                     src={user2}
                     height={48}
@@ -77,40 +68,20 @@ const ChatContent = ({ onClickMobile }: Props) => {
                       className="p-0 h-2 w-2 absolute bottom-1 end-0"
                     ></Badge>
                   )}
-                </div>
-                <div>
-                  <h5 className="text-base sm:mb-1">{selectedChat.name}</h5>
-                  <div className="text-sm text-ld opacity-90 line-clamp-1">
+                </div> */}
+                {/* <div> */}
+                  {/* <h5 className="text-base sm:mb-1">{selectedChat.name}</h5> */}
+                  {/* <div className="text-sm text-ld opacity-90 line-clamp-1">
                     {selectedChat.status}
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center md:gap-2 gap-1">
-                <div className="btn-circle-hover cursor-pointer sm:h-10 sm:w-10">
-                  <Icon icon="solar:phone-rounded-linear" height={25} className="sm:h-10 h-5 " />
-                </div>
-                <div className="btn-circle-hover cursor-pointer sm:h-10 sm:w-10">
-                  <Icon icon="solar:videocamera-outline" height={25} className="sm:h-10 h-5 " />
-                </div>
-                <div
-                  className="btn-circle-hover cursor-pointer sm:h-10 sm:w-10 xl:flex hidden"
-                  onClick={handleButtonClick}
-                >
-                  <HiOutlineDotsVertical size={18} className="sm:h-10 h-5 " />
-                </div>
-                <div
-                  className="btn-circle-hover cursor-pointer sm:h-10 sm:w-10 xl:hidden flex"
-                  onClick={() => setIsOpenMedia(true)}
-                >
-                  <HiOutlineDotsVertical size={20} className="sm:h-10 h-5 " />
-                </div>
+                  </div> */}
+                {/* </div> */}
               </div>
             </div>
           ) : null}
         </div>
       </div>
       <HR className="my-0" />
-      <div className="flex max-h-[800px] h-[650px] ">
+      <div className="flex max-h-[700px] h-[750px] ">
         <div
           className={`transition-all ${
             !isRightSide ? 'lg:w-[calc(100%_-_0px)]' : 'xl:w-[calc(100%_-_300px)] w-full'

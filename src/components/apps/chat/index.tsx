@@ -29,7 +29,7 @@ const ChatsApp = () => {
             {/* Right part */}
             {/* ------------------------------------------- */}
             <div className="grow w-[70%]">
-              <ChatContent onClickMobile={() => setIsOpenChat(true)} />
+              <ChatContent />
               <HR className="my-0" />
               <ChatMsgSent />
             </div>

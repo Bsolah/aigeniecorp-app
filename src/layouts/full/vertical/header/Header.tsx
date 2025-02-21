@@ -1,10 +1,7 @@
 
 import  { useState, useEffect, useContext } from "react";
 import { Navbar } from "flowbite-react";
-import Search from "./Search.tsx";
 import { Icon } from "@iconify/react";
-import AppLinks from "./AppLinks.tsx";
-import Notifications from "./Notifications.tsx";
 import Profile from "./Profile.tsx";
 import FullLogo from "../../shared/logo/FullLogo.tsx";
 import MobileHeaderItems from "./MobileHeaderItems.tsx";
@@ -12,7 +9,6 @@ import { Drawer } from "flowbite-react";
 import MobileSidebar from "../sidebar/MobileSidebar.tsx";
 import HorizontalMenu from "../../horizontal/header/HorizontalMenu.tsx";
 import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
-import { Language } from "./Language.tsx";
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext.tsx";
 
 interface HeaderPropsType {
@@ -92,10 +88,6 @@ const Header = ({ layoutType }: HeaderPropsType) => {
                 </div>
               ) : null}
 
-              {/* App Link Dropwown   */}
-
-              <Search />
-              <AppLinks />
             </div>
           </Navbar.Collapse>
 
@@ -131,12 +123,6 @@ const Header = ({ layoutType }: HeaderPropsType) => {
                   </span>
                 </div>
               )}
-
-              {/* Notification Dropdown */}
-              <Notifications />
-
-              {/* Language Dropdown*/}
-              <Language />
 
               {/* Profile Dropdown */}
               <Profile />

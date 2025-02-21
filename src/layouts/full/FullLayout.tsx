@@ -1,6 +1,5 @@
 import { FC, useContext } from 'react';
 import { Outlet } from "react-router";
-import { Customizer } from './shared/customizer/Customizer.tsx';
 import { CustomizerContext } from '../../context/CustomizerContext.tsx';
 import Sidebar from './vertical/sidebar/Sidebar.tsx';
 import Header from './vertical/header/Header.tsx';
@@ -44,7 +43,7 @@ const FullLayout: FC = () => {
               <Outlet/>
               </ScrollToTop>
             </div>
-            <Customizer />
+            {/* <Customizer /> */}
           </div>
         </div>
       </div>

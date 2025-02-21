@@ -7,6 +7,7 @@ import { saveChat } from "src/redux/slices/chatSlice.ts";
 import { AppDispatch } from "src/redux/store.ts";
 import VoiceRecorder from './VoiceRecorder';
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
+import { ObjectId } from "bson";
 
 
 const ChatMsgSent = () => {
@@ -20,6 +21,8 @@ const ChatMsgSent = () => {
   const { chat } = useSelector((state: any) => state.chat);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const selectedChat = chat[0];
+  const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
+
 
   const { isChildSwitch } = useContext(DashboardContext);
 
@@ -83,10 +86,10 @@ const ChatMsgSent = () => {
     console.log('I am here now ', isChildSwitch)
 
     dispatch(saveChat({
-      receiverId: selectedChat?.receiverId._id,
+      receiverId: selectedChat?.receiverId._id ?? '679f70fa087ddee39b7efc5b',
       senderId: user._id,
       content: messageToSend,
-      chatRoomId: selectedChat?.chatRoomId,
+      chatRoomId: selectedChat?.chatRoomId ?? chatRoomId,
       media: selectedAttachment,
       type: type,
       internalAI: isChildSwitch["knb"] ? "knb" : null,

@@ -48,7 +48,7 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item, tab }: any) => {
       selector={item.selector}
       className={
         Boolean(activeDD)
-          ? "!text-white bg-primary rounded-xl hover:bg-primary hover:text-white shadow-btnshdw"
+          ? "rounded-xl text-primary"
           : "rounded-xl dark:text-white/80 hover:text-primary"
       }
     >

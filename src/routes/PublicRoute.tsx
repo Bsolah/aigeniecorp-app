@@ -7,7 +7,7 @@ const PublicRoute = ({ children }: any) => {
 
     // If user is logged in, redirect to the dashboard
     if (user) {
-        return <Navigate to="/id/chats" />
+        return <Navigate to={`/${user?.organizations[0]?._id ?? 'id'}/chats`} />
     }
 
     return children;

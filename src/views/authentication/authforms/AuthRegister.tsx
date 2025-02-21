@@ -7,11 +7,12 @@ const AuthRegister = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [organization, setOrganization] = useState('');
   const dispatch: any = useDispatch();
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
-    dispatch(register({ username, email, password }));
+    dispatch(register({ username, org: organization, email, password }));
   };
 
   return (
@@ -25,6 +26,18 @@ const AuthRegister = () => {
             id="name"
             type="text"
             onChange={(e) => setUsername(e.target.value)}
+            sizing="md"
+            className="form-control"
+          />
+        </div>
+        <div className="mb-4">
+          <div className="mb-2 block">
+            <Label htmlFor="org" value="Organization" />
+          </div>
+          <TextInput
+            id="org"
+            type="text"
+            onChange={(e) => setOrganization(e.target.value)}
             sizing="md"
             className="form-control"
           />
@@ -56,7 +69,7 @@ const AuthRegister = () => {
         <Button color={'primary'} onClick={handleRegister} className="rounded-md  w-full">
           Sign Up
         </Button>
-      </form>
+      </form >
     </>
   );
 };

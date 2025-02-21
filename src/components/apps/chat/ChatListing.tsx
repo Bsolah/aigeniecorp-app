@@ -1,6 +1,4 @@
-import * as React from "react";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { Badge, Dropdown, TextInput, Label } from "flowbite-react";
+import { Badge, Label } from "flowbite-react";
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { formatDistanceToNowStrict } from "date-fns";
@@ -20,71 +18,7 @@ const ChatListing = () => {
   const { user } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
   const selectedChat = useSelector((state: any) => state.chat.chat);
-  const { data, loading, error } = useSelector((state: any) => state.chatRoom);
-  console.log({error})
-  console.log({loading})
-  console.log({data})
-
-  const DropdownAction = [
-    {
-      icon: "solar:settings-outline",
-      listtitle: "Setting",
-      divider: true,
-    },
-    {
-      icon: "solar:question-circle-outline",
-      listtitle: "Help and feedback",
-      divider: false,
-    },
-    {
-      icon: "solar:logout-2-outline",
-      listtitle: "Sign Out",
-      divider: false,
-    },
-  ];
-
-  // if (error && error.message) {
-  //   return (
-  //     <div>
-  //     <AnimatePresence>
-  //       {!!error && (
-  //         <Dialog
-  //           static
-  //           open={!!error}
-  //           onClose={() => {}}
-  //           className="relative z-50"
-  //         >
-  //           <motion.div
-  //             initial={{ opacity: 0 }}
-  //             animate={{ opacity: 1 }}
-  //             exit={{ opacity: 0 }}
-  //             className="fixed inset-0 bg-black/30"
-  //           />
-  //           <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-  //             <DialogPanel
-  //               as={motion.div}
-  //               initial={{ opacity: 0, scale: 0.95 }}
-  //               animate={{ opacity: 1, scale: 1 }}
-  //               exit={{ opacity: 0, scale: 0.95 }}
-  //               className="w-full max-w-md rounded-lg bg-white dark:bg-darkgray p-6 shadow-md dark:dark-shadow-md"
-  //             >
-  //               <DialogTitle className="text-lg font-semibold text-ld">
-  //                 Oops... Something went wrong
-  //               </DialogTitle>
-
-  //               <p>{error.message} </p>
-  //               <div className="flex justify-end gap-3 mt-5">
-
-  //                 {/* <button onClick={() => setIsOpen(false)} className="ui-button-small px-6 bg-lighterror">Cancel</button> */}
-  //                 <button onClick={() => dispatch(getChatsByCurrentUser())} className="ui-button-small px-6 bg-primary">Retry</button>
-  //               </div>
-  //             </DialogPanel>
-  //           </div>
-  //         </Dialog>
-  //       )}
-  //     </AnimatePresence>
-  //   </div>)
-  // }
+  const { data, loading } = useSelector((state: any) => state.chatRoom);
 
   if (loading || !data) {
     <div className="h-screen flex items-center justify-center bg-gray-100">
@@ -95,22 +29,18 @@ const ChatListing = () => {
   const {
     // chatData,
     chatSearch,
-
-    setChatSearch,
     setActiveChatId,
     activeChatId,
   } = useContext(ChatContext);
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChatSearch(event.target.value);
-  };
 
   const filteredChats = data?.filter((chat: any) =>
     chat.name.toLowerCase().includes(chatSearch.toLowerCase())
   );
 
-  const agentChats = filteredChats?.filter((item: any) => item.role === 'Agent');
-  const nonAgentChats = filteredChats?.filter((item: any) => item.role !== 'Agent');
+  console.log('filteredChats ', filteredChats)
+
+  const agentChats = filteredChats?.filter((item: any) => item.type === 'Agent');
+  // const nonAgentChats = filteredChats?.filter((item: any) => item.type !== 'Agent');
 
   const handleChatSelect = (chat: ChatsType) => {
     const chatId = chat.id;
@@ -127,7 +57,7 @@ const ChatListing = () => {
 
   const chatListMapping = (arrItems: any) => {
 
-    const isAgent = arrItems?.find((item: any) => item.role === 'Agent');
+    const isAgent = arrItems?.find((item: any) => item.type === 'Agent');
     let newArrItems = arrItems;
     if (isAgent) {
       const cbndAgentById = agentChats?.reduce((acc: any, obj: any) => {
@@ -152,7 +82,7 @@ const ChatListing = () => {
     }
 
     return <>
-      <Label className="flex justify-start h-8 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : 'Employees'}</Label>
+      <Label className="flex justify-start h-8 mt-4 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : ''}</Label>
       {newArrItems?.map((chat: any) => (<>
         <div
           key={chat.chatRoomId}
@@ -254,59 +184,12 @@ const ChatListing = () => {
               <p className="text-darklink dark:text-bodytext text-xs">{user?.role}</p>
             </div>
           </div>
-          <Dropdown
-            label=""
-            dismissOnClick={false}
-            renderTrigger={() => (
-              <span className="h-9 w-9 flex justify-center items-center rounded-full hover:bg-lightprimary hover:text-primary cursor-pointer ">
-                <HiOutlineDotsVertical size={22} />
-              </span>
-            )}
-          >
-            {DropdownAction.map((items, index) => (
-              <React.Fragment key={index}>
-                <Dropdown.Item className="flex gap-3">
-                  <Icon icon={`${items.icon}`} height={18} />
-                  <span>{items.listtitle}</span>
-                </Dropdown.Item>
-                {items.divider == true ? <Dropdown.Divider /> : null}
-              </React.Fragment>
-            ))}
-          </Dropdown>
-        </div>
-
-        <div className="px-6">
-          {/* Search box  */}
-          <div className="flex gap-3 bg-white dark:bg-transparent  py-5 items-center ">
-            <TextInput
-              id="search"
-              placeholder="Search contacts"
-              onChange={handleSearchChange}
-              value={chatSearch}
-              className="form-control w-full"
-              sizing="md"
-              required
-              icon={() => (
-                <Icon icon="solar:magnifer-line-duotone" height={18} />
-              )}
-            />
-          </div>
-
-          {/* Sorting */}
-          <div className="sorting mb-3">
-            <Dropdown label="Recent Chats">
-              <Dropdown.Item>Sort by Time</Dropdown.Item>
-              <Dropdown.Item>Sort by Unread</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item>Sort by Pinned</Dropdown.Item>
-            </Dropdown>
-          </div>
         </div>
 
         {/* Listing */}
-        <div className="max-h-[602px] h-[calc(100vh_-_100px)]">
+        <div className="max-h-[700px] h-[calc(100vh_-_100px)]">
           {chatListMapping(agentChats)}
-          {chatListMapping(nonAgentChats)}
+          {/* {chatListMapping(nonAgentChats)} */}
         </div>
       </div>
     </>

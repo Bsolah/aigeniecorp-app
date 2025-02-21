@@ -1,25 +1,25 @@
 // src/store/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../api/api';
+import dispatch from '../store';
 // import axios from 'axios';
 
 export const register = createAsyncThunk(
   'auth/register',
   async (
-    { username, email, password }: { username: string; email: string; password: string },
+    { username, org, email, password }: { username: string; org: string; email: string; password: string },
     { rejectWithValue },
   ) => {
     try {
-      const { data } = await API.post(
+      await API.post(
         '/api/auth/register',
-        { username, email, password },
+        { username, org, type: "Employee", email, password },
         { withCredentials: true },
       );
-      return data; // Assume response includes token and user data
+      const  data = await dispatch(login({ email: email, password: password }));
+       console.log('data  ', data)
+      return data?.payload;
     } catch (error) {
-      // if (API.isAxiosError(error) && error.response) {
-      //   return rejectWithValue(error.response.data);
-      // }
       return rejectWithValue(error);
     }
   },
@@ -29,21 +29,22 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const resp = await API.post(
+      const {data} = await API.post(
         '/api/auth/login',
         { email, password },
         { withCredentials: true },
       );
 
-      console.log({resp})
+      // Check authentication
+      const checkAuth = await API.get("/api/auth/check-auth", {
+        withCredentials: true,
+      });
 
-        // Check authentication
-        const { data } = await API.get("/api/auth/check-auth", {
-          withCredentials: true,
-        });
+      if(checkAuth?.data?.payload?.user?.id === data?.payload?.user?.id) {
         return data; // Assume response includes token and user data
-      
+      }
       return;
+
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -99,10 +100,10 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(register.fulfilled, (state, action: any) => {
+        console.log('i am here ', action)
         state.loading = false;
-        state.user = action.payload.user;
-        state.status = action.payload.message;
+        state.user = action.payload?.user;
       })
       .addCase(register.rejected, (state, action: any) => {
         state.loading = false;
