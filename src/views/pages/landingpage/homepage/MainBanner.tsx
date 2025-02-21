@@ -61,7 +61,7 @@ const MainBanner = () => {
                 <h5 className="text-17 text-ldfont-medium opacity-80 md:pt-0 pt-3">
                   <span style={{ fontSize: 'small' }}>With AI Genie, you get: </span>
                 </h5>
-                <div className="lg:justify-self-start trapezoid justify-self-center  p-2 text-dark mt-2 w-45" id="bannerL"></div>
+                <div className="lg:mx-0 trapezoid mx-auto  p-2 text-dark mt-2 w-45" id="bannerL"></div>
               </div>
               <ul className="flex flex-wrap lg:justify-start justify-center gap-5 pb-7 md:pt-4 ml-0">
                 {/* {Technology.map((item, index) => (
