@@ -26,7 +26,7 @@ const FullLayout: FC = () => {
           )}
 
           <div
-            className={`bg-lightgray dark:bg-dark  h-full ${
+            className={`bg-lightgray dark:bg-dark  h-[calc(100vh_-_100px)] ${
               activeLayout != "horizontal" ? "rounded-bb" : "rounded-none"
             } `}
           >

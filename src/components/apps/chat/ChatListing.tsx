@@ -9,16 +9,14 @@ import user2 from '/src/assets/images/profile/user-2.jpg';
 import { getChatByRoomId, startNewChat, deleteChatByRoomId } from "src/redux/slices/chatSlice";
 import { AppDispatch } from "src/redux/store";
 import { MessageType } from "src/types/apps/chat";
-// import { getChatsByCurrentUser } from "src/redux/slices/chatRoomSlice";
-// import { AnimatePresence, motion } from "framer-motion";
-// import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 const ChatListing = () => {
 
   const { user } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
-  const selectedChat = useSelector((state: any) => state.chat.chat);
-  const { data, loading } = useSelector((state: any) => state.chatRoom);
+  const {selectedChat, data, loading} = useSelector((state: any) => state.chat);
+  // console.log('selected Chat ', selected)
+  // const { data, loading } = useSelector((state: any) => state.chatRoom);
 
   if (loading || !data) {
     <div className="h-screen flex items-center justify-center bg-gray-100">
@@ -81,11 +79,12 @@ const ChatListing = () => {
       newArrItems = cbndAgentById;
     }
 
+
     return <>
       <Label className="flex justify-start h-8 mt-4 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : ''}</Label>
       {newArrItems?.map((chat: any) => (<>
         <div
-          key={chat.chatRoomId}
+          key={`${chat.id}/${chat.lastMessageDate}-parent`}
           className={`cursor-pointer py-4 px-6 gap-0 flex justify-between group bg-hover ${activeChatId === chat.id
             ? "bg-lighthover dark:bg-darkmuted"
             : "initial"
@@ -142,7 +141,7 @@ const ChatListing = () => {
           {/* } */}
         </div>
         {isAgent && chat.lastMessage.map((item: any) => {
-          return (<div key={item.id} onClick={() => handleChatSelect(item)} className="flex justify-between p-2 text-xs text-ld opacity-90 cursor-pointer px-6 hover:bg-lightsecondary hover:dark:bg-lightsecondary bg-gray-50 border-gray-100 border-t  delete-icon-container">
+          return (<div key={`${item.id}-child`} onClick={() => handleChatSelect(item)} className="flex justify-between p-2 text-xs text-ld opacity-90 cursor-pointer px-6 hover:bg-lightsecondary hover:dark:bg-lightsecondary bg-gray-50 border-gray-100 border-t  delete-icon-container">
             <div className="truncated ">
               {item?.content}
             </div>
@@ -152,7 +151,7 @@ const ChatListing = () => {
             <div>
               {formatDistanceToNowStrict(new Date(item.date), {
                 addSuffix: false,
-              })}
+              }).replace('second', 'sec').replace('minute', 'min')}
             </div>
           </div>)
         })}
@@ -187,7 +186,7 @@ const ChatListing = () => {
         </div>
 
         {/* Listing */}
-        <div className="max-h-[700px] h-[calc(100vh_-_100px)]">
+        <div className="max-h-[1250px] h-[calc(100vh_-_270px)]">
           {chatListMapping(agentChats)}
           {/* {chatListMapping(nonAgentChats)} */}
         </div>

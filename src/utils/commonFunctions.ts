@@ -42,7 +42,7 @@ export const structureFolder = (rawFolder: FolderType): MenuItem => {
         icon: "flat-color-icons:opened-folder",
         url: folderTree.url || "",
 
-        
+
         children: [
             // Recursively process child folders
             ...(rawFolder?.child?.map(item => structureFolder(item)) || []),
@@ -60,9 +60,41 @@ export const structureFolder = (rawFolder: FolderType): MenuItem => {
     };
 };
 
-export const formatChatMessage = (text: string) => {
+export const formatChatMessage: any = (text: string) => {
 
-    console.log('text ', text)
+
+
+    // Split rows by newline
+    // const rows = text.split('\n');
+    // if (rows && rows.length > 2) {
+        // // Create table element
+        // const table = document.createElement('table');
+        // table.border = '1'; // Optional: adds borders for visibility
+
+        // // Populate table rows
+        // rows.forEach((row, index) => {
+        //     const tr = document.createElement('tr');
+        //     const cells = row.split(',');
+
+        //     cells.forEach(cell => {
+        //         const td = document.createElement(index === 0 ? 'th' : 'td'); // Use <th> for the first row (header)
+        //         td.textContent = cell.trim();
+        //         tr.appendChild(td);
+        //     });
+
+        //     table.appendChild(tr);
+        // });
+        // const outputElement = document?.getElementById('output');
+        // // console.log('heere ', outputElement, table)
+        // if (outputElement) {
+        //     outputElement.appendChild(table);
+        // }
+        // return outputElement;
+    // } else {
+        // console.log('text ', text)\
+        text = text.replace(/\n/g, "<br>");
+    // }
+
     if (text.includes("Private Data Detected:")) {
         return text
             .replace("Private Data Detected:", `<strong>Private Data Detected:</strong> <br>`)
@@ -82,7 +114,7 @@ export const formatChatMessage = (text: string) => {
             .replace("Best regards,", `Best regards, <br> <br>`)
             .replace("Kawtar Lahlou", `Kawtar Lahlou<br>`)
     } else if (text.includes("There appears to be a discrepancy in your knowledge base")) {
-        console.log('text ', text)
+        // console.log('text ', text)
         return text
             .replace(":warning: There appears to be a discrepancy in your knowledge base.", `⚠️ <strong>There appears to be a discrepancy in your knowledge base.</strong> <br> <br>`)
             .replace("cash transactions is $10,000,", `cash transactions is <strong>$10,000</strong>`)

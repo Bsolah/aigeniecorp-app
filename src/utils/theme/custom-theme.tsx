@@ -102,7 +102,7 @@ const customTheme = {
   card: {
     root: {
       base: "flex rounded-tw  shadow-md dark:shadow-none bg-white dark:bg-darkgray p-[30px] relative w-full break-words",
-      children: "flex h-full flex-col justify-center gap-2 p-0",
+      children: "flex h-auto flex-col justify-center gap-2 p-0",
     },
   },
 

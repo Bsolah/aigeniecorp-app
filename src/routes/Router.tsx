@@ -18,7 +18,7 @@ const ForgotPassword = Loadable(
 );
 
 const TwoSteps = Loadable(lazy(() => import('../views/authentication/auth1/TwoSteps.tsx')));
-const Maintainance = Loadable(lazy(() => import('../views/authentication/Maintainance.tsx')));
+const Maintenance = Loadable(lazy(() => import('../views/authentication/Maintainance.tsx')));
 
 // landingPage
 const LandingPage = Loadable(lazy(() => import('../views/pages/landingpage/index.tsx')));
@@ -67,7 +67,7 @@ const Router = [
       { path: '/auth/register', element: <PublicRoute children={<Register />} /> },
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
       { path: '/auth/two-steps', element: <TwoSteps /> },
-      { path: '/auth/maintenance', element: <Maintainance /> },
+      { path: '/auth/maintenance', element: <Maintenance /> },
       { path: '404', element: <Error /> },
       { path: '/auth/404', element: <Error /> },
       { path: '*', element: <Navigate to="/auth/404" /> },

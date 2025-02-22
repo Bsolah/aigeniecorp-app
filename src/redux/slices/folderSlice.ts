@@ -3,20 +3,23 @@ import API from "../../api/api";
 
 export const createFolder = createAsyncThunk('folder/create', async ({ name, parent }: any, { rejectWithValue }) => {
     try {
-        const { data } = await API.post(`/api/folders/create/`, { name, parent }, { withCredentials: true });
-        return data;
+        const response = await API.post(`/api/folders/create/`, { name, parent }, { withCredentials: true });
+        return response;
     } catch (error) {
         return rejectWithValue(error);
     }
 });
 
-export const getFolders = createAsyncThunk('folder/get', async (_, { rejectWithValue }) => {
-    try {
-        const { data } = await API.get(`/api/folders/all`, { withCredentials: true });
+export const getFolders = createAsyncThunk('folder/get', async (_, { 
+    // rejectWithValue 
+}) => {
+    // try {
+        const {data} = await API.get(`/api/folders/all`, { withCredentials: true });
         return data;
-    } catch (error) {
-        return rejectWithValue(error);
-    }
+    // } catch (error) {
+    //     console.log('inner here ', error)
+    //     return rejectWithValue(error);
+    // }
 });
 
 const folderSlice = createSlice({
@@ -25,7 +28,7 @@ const folderSlice = createSlice({
         folder: [],
         loading: false,
         status: null,
-        error: null,
+        error: null as any,
     },
     reducers: {
         resetError: (state) => {
@@ -55,13 +58,16 @@ const folderSlice = createSlice({
                 state.error = null;
             })
             .addCase(getFolders.fulfilled, (state, action: any) => {
-                console.log({ action })
                 state.folder = action.payload.folders;
                 state.loading = false;
             })
             .addCase(getFolders.rejected, (state, action: any) => {
                 state.loading = true;
-                state.error = action.payload;
+                state.error = {
+                    message: action.payload?.message,
+                    status: action.payload?.status,
+                    data: action.payload?.response?.data
+                  }
             })
     },
 });

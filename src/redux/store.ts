@@ -4,7 +4,6 @@ import aiReducer from './slices/aiSlice.ts';
 import articleReducer from './slices/articleSlice.ts';
 import authReducer from './slices/authSlice.ts';
 import chatReducer from './slices/chatSlice.ts';
-import conversationReducer from './slices/chatRoomSlice';
 import folderReducer from './slices/folderSlice.ts';
 import leadReducer from './slices/leadSlice.ts';
 import { persistStore as reduxPersistStore, persistReducer } from 'redux-persist';
@@ -23,7 +22,6 @@ const persistedArticleReducer = persistReducer(persistConfig, articleReducer);
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 const persistedChatReducer = persistReducer(persistConfig, chatReducer);
 const persistedFolderReducer = persistReducer(persistConfig, folderReducer);
-const persistedChatRoomReducer = persistReducer(persistConfig, conversationReducer);
 
 export const store = configureStore({
     reducer: {
@@ -31,7 +29,6 @@ export const store = configureStore({
         article: persistedArticleReducer,
         auth: persistedAuthReducer,
         chat: persistedChatReducer,
-        chatRoom: persistedChatRoomReducer,
         folders: persistedFolderReducer,
         lead: leadReducer,
     },

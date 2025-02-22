@@ -18,7 +18,7 @@ export const saveChat = createAsyncThunk(
       formData.append('externalAI', JSON.stringify(externalAI));
 
       console.log('formData ',formData);      
-      const { data } = await API.post(`/api/chat/save/${senderId}`, formData, { withCredentials: true });
+      const {data} = await API.post(`/api/chat/save/${senderId}`, formData, { withCredentials: true });
       return data; // Assume response includes token and user data
     } catch (error) {
       return rejectWithValue(error);  }
@@ -39,18 +39,31 @@ export const startNewChat = createAsyncThunk('chat/startNewChat', async (_, { re
     return rejectWithValue(error);  }
 });
 
-export const getChatByRoomId = createAsyncThunk('chat/get', async ({chatRoomId}: {chatRoomId: any}, { rejectWithValue }) => {
-  try {
-    const { data } = await API.get(`/api/chat/get/${chatRoomId}`, { withCredentials: true });
+export const getChatByRoomId = createAsyncThunk('chat/get', async ({chatRoomId}: {chatRoomId: any}, { }) => {
+  // try {
+    const {data} = await API.get(`/api/chat/get/${chatRoomId}`, { withCredentials: true });
     return data;
-  } catch (error) {
-    return rejectWithValue(error);  
-  }
+  // } catch (error) {
+    // return rejectWithValue({
+    //   message: error?.message,
+    //   status: error.status,
+    //   data: action.payload?.response?.data
+    // });  
+  // }
+});
+
+export const getChatsByCurrentUser = createAsyncThunk('chat/get/rooms', async (_, { }) => {
+  // try {
+    const {data} = await API.get(`/api/chat/get/rooms`, { withCredentials: true });
+    return data;
+  // } catch (error) {
+  //   return rejectWithValue(error);
+  // }
 });
 
 export const deleteChatByRoomId = createAsyncThunk('chat/remove', async ({ room }: { room: string }, { rejectWithValue }) => {
   try {
-    const { data } = await API.delete(`/api/chat/remove/${room}`, { withCredentials: true });
+    const {data} = await API.delete(`/api/chat/remove/${room}`, { withCredentials: true });
     return data;
   } catch (error) {
     return rejectWithValue(error);  
@@ -60,17 +73,18 @@ export const deleteChatByRoomId = createAsyncThunk('chat/remove', async ({ room 
 const chatSlice = createSlice({
   name: 'chat',
   initialState: {
-    chat: [] as any[],
+    selectedChat: [] as any[],
+    data: [] as any[],
     loading: false,
     status: null,
-    error: null,
+    error: null as any,
   },
   reducers: {
     resetError: (state) => {
       state.error = null;
     },
     clearChat: (state, action) => {
-      state.chat = action.payload;
+      state.selectedChat = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -83,12 +97,10 @@ const chatSlice = createSlice({
       .addCase(saveChat.fulfilled, (state, action) => {
         state.loading = false;
         state.status = action.payload;
-
-        // state.chat = 
       })
       .addCase(saveChat.rejected, (state, action: any) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload?.message;
       })
 
       // Get Chat
@@ -97,7 +109,7 @@ const chatSlice = createSlice({
         state.error = null;
       })
       .addCase(getChatByRoomId.fulfilled, (state, action) => {
-        state.chat = action.payload;
+        state.selectedChat = action.payload;
         state.loading = false;
       })
       .addCase(getChatByRoomId.rejected, (state, action: any) => {
@@ -112,8 +124,7 @@ const chatSlice = createSlice({
         state.error = null;
       })
       .addCase(startNewChat.fulfilled, (state, action) => {
-        console.log('action [atlond ', action.payload)
-        state.chat = action.payload;
+        state.selectedChat = action.payload;
         state.loading = false;
       })
       .addCase(startNewChat.rejected, (state, action: any) => {
@@ -121,6 +132,23 @@ const chatSlice = createSlice({
         state.error = action.payload;
       })
 
+       // Get Chat Room
+       .addCase(getChatsByCurrentUser.pending, (state: any) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getChatsByCurrentUser.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = false;
+      })
+      .addCase(getChatsByCurrentUser.rejected, (state, action: any) => {
+        state.loading = false;
+        state.error = {
+          message: action.payload?.message,
+          status: action.payload?.status,
+          data: action.payload?.response?.data
+        }
+      })
 
       // Delete Chat
       .addCase(deleteChatByRoomId.pending, (state: any) => {

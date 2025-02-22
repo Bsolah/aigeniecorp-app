@@ -16,8 +16,8 @@ export const register = createAsyncThunk(
         { username, org, type: "Employee", email, password },
         { withCredentials: true },
       );
-      const  data = await dispatch(login({ email: email, password: password }));
-       console.log('data  ', data)
+      const data = await dispatch(login({ email: email, password: password }));
+      console.log('data  ', data)
       return data?.payload;
     } catch (error) {
       return rejectWithValue(error);
@@ -29,24 +29,47 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const {data} = await API.post(
-        '/api/auth/login',
-        { email, password },
-        { withCredentials: true },
-      );
+    const {data} = await API.post(
+      '/api/auth/login',
+      { email, password },
+      { withCredentials: true },
+    );
 
+    // Check authentication
+    const checkAuth = await API.get("/api/auth/check-auth", {
+      withCredentials: true,
+    });
+
+    if (checkAuth?.data?.payload?.user?.id === data?.payload?.user?.id) {
+      return data; // Assume response includes token and user data
+    }
+    return;
+
+    } catch (error: any) {      
+      return rejectWithValue({
+        message: error.response?.data,
+        status: error.response?.status,
+      });
+    }
+  },
+);
+
+export const verifyAuth = createAsyncThunk(
+  'auth/verify',
+  async (_, { rejectWithValue }) => {
+    try {
       // Check authentication
-      const checkAuth = await API.get("/api/auth/check-auth", {
+      const {data} = await API.get("/api/auth/check-auth", {
         withCredentials: true,
       });
 
-      if(checkAuth?.data?.payload?.user?.id === data?.payload?.user?.id) {
-        return data; // Assume response includes token and user data
-      }
-      return;
+      return data;
 
-    } catch (error) {
-      return rejectWithValue(error);
+    } catch (error: any) {
+      return rejectWithValue( {
+        message: error.response?.data?.message,
+        status: error?.status,
+      });
     }
   },
 );
@@ -66,7 +89,7 @@ const authSlice = createSlice({
     user: null,
     token: null,
     loading: false,
-    error: null,
+    error: null as any,
     status: '',
   },
   reducers: {
@@ -83,11 +106,31 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
+        state.user = action.payload?.user;
       })
       .addCase(login.rejected, (state, action: any) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = {
+          message: action.payload?.message,
+          status: action.payload?.status,
+        }
+      })
+
+      // Verify Auth
+      .addCase(verifyAuth.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyAuth.fulfilled, (state, action) => {
+        state.loading = false;
+        state.token = action.payload;
+      })
+      .addCase(verifyAuth.rejected, (state, action: any) => {
+        state.loading = false;
+        state.error = {
+          message: action.payload?.message,
+          status: action.payload?.status,
+        }
       })
 
       // Logout
@@ -101,7 +144,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action: any) => {
-        console.log('i am here ', action)
         state.loading = false;
         state.user = action.payload?.user;
       })

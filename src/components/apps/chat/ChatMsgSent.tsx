@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react";
-import EmojiPicker from 'emoji-picker-react';
 import { TextInput } from "flowbite-react";
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveChat } from "src/redux/slices/chatSlice.ts";
 import { AppDispatch } from "src/redux/store.ts";
@@ -11,116 +10,98 @@ import { ObjectId } from "bson";
 
 
 const ChatMsgSent = () => {
-  // const chatEndRef = useRef<HTMLDivElement>(null);
   const [showRecording, setShowRecording] = useState(false);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const user = useSelector((state: any) => state.auth.user);
   const [msg, setMsg] = useState<string>("");
   const dispatch: AppDispatch = useDispatch();
   const [type, setType] = useState<string>('text');
-  const { chat } = useSelector((state: any) => state.chat);
+  const { selectedChat } = useSelector((state: any) => state.chat);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const selectedChat = chat[0];
+  const [fullSizeImage, setFullSizeImage] = useState<any>(null);
+  const [preview, setPreview] = useState<any>(null);
+  const [isFullSize, setIsFullSize] = useState<any>(null);
+  const activeChat = selectedChat[0];
   const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
-
-
   const { isChildSwitch } = useContext(DashboardContext);
-
 
   const handleChatMsgChange = (e: ChangeEvent<HTMLInputElement>) => {
     setType('text');
     setMsg(e.target.value);
   };
 
-  const onChatMsgSubmit = (e: FormEvent<HTMLFormElement>) => {
+  console.log('chatRoomId ', chatRoomId)
+
+  const onChatMsgSubmit = (e: any) => {
+    console.log('press 2')
+    if (e.key === 'Enter') {
     e.preventDefault();
-    if (!msg.trim()
-      // || !selectedChat
-    ) return;
+    if (!msg.trim() && !selectedFile) return;
     setType('text');
-    sendMessages();
-    // setShowPrompts(false)
+    sendMessages(msg, selectedFile);
     setMsg("");
-  };
-
-  const handleSubmit = (selectedPrompt: any) => {
-
-    setType('text');
-    sendMessages(selectedPrompt);
-    // setShowPrompts(false);
-    setMsg("");
-
-  }
-
-  // const scrollToBottom = () => {
-  //   chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
-
-  const handleEmojiClick = (emojiObject: any) => {
-    setMsg((prevText) => prevText + emojiObject.emoji);
-  };
-
-  const handleFileSelect = (
-    event: ChangeEvent<HTMLInputElement>,
-    type: 'image' | 'file' | 'text' | 'audio',
-  ) => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      // setSelectedFile(file);
-      // setType(type);
-      sendMessages(`${type} attached`, file);
-      // scrollToBottom();
-      removeFile()
-      setMsg("")
     }
   };
 
-  const removeFile = () => {
-    setSelectedFile(null);
+  const handleSubmit = () => {
+
+    console.log('press 1')
+    setType('text');
+    sendMessages(msg, selectedFile);
+    setMsg("");
+  }
+
+
+
+  const handleFileChange = (event: any) => {
+    const uploadedFile = event.target.files[0];
+    if (uploadedFile) {
+      setSelectedFile(uploadedFile);
+
+      // Check if the uploaded file is an image
+      if (uploadedFile.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreview(reader.result);
+          setFullSizeImage(reader.result);
+        };
+        reader.readAsDataURL(uploadedFile);
+      }
+
+      else {
+        setPreview(null);
+        setFullSizeImage(null);
+      }
+    }
   };
 
-  const sendMessages = async (selectedPrompt?: any, selectedAttachment?:any) => {
+  const handleRemove = () => {
+    setSelectedFile(null);
+    setPreview(null);
+    setIsFullSize(null);
+  };
+
+  const sendMessages = async (selectedPrompt?: any, selectedAttachment?: any) => {
 
     const messageToSend = selectedPrompt ? selectedPrompt : msg;
-    
-    console.log('I am here now ', isChildSwitch)
+
+    console.log('I am here now ', activeChat)
 
     dispatch(saveChat({
-      receiverId: selectedChat?.receiverId._id ?? '679f70fa087ddee39b7efc5b',
+      receiverId: '679f70fa087ddee39b7efc5b',
       senderId: user._id,
       content: messageToSend,
-      chatRoomId: selectedChat?.chatRoomId ?? chatRoomId,
+      chatRoomId: activeChat?.chatRoomId ?? chatRoomId,
       media: selectedAttachment,
       type: type,
       internalAI: isChildSwitch["knb"] ? "knb" : null,
       externalAI: isChildSwitch,
     }));
-    // 
-    // const currentSelectedId = selectedChat?.chatRoomId;
-    // dispatch(getChatByRoomId({ chatRoomId: currentSelectedId }));
+    handleRemove();
   }
 
   return (
     <>
-      {/* {showPrompts && initialPrompts && <div className="flex flex-row mb-[50px] relative -top-[50px] justify-center"> {initialPrompts.map((item: string) =>
-        item !== "" && (<Button onClick={() => handleSubmit(item)} size="xs" color="lightinfo" className="rounded-lg mx-[5px]" >
-          {item}
-        </Button>)
-      )}</div>} */}
       <div>
-        {showEmojiPicker && (
-          <div className="relative">
-            <div
-              style={{
-                position: 'absolute',
-                bottom: 0,
-              }}
-            >
-              <EmojiPicker onEmojiClick={handleEmojiClick} />
-            </div>
-          </div>
-        )}
-
         {showRecording && (
           <VoiceRecorder
             onRecordingStop={(e: any) => {
@@ -135,7 +116,7 @@ const ChatMsgSent = () => {
           />
         )}
 
-        {selectedFile && type != 'audio' && (
+        {/* {selectedFile && type != 'audio' && (
           <div className="p-3 border rounded-lg mb-3 flex items-center justify-between">
             <div>
               {selectedFile.type.startsWith('image') ? (
@@ -152,16 +133,10 @@ const ChatMsgSent = () => {
               <Icon icon="solar:trash-bin-2-linear" height="20" />
             </button>
           </div>
-        )}
+        )} */}
 
-        <form onSubmit={onChatMsgSubmit}>
+        <form onKeyDown={onChatMsgSubmit} onSubmit={onChatMsgSubmit}>
           <div className="flex gap-3 items-center py-5 px-5">
-            <div>
-              <div className="btn-circle-hover cursor-pointer"
-                onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
-                <Icon icon="solar:sticker-smile-circle-2-linear" height="20" />
-              </div>
-            </div>
             <TextInput
               className="form-control-chat border-0 w-full"
               sizing="md"
@@ -170,39 +145,60 @@ const ChatMsgSent = () => {
               value={msg}
               onChange={handleChatMsgChange}
             />
+            {preview && (
+              <div className="relative mt-2">
+                <img src={preview} alt="Preview" onClick={() => setIsFullSize(true)} // Click to open full size
+                  className="w-12 h-12 object-cover rounded cursor-pointer" />
+                <button
+                  onClick={handleRemove}
+                  className="absolute -top-2 -right-2 w-4 h-4 flex items-center justify-center bg-error text-white text-xs rounded-full shadow-lg hover:bg-red-600"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+
+            {isFullSize && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
+                {/* Full-size image */}
+                <img
+                  src={fullSizeImage}
+                  alt="Full Size"
+                  className="max-w-full max-h-full cursor-pointer"
+                  onClick={() => setIsFullSize(false)} // Click to close
+                />
+                {/* Close button */}
+                <button
+                  onClick={() => setIsFullSize(false)}
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white text-black text-lg rounded-full shadow-lg hover:bg-gray-300"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+
             <div className="flex gap-3 items-center">
+
+              <div className="btn-circle-hover cursor-pointer">
+                <input
+                  type="file"
+                  className="hidden"
+                  id="file-input-file"
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="file-input-file" className="cursor-pointer">
+                  <Icon icon="solar:paperclip-outline" height="20" />
+                </label>
+              </div>
               <div className="btn-circle-hover cursor-pointer ">
                 <Icon icon="solar:plain-linear"
                   height="20"
                   onClick={handleSubmit}
                 />
               </div>
-              <div className="btn-circle-hover cursor-pointer">
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  id="file-input-image"
-                  onChange={(e) => handleFileSelect(e, 'image')}
-                />
-                <label htmlFor="file-input-image" className="cursor-pointer">
-                  <Icon icon="solar:gallery-add-linear" height="20" />
-                </label>
-              </div>
-              <div className="btn-circle-hover cursor-pointer">
-                <input
-                  type="file"
-                  className="hidden"
-                  id="file-input-file"
-                  onChange={(e) => handleFileSelect(e, 'file')}
-                />
-                <label htmlFor="file-input-file" className="cursor-pointer">
-                  <Icon icon="solar:paperclip-outline" height="20" />
-                </label>
-              </div>
-              <div className="btn-circle-hover cursor-pointer">
+              {/* <div className="btn-circle-hover cursor-pointer">
                 <Icon icon="solar:microphone-2-outline" height="20" />
-              </div>
+              </div> */}
             </div>
           </div>
         </form>

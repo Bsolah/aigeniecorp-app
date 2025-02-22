@@ -52,12 +52,14 @@
     "simplebar": "^6.3.0",
     "simplebar-react": "^3.3.0",
     "stylis-plugin-rtl": "^2.1.1",
+    "tailwind-scrollbar-hide": "^2.0.0",
     "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@iconify/react": "^5.1.0",
     "@types/aos": "^3.0.7",
     "@types/chance": "^1.1.6",
+    "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.17.15",
     "@types/lowlight": "^0.0.7",
     "@types/node": "20.10.5",

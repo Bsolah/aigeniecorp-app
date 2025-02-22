@@ -5,9 +5,10 @@ import customTheme from './utils/theme/custom-theme.tsx';
 import router from "./routes/Router.tsx";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from './redux/store.ts';
-import { getChatsByCurrentUser } from './redux/slices/chatRoomSlice.ts';
+import { getChatsByCurrentUser } from './redux/slices/chatSlice.ts';
 import { getFolders } from './redux/slices/folderSlice.ts';
 import { useEffect } from "react";
+import AutoLogout from "./routes/AutoLogout.tsx";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <ThemeModeScript />
       <Flowbite theme={{ theme: customTheme }}>
       <RouterProvider router={router} />
+      <AutoLogout />
       </Flowbite>
     </>
   );

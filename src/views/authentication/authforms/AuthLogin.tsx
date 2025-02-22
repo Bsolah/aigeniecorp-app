@@ -21,7 +21,7 @@ const AuthLogin = () => {
 
   return (
     <>
-      {error && (<ErrorBanner information={'Failed to login'} action={() => dispatch(resetError())} />)}
+      {(error?.status === 400) && (<ErrorBanner information={error.message} action={() => dispatch(resetError())} />)}
 
       <form className="mt-6">
         <div className="mb-4">

@@ -7,8 +7,8 @@ export const createArticle = createAsyncThunk(
     'article/create',
     async ({ name, content, parent, tags, categories }: any, { rejectWithValue }) => {
         try {
-            const { data } = await API.post(`/api/articles/create/`, { content, name, tags, categories, parent }, { withCredentials: true });
-            return data;
+            const response = await API.post(`/api/articles/create/`, { content, name, tags, categories, parent }, { withCredentials: true });
+            return response;
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -19,8 +19,8 @@ export const updateArticle = createAsyncThunk(
     'article/update',
     async ({ name, content, parentId, tags, categories, id }: any, { rejectWithValue }) => {
         try {
-            const { data } = await API.put(`/api/articles/edit/${id}`, { content, name, tags, categories, parentId }, { withCredentials: true });
-            return data;
+            const response = await API.put(`/api/articles/edit/${id}`, { content, name, tags, categories, parentId }, { withCredentials: true });
+            return response;
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -32,9 +32,8 @@ export const deleteArticle = createAsyncThunk(
     async ({ id }: any, { rejectWithValue }) => {
         try {
             console.log('about to enter')
-            const { data } = await API.delete(`/api/articles/delete/${id}`, { withCredentials: true });
-            console.log('I got an answer ', data)
-            return data;
+            const response = await API.delete(`/api/articles/delete/${id}`, { withCredentials: true });
+            return response;
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -45,8 +44,8 @@ export const writeArticleWithAI = createAsyncThunk(
     'article/aiCreate',
     async ({ title, content, parentId, tags, categories }: any, { rejectWithValue }) => {
         try {
-            const { data } = await API.post(`/api/article/create/ai`, { content, title, tags, categories, parentId }, { withCredentials: true });
-            return data;
+            const response = await API.post(`/api/article/create/ai`, { content, title, tags, categories, parentId }, { withCredentials: true });
+            return response;
             // Assume response includes token and user data
         } catch (error) {
             return rejectWithValue(error);
@@ -58,8 +57,8 @@ export const publishArticle = createAsyncThunk(
     'article/publish',
     async ({ id, content }: any, { rejectWithValue }) => {
         try {
-            const { data } = await API.post(`/api/article/publish/${id}`, { content }, { withCredentials: true });
-            return data;
+            const response = await API.post(`/api/article/publish/${id}`, { content }, { withCredentials: true });
+            return response;
             // Assume response includes token and user data
         } catch (error) {
             return rejectWithValue(error);
