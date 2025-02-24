@@ -6,8 +6,6 @@ import user2 from '/src/assets/images/profile/user-2.jpg';
 import { useSelector } from 'react-redux';
 import { formatChatMessage } from '../../../utils/commonFunctions.ts';
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
-import TypewriterEffect from './TypewriterEffect.tsx';
-
 
 const ChatContent = () => {
   const [isRightSide] = useState(false);
@@ -17,7 +15,6 @@ const ChatContent = () => {
   const chatRoomList = useSelector((state: any) => state.chat.data)
   const { isChildSwitch } = useContext(DashboardContext);
 
-  console.log('selected caht ', selectedChat)
 
   useEffect(() => {
     if (selectedChat) {
@@ -71,7 +68,7 @@ const ChatContent = () => {
               >
                 <div>
                   <>
-                    {selectedChat && selectedChat?.map((msg: any, index: any) => (
+                    {selectedChat && selectedChat?.map((msg: any) => (
                       <div className="flex gap-3 mb-[30px]" key={msg.id + msg.createdAt}>
                         {!(user.username === msg?.senderId?.username) ? (
                           <div className="flex gap-3">
@@ -94,9 +91,7 @@ const ChatContent = () => {
                                   ago
                                 </div>
                                 <div className="p-2 bg-muted dark:bg-darkmuted text-ld rounded-md">
-                                  {(index === selectedChat.length - 1) ?
-                                    <TypewriterEffect response={formatChatMessage(msg.content)} /> :
-                                    <div className='confidential-container' dangerouslySetInnerHTML={{ __html: formatChatMessage(msg.content) }} />}
+                                  <div className='confidential-container' dangerouslySetInnerHTML={{ __html: formatChatMessage(msg.content) }} />
                                 </div>
                               </div>
                             ) : null}

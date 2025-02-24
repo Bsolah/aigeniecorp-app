@@ -24,7 +24,7 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item, tab }: any) => {
   const [translatedLabel, setTranslatedLabel] = useState<string | null>(null);
 
   // Manage open/close state for the collapse
-  const [isOpen, setIsOpen] = useState<boolean>(!activeDD);
+  const [isOpen, setIsOpen] = useState<boolean>(tab === 'AI Models' ? !activeDD : activeDD);
 
   useEffect(() => {
     const loadTranslation = async () => {
@@ -42,20 +42,24 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item, tab }: any) => {
   return (
     <CustomCollapse
       label={translatedLabel || `${item.name}`}
+      id={`${item.id}`}
+      parentId={`${item.parentId}`}
       open={isOpen}
+      tab={tab}
       onClick={handleToggle}
       icon={item.icon} 
       selector={item.selector}
       className={
         Boolean(activeDD)
-          ? "rounded-xl text-primary"
-          : "rounded-xl dark:text-white/80 hover:text-primary"
+          ? "rounded-sm text-primary"
+          : "rounded-sm dark:text-white/80"
       }
     >
       {/* Render child items */}
       {item.children && (
         <div className="sidebar-dropdown">
-          {item.children.map((child: any) => (
+          {item.children.map((child: any) => {
+            return (
             <React.Fragment key={child.id}>
               {child.children ? (
                 <NavCollapse item={child} tab={tab} /> // Recursive call for nested collapse
@@ -63,7 +67,7 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item, tab }: any) => {
                 <NavItems item={child} tab={tab}  /> 
               )}
             </React.Fragment>
-          ))}
+          )})}
         </div>
       )}
     </CustomCollapse>

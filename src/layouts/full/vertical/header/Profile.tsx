@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { Badge, Dropdown } from "flowbite-react";
 import { useDispatch } from 'react-redux';
-// import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { AppDispatch } from '../../../../redux/store.ts';
 import * as profileData from "./Data.ts";
 import profileImg from "/src/assets/images/profile/user-1.jpg"
@@ -12,12 +12,13 @@ const Profile = () => {
 
   const { user } = useSelector((state: any) => state.auth)
   const dispatch = useDispatch<AppDispatch>();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = (items: any) => {
     if (items.title === "Sign Out") {
       dispatch(logout());
-      // navigate("/auth/login")
+    } else {
+      navigate(items.url)
     }
   };
 
@@ -64,14 +65,14 @@ const Profile = () => {
           </div>
         </div>
         <div>
-          {profileData.profileDD.map((items, index) => (
+          {profileData.profileDD.map((items: any, index: any) => (
             <div key={index} className="px-6 mb-2">
               <Dropdown.Item
                 className="px-3 py-2 flex justify-between items-center bg-hover group/link w-full rounded-md"
                 key={index}
               >
                 <div className="flex items-center w-full ">
-                  <div className=" flex gap-3 w-full ">
+                  <div className=" flxex gap-3 w-full ">
                     <h5 onClick={() => handleClick(items)} className="text-15 font-normal group-hover/link:text-primary">
                       {items.title}
                     </h5>

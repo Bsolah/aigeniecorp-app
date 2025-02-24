@@ -108,19 +108,19 @@ const SidebarContent: MenuItem[] = [
         children: [],
       },
       {
-        heading: "Add More",
+        heading: "More",
         children: [
           {
             id: uniqueId(),
-            url: "/id/repository/new-page",
-            name: "New Page",
+            url: "/id/repository/drafts",
+            name: "My Contents",
             icon: "solar:document-text-outline",
             color: "text-primary",
           },
           {
             id: uniqueId(),
-            url: "/id/repository/drafts",
-            name: "Drafts",
+            url: "#", //"/id/repository/drafts",
+            name: "Templates (coming soon)",
             icon: "whh:addfolderalt",
             color: "text-primary",
           }
@@ -132,21 +132,21 @@ const SidebarContent: MenuItem[] = [
           {
             id: uniqueId(),
             url: "/id/repository/google-drive",
-            name: "Google Drive",
+            name: "Google (coming soon)",
             icon: "ri:google-fill",
             color: "text-primary",
           },
           {
             id: uniqueId(),
             url: "/id/repository/sharepoint",
-            name: "Sharepoint",
+            name: "Sharepoint (coming soon)",
             icon: "ri:windows-fill",
             color: "text-primary",
           },
           {
             id: uniqueId(),
             url: "/id/repository/notion",
-            name: "Notion",
+            name: "Notion (coming soon)",
             icon: "ri:notion-fill",
             color: "text-primary",
           }

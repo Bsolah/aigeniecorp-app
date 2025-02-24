@@ -1,25 +1,60 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from "../../api/api";
+import { findKeyAndUpdate } from 'src/utils/commonFunctions';
 
-export const createFolder = createAsyncThunk('folder/create', async ({ name, parent }: any, { rejectWithValue }) => {
+export const createFolder = createAsyncThunk('folder/create', async ({ name, parent, orgId }: any, { rejectWithValue }) => {
     try {
-        const response = await API.post(`/api/folders/create/`, { name, parent }, { withCredentials: true });
-        return response;
+        const {data} = await API.post(`/api/folders/create/`, { name, parent, organizationId: orgId }, { withCredentials: true });
+        return {
+            data,
+            parentId: parent
+        };
     } catch (error) {
         return rejectWithValue(error);
     }
 });
 
-export const getFolders = createAsyncThunk('folder/get', async (_, { 
-    // rejectWithValue 
-}) => {
-    // try {
-        const {data} = await API.get(`/api/folders/all`, { withCredentials: true });
+export const getRootFolders = createAsyncThunk('folder/get/root', async ({orgId}: any, { rejectWithValue }) => {
+    try {
+        const { data } = await API.get(`/api/folders/all?organizationId=${orgId}`, { withCredentials: true });
         return data;
-    // } catch (error) {
-    //     console.log('inner here ', error)
-    //     return rejectWithValue(error);
-    // }
+    } catch (error: any) {
+        return rejectWithValue({
+            message: error.response?.data?.message,
+            status: error?.status,
+        });
+    }
+});
+
+export const deleteFolder = createAsyncThunk(
+    'folder/delete',
+    async ({ id, parentId }: any, { rejectWithValue }) => {
+        try {
+            const {data} = await API.delete(`/api/folder/delete/${id}`, { withCredentials: true });
+            return {
+                data,
+                parentId
+            };
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const getSubFolders = createAsyncThunk('folder/get', async ({id}: any, { rejectWithValue , getState}: any) => {
+    try {
+        const { data } = await API.get(`/api/folders/${id}`, { withCredentials: true });
+
+        const clonedFolderState = JSON.parse(JSON.stringify(getState()?.folders?.folder));
+        const updatedFolderData = findKeyAndUpdate(clonedFolderState, data.folder);
+
+        return updatedFolderData;
+    } catch (error: any) {
+        return rejectWithValue({
+            message: error.response?.data?.message,
+            status: error?.status,
+        });
+    }
 });
 
 const folderSlice = createSlice({
@@ -52,22 +87,38 @@ const folderSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // Get Folder
-            .addCase(getFolders.pending, (state) => {
+            // Get Root Folder
+            .addCase(getRootFolders.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getFolders.fulfilled, (state, action: any) => {
-                state.folder = action.payload.folders;
+            .addCase(getRootFolders.fulfilled, (state, action: any) => {
+                state.folder = action.payload.folder;
                 state.loading = false;
             })
-            .addCase(getFolders.rejected, (state, action: any) => {
+            .addCase(getRootFolders.rejected, (state, action: any) => {
                 state.loading = true;
                 state.error = {
                     message: action.payload?.message,
                     status: action.payload?.status,
-                    data: action.payload?.response?.data
-                  }
+                }
+            })
+            
+            // Get Sub Folder
+            .addCase(getSubFolders.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getSubFolders.fulfilled, (state: any, action: any) => {
+                state.folder = action.payload;
+                state.loading = false;
+            })
+            .addCase(getSubFolders.rejected, (state, action: any) => {
+                state.loading = true;
+                state.error = {
+                    message: action.payload?.message,
+                    status: action.payload?.status,
+                }
             })
     },
 });

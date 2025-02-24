@@ -1,19 +1,9 @@
-import { MenuItem } from "src/layouts/full/vertical/sidebar/Sidebaritems";
-import { FolderType } from "src/types/apps/repository";
 
 export enum DocType {
     FILE = "file",
     FOLDER = "folder",
 }
 
-const folderTree: MenuItem = {
-    name: "",
-    children: [],
-    id: "",
-    type: DocType.FOLDER,
-    icon: "ri:home-office-fill",
-    url: "/id/repository"
-}
 
 // export const structureFolder = (rawFolder: FolderType) => {
 
@@ -33,32 +23,85 @@ const folderTree: MenuItem = {
 //     return folderTree;
 // }
 
-export const structureFolder = (rawFolder: FolderType): MenuItem => {
-    if (!rawFolder) return {} as FolderType;
+export const structureFolder = (rawFolder: any, parentId: any = '123' ): any => {
+    if (!rawFolder) return {} as any;
+
+    const isFolder = rawFolder?.type !== "file";
 
     return {
         name: rawFolder?.name || "",
-        id: rawFolder?.id || rawFolder?._id || "",
-        icon: "flat-color-icons:opened-folder",
-        url: folderTree.url || "",
-
-
-        children: [
-            // Recursively process child folders
-            ...(rawFolder?.child?.map(item => structureFolder(item)) || []),
-
-            // Process articles
-            ...(rawFolder?.articles?.map((item: any) => ({
-                ...item,
-                type: DocType.FILE,
-                name: item?.name,
-                id: item?._id,
-                icon: "flat-color-icons:file",
-                url: `${folderTree.url}/${item["_id"]}`
-            })) || []),
-        ]
+        id: rawFolder?.id || "",
+        parentId: parentId,
+        icon: isFolder ? "tabler:folder-open" : "tabler:file",
+        url: `/id/repository/${rawFolder?.id}`,
+        ...(isFolder && {
+            children: [...(rawFolder?.children?.map((item: any) => structureFolder(item, rawFolder?.id)) || [])]
+        })
     };
 };
+
+export const findKeyAndUpdate = (arr: any, newObj: any): any => {
+
+    arr.children.map((item: any) => {
+        if(item.id === newObj.id) {
+            item['children'] = newObj.children
+        } else {
+            if(item?.children?.length > 0) {
+                findKeyAndUpdate(item, newObj);
+            }
+        }
+    })
+
+    return arr;
+    // for (const item of arr.children) {
+    //     if (typeof item === 'object' && item !== null) {
+    //         if (item.id === newObj.id) {
+    //             console.log('I entred here ')
+    //             item['children'] = newObj.children;
+    //             return item; // Found the key, return its value
+    //         }
+
+    //         // If the item has children (array or object), recurse
+    //         for (const value of Object.values(item)) {
+    //             if (Array.isArray(value)) {
+    //                 const result = findKeyAndUpdate(value, newObj);
+    //                 if (result !== undefined) {
+    //                     return result;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    // return arr; // Key not found
+}
+
+
+// export const structureFolder = (rawFolder: FolderType): MenuItem => {
+//     if (!rawFolder) return {} as FolderType;
+
+//     return {
+//         name: rawFolder?.name || "",
+//         id: rawFolder?.id || rawFolder?._id || "",
+//         icon: "tabler:folder-open",
+//         url:  "",
+
+
+//         children: [
+//             // Recursively process child folders
+//             ...(rawFolder?.child?.map(item => structureFolder(item)) || []),
+
+//             // Process articles
+//             ...(rawFolder?.articles?.map((item: any) => ({
+//                 ...item,
+//                 type: DocType.FILE,
+//                 name: item?.name,
+//                 id: item?._id,
+//                 icon: "tabler:file",
+//                 url: `/id/repository/${item["_id"]}`
+//             })) || []),
+//         ]
+//     };
+// };
 
 export const formatChatMessage: any = (text: string) => {
 
@@ -67,32 +110,32 @@ export const formatChatMessage: any = (text: string) => {
     // Split rows by newline
     // const rows = text.split('\n');
     // if (rows && rows.length > 2) {
-        // // Create table element
-        // const table = document.createElement('table');
-        // table.border = '1'; // Optional: adds borders for visibility
+    // // Create table element
+    // const table = document.createElement('table');
+    // table.border = '1'; // Optional: adds borders for visibility
 
-        // // Populate table rows
-        // rows.forEach((row, index) => {
-        //     const tr = document.createElement('tr');
-        //     const cells = row.split(',');
+    // // Populate table rows
+    // rows.forEach((row, index) => {
+    //     const tr = document.createElement('tr');
+    //     const cells = row.split(',');
 
-        //     cells.forEach(cell => {
-        //         const td = document.createElement(index === 0 ? 'th' : 'td'); // Use <th> for the first row (header)
-        //         td.textContent = cell.trim();
-        //         tr.appendChild(td);
-        //     });
+    //     cells.forEach(cell => {
+    //         const td = document.createElement(index === 0 ? 'th' : 'td'); // Use <th> for the first row (header)
+    //         td.textContent = cell.trim();
+    //         tr.appendChild(td);
+    //     });
 
-        //     table.appendChild(tr);
-        // });
-        // const outputElement = document?.getElementById('output');
-        // // console.log('heere ', outputElement, table)
-        // if (outputElement) {
-        //     outputElement.appendChild(table);
-        // }
-        // return outputElement;
+    //     table.appendChild(tr);
+    // });
+    // const outputElement = document?.getElementById('output');
+    // // console.log('heere ', outputElement, table)
+    // if (outputElement) {
+    //     outputElement.appendChild(table);
+    // }
+    // return outputElement;
     // } else {
-        // console.log('text ', text)\
-        text = text.replace(/\n/g, "<br>");
+    // console.log('text ', text)\
+    text = text.replace(/\n/g, "<br>");
     // }
 
     if (text.includes("Private Data Detected:")) {
@@ -114,7 +157,6 @@ export const formatChatMessage: any = (text: string) => {
             .replace("Best regards,", `Best regards, <br> <br>`)
             .replace("Kawtar Lahlou", `Kawtar Lahlou<br>`)
     } else if (text.includes("There appears to be a discrepancy in your knowledge base")) {
-        // console.log('text ', text)
         return text
             .replace(":warning: There appears to be a discrepancy in your knowledge base.", `⚠️ <strong>There appears to be a discrepancy in your knowledge base.</strong> <br> <br>`)
             .replace("cash transactions is $10,000,", `cash transactions is <strong>$10,000</strong>`)

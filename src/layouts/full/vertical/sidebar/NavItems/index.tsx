@@ -9,10 +9,12 @@ import { Switch } from "@headlessui/react";
 import { useContext } from "react";
 import dispatch from "src/redux/store.ts";
 import { getArticleById, getDraftArticles } from "src/redux/slices/articleSlice.ts";
+import MorePopover  from "src/components/apps/popover/MorePopover"; // Adjust the import path as necessary
+
 
 interface NavItemsProps {
   item: ChildItem;
-  tab?: string;
+  tab?: any;
 }
 
 const NavItems: React.FC<NavItemsProps> = ({ item, tab }: any) => {
@@ -30,11 +32,10 @@ const NavItems: React.FC<NavItemsProps> = ({ item, tab }: any) => {
   const handleClick = () => {
     // setIsMobileSidebarOpen(false);
 
-
     if (tab === 'Knowledge Base') {
       dispatch(getArticleById(item?.id))
     }
-    if (tab === 'Add More') {
+    if (tab === 'More') {
       dispatch(getDraftArticles())
     }
   }
@@ -44,38 +45,45 @@ const NavItems: React.FC<NavItemsProps> = ({ item, tab }: any) => {
       <Sidebar.Item
         to={item.url}
         as={Link}
+        style={{ padding: "8px 0 8px 32px" }}
         onClick={() => setIsMobileSidebarOpen(false)}
         className={`${item.url == pathname
-          ? "text-white bg-primary rounded-xl  hover:text-white hover:bg-primary dark:hover:text-white shadow-btnshdw active"
+          ? "bg-lightprimary shadow-btnshdw active"
           : "text-link bg-transparent group/link "
-          } `}
+          } rounded-sm hover:bg-lightprimary`}
       >
-        <span className="flex gap-3 align-center items-center">
+        <span className="flex align-center items-center group w-full justify-between">
 
-          {item.selector ? (<Switch
-            checked={item.tag ? isChildSwitch[item.tag] : false}
-            onChange={(checked) => item.tag ? setIsChildSwitch((prevState: any) => ({ ...prevState, [item.tag as string]: checked })) : undefined}
-            className="group inline-flex h-4 w-7 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
-          >
-            <span className="size-3 translate-x-0.5 rounded-full bg-white transition group-data-[checked]:translate-x-3.5" />
-          </Switch>) :
-            <>  {item.icon ? (
-              <Icon icon={item.icon} className={`${item.color}`} height={18} />
-            ) : (
-              <span
-                className={`${item.url == pathname
-                  ? "dark:bg-white rounded-full mx-1.5 group-hover/link:bg-primary !bg-primary h-[6px] w-[6px]"
-                  : "h-[6px] w-[6px] bg-black/40 dark:bg-white rounded-full mx-1.5 group-hover/link:bg-primary"
-                  } `}
-              ></span>
-            )}</>
-          }
+          <span className="flex gap-3">
+            {item.selector ? (<Switch
+              checked={item.tag ? isChildSwitch[item.tag] : false}
+              onChange={(checked) => item.tag ? setIsChildSwitch((prevState: any) => ({ ...prevState, [item.tag as string]: checked })) : undefined}
+              className="group inline-flex h-4 w-7 items-center rounded-full bg-gray-200 transition data-[checked]:bg-primary"
+            >
+              <span className="size-3 translate-x-0.5 rounded-full bg-white transition group-data-[checked]:translate-x-3.5" />
+            </Switch>) :
+              <>  {item.icon ? (
+                <Icon icon={item.icon} className={`${item.color}`} height={18} />
+              ) : (
+                <span
+                  className={`${item.url == pathname
+                    ? "dark:bg-white rounded-full mx-1.5 group-hover/link:bg-lightprimary !bg-lightprimary h-[6px] w-[6px]"
+                    : "h-[6px] w-[6px] bg-black/40 dark:bg-white rounded-full mx-1.5 group-hover/link:bg-lightprimary"
+                    } `}
+                ></span>
+              )}</>
+            }
 
-          <span onClick={handleClick}
-            className={`max-w-36 overflow-hidden text-xs`}
-          >
-            {t(`${item.name}`)}
+            <span onClick={handleClick}
+            style={{textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", display: "inline-block"}}
+              className={`w-34  group-hover:w-28 text-xs`}
+            >
+              {t(`${item.name}`)}
+            </span>
           </span>
+          {tab === 'Knowledge Base' && <span className={`flex opacity-0 group-hover:opacity-100`}>
+          <MorePopover children={<Icon className="ml-auto" icon='tabler:dots' height={18} />} parentId={item?.parentId} id={item?.id} />
+          </span>}
 
         </span>
       </Sidebar.Item>

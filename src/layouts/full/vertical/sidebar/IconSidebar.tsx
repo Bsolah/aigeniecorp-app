@@ -6,14 +6,10 @@ import Miniicons from "./MiniSidebar.ts";
 import { Button, HR, Tooltip } from "flowbite-react";
 import { Link } from "react-router";
 import { CustomizerContext } from "src/context/CustomizerContext.tsx";
-import { useSelector } from "react-redux";
 
 export const IconSidebar = () => {
   const { selectedIconId, setSelectedIconId, setIsCollapse, isCollapse } =
     useContext(CustomizerContext) || {};
-    const {folder} = useSelector((state: any) => state.folders)
-
-    console.log('folders ', folder);
 
   // Handle icon click
   const handleClick = (id: any) => {

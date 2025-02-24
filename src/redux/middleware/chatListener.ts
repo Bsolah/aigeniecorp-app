@@ -14,7 +14,6 @@ listenerMiddleware.startListening({
         // Get the chat id from action.payload and dispatch getChatById to fetch specific chat
         const chatId = match[1];
         if (chatId) {
-            console.log('I am in')
             listenerApi.dispatch(getChatByRoomId({ chatRoomId: chatId })); // Dispatch getChatById with the chatId
         }
     },

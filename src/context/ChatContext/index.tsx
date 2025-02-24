@@ -8,11 +8,13 @@ import { ChatsType } from '../../types/apps/chat.js';
 export interface ChatContextProps {
     // chatData: ChatsType[];
     chatContent: any[];
+    isEditMode: boolean;
     chatSearch: string;
     selectedChat: ChatsType | null;
     activeChatId: number | null;
     setChatContent: Dispatch<SetStateAction<any[]>>;
     setChatSearch: Dispatch<SetStateAction<string>>;
+    setIsEditMode: Dispatch<SetStateAction<boolean>>;
     setSelectedChat: Dispatch<SetStateAction<ChatsType | null>>;
     setActiveChatId: Dispatch<SetStateAction<any | null>>;
 }
@@ -21,10 +23,12 @@ export interface ChatContextProps {
 export const ChatContext = createContext<ChatContextProps>({
     // chatData: [],
     chatContent: [],
+    isEditMode: false,
     chatSearch: '',
     selectedChat: null,
     activeChatId: null,
     setChatContent: () => { },
+    setIsEditMode: () => { },
     setChatSearch: () => { },
     setSelectedChat: () => { },
     setActiveChatId: () => { },
@@ -37,6 +41,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [chatSearch, setChatSearch] = useState<string>('');
     const [selectedChat, setSelectedChat] = useState<ChatsType | null>(null);
     const [activeChatId, setActiveChatId] = useState<number | null>(1);
+    const [isEditMode, setIsEditMode] = useState(false);
+
 
     // const { data, loading } = useSelector((state: any) => state.chatRoom);
     // console.log({chatRooms})
@@ -49,9 +55,11 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         // chatData,
         chatContent,
         chatSearch,
+        isEditMode,
         selectedChat,
         activeChatId,
         setChatContent,
+        setIsEditMode,
         setChatSearch,
         setSelectedChat,
         setActiveChatId

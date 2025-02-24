@@ -17,7 +17,6 @@ export const register = createAsyncThunk(
         { withCredentials: true },
       );
       const data = await dispatch(login({ email: email, password: password }));
-      console.log('data  ', data)
       return data?.payload;
     } catch (error) {
       return rejectWithValue(error);

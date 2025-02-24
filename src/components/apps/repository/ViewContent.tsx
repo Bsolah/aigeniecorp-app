@@ -8,30 +8,42 @@ import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import { AppDispatch } from 'src/redux/store.ts';
-import { updateArticle, deleteArticle } from 'src/redux/slices/articleSlice.ts';
+import { updateArticle, deleteArticle, getArticleById } from 'src/redux/slices/articleSlice.ts';
 import TextStyle from "@tiptap/extension-text-style";
 import { Button } from 'flowbite-react';
-import CardBox from 'src/components/shared/CardBox.tsx';
 import { Input } from '@headlessui/react';
-
 
 
 const ViewContent = () => {
     const aiResponse = useSelector((state: any) => state.ai)
     const { article } = useSelector((state: any) => state.article);
     const [isOpen, setIsOpen] = useState(false);
-    const [isEditMode, setIsEditMode] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const params = new URLSearchParams(location.search);
+
+    const url = new URL(window.location.href);
+    const pathSegments = url.pathname.split('/');
+    const idParams = pathSegments[pathSegments.length - 1];
     const item = article.data;
 
-    console.log('article item 1 ', article.data.name)
-    console.log('article item 2 ', item.name)
+    // const { isEditMode, setIsEditMode } = useContext(ChatContext) || false;
+
+    const [isEditMode, setIsEditMode] = useState(false);
+    
+
     const [title, setTitle] = useState(item?.name || "");
     const previousTitle = useRef(title); // A ref to store the previous value of title
     const [content, setContent] = useState(item?.content || "Start typing...");
     const aiSolution = aiResponse.content
+
+
+    // console.log('article item 1 ', article)
+    // console.log('article item 2 ', item.name)
+
+    useEffect(() => {
+        dispatch(getArticleById(idParams))
+    }, [])
 
     useEffect(() => {
         setIsEditMode((params.get('edit') === 'true'))
@@ -91,7 +103,6 @@ const ViewContent = () => {
 
     const handlePublish = () => {
         // dispatch(publishArticle(content));
-        console.log('I am publishing')
         handleClose();
     };
 
@@ -106,7 +117,7 @@ const ViewContent = () => {
     }
 
     return (
-        <CardBox >
+        <div className='bg-white' >
             <div className="p-2">
                 <div className='flex gap-5 justify-between text-center'>
                     <span className='flex gap-5 justify-between items-center'>
@@ -142,7 +153,7 @@ const ViewContent = () => {
                             <Icon onClick={() => editor?.chain().focus().toggleStrike().run()} icon="ri:strikethrough" width="20" className="cursor-pointer" />
                             <Icon onClick={() => editor?.chain().focus().toggleCodeBlock().run()} icon="tdesign:code" width="20" className="cursor-pointer" />
                             <Icon icon="fluent:divider-tall-20-regular" width="20" className="cursor-pointer" />
-                            <Button onClick={() => setIsOpen(true)} color='lightprimary' size='xxs' className="me-1 text-xs">AI Assist</Button>
+                            <Button onClick={() => setIsOpen(true)} color='lightprimary' size='xxs' className="me-1 px-1" style={{fontSize: 10}}>AI Assist</Button>
                             <Icon icon="fluent:divider-tall-20-regular" width="20" className="cursor-pointer" />
                             <Icon icon="uil:table" width="20" className="cursor-pointer" />
                             <Icon onClick={() => editor?.chain().focus().toggleBulletList().run()} icon="whh:numberlist" width="20" className="cursor-pointer" />
@@ -168,7 +179,7 @@ const ViewContent = () => {
                 <EditorContent editor={editor} className="editorContent" />
             </div>
             <AIAssistPopup isOpen={isOpen} setIsOpen={setIsOpen} />
-        </CardBox >
+        </div >
     );
 
 };

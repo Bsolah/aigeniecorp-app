@@ -12,8 +12,6 @@ const ChatsApp = () => {
   const handleClose = () => setIsOpenChat(false);
   const chatRoomList = useSelector((state: any) => state?.chat?.data)
 
-  console.log('send verifi ', chatRoomList)
-
   return (
     <>
       <ChatProvider>

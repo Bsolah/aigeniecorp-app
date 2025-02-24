@@ -29,10 +29,7 @@ const ChatMsgSent = () => {
     setMsg(e.target.value);
   };
 
-  console.log('chatRoomId ', chatRoomId)
-
   const onChatMsgSubmit = (e: any) => {
-    console.log('press 2')
     if (e.key === 'Enter') {
     e.preventDefault();
     if (!msg.trim() && !selectedFile) return;
@@ -44,7 +41,6 @@ const ChatMsgSent = () => {
 
   const handleSubmit = () => {
 
-    console.log('press 1')
     setType('text');
     sendMessages(msg, selectedFile);
     setMsg("");
@@ -83,8 +79,6 @@ const ChatMsgSent = () => {
   const sendMessages = async (selectedPrompt?: any, selectedAttachment?: any) => {
 
     const messageToSend = selectedPrompt ? selectedPrompt : msg;
-
-    console.log('I am here now ', activeChat)
 
     dispatch(saveChat({
       receiverId: '679f70fa087ddee39b7efc5b',

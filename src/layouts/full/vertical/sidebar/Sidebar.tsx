@@ -22,16 +22,17 @@ const SidebarLayout = () => {
   );
   const { folder } = useSelector((state: any) => state.folders);
 
-  if (folder && folder.length > 0 ) {
-    const resultFolders = structureFolder(folder[0]);
+  // if (folder && folder.length > 0 ) {
+    const resultFolders = structureFolder(folder);
     selectedContent?.items?.forEach((item: any) => {
       if (item.heading === 'Knowledge Base') {
-
-        item.children = [resultFolders];
+        
+        item.children = resultFolders.children;
       }
       return item;
     })
-  }
+    console.log({selectedContent})
+  // }
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -63,7 +64,8 @@ const SidebarLayout = () => {
   }
 
   const defaultSidebar = (item: any) => {
-    return item?.children?.map((child: any, index: any) => (
+    return item?.children?.map((child: any, index: any) => {
+      return(
       <React.Fragment key={child.id && index}>
         {child.children ? (
           <NavCollapse item={child} tab={item.heading} />
@@ -71,7 +73,7 @@ const SidebarLayout = () => {
           <NavItems item={child} tab={item.heading} />
         )}
       </React.Fragment>
-    ))
+    )})
   }
 
   useEffect(() => {

@@ -7,7 +7,6 @@ export const saveChat = createAsyncThunk(
   'chat/save',
   async ({ receiverId, senderId, content, chatRoomId, type, media, internalAI, externalAI }: any, { rejectWithValue }) => {
     try {
-      console.log('sending post for chat', media)
       const formData = new FormData();
       formData.append('receiverId', receiverId);
       formData.append('chatRoomId', chatRoomId);
@@ -17,7 +16,6 @@ export const saveChat = createAsyncThunk(
       formData.append('internalAI', internalAI);
       formData.append('externalAI', JSON.stringify(externalAI));
 
-      console.log('formData ',formData);      
       const {data} = await API.post(`/api/chat/save/${senderId}`, formData, { withCredentials: true });
       return data; // Assume response includes token and user data
     } catch (error) {
@@ -28,7 +26,6 @@ export const saveChat = createAsyncThunk(
 export const startNewChat = createAsyncThunk('chat/startNewChat', async (_, { rejectWithValue }) => {
   try {
     const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
-    console.log('gotten response for chat', 'data')
 
     const chat =  {
       chatRoomId,

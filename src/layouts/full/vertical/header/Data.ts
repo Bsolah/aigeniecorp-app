@@ -234,7 +234,7 @@ const profileDD: ProfileType[] = [
   },
   {
     title: "Sign Out",
-    url: "/auth/auth1/login",
+    url: "/auth/login",
   },
 ];
 
