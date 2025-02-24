@@ -1,7 +1,7 @@
 import Logo from "src/layouts/full/shared/logo/Logo.tsx"
 import { Link } from "react-router"
 import AuthLogin from "../authforms/AuthLogin.tsx"
-import SocialButtons from "../authforms/SocialButtons.tsx"
+// import SocialButtons from "../authforms/SocialButtons.tsx"
 import LeftSidebarPart from "../LeftSidebarPart.tsx"
 import { APP_NAME } from "src/utils/constants.ts"
 

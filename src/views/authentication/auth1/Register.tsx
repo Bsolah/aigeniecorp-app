@@ -1,7 +1,7 @@
 import Logo from "src/layouts/full/shared/logo/Logo.tsx"
 import { Link } from "react-router"
 import AuthRegister from "../authforms/AuthRegister.tsx"
-import SocialButtons from "../authforms/SocialButtons.tsx"
+// import SocialButtons from "../authforms/SocialButtons.tsx"
 import LeftSidebarPart from "../LeftSidebarPart.tsx"
 
 
