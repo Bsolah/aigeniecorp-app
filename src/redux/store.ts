@@ -6,11 +6,13 @@ import authReducer from './slices/authSlice.ts';
 import chatReducer from './slices/chatSlice.ts';
 import folderReducer from './slices/folderSlice.ts';
 import leadReducer from './slices/leadSlice.ts';
+import orgReducer from './slices/orgSlice.ts';
 import { persistStore as reduxPersistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import chatListener from './middleware/chatListener.ts';
 import folderListener from './middleware/folderListener.ts';
 import articleListener from './middleware/articleListener.ts';
+import orgListener from './middleware/orgListener.ts';
 
 
 const persistConfig = {
@@ -22,6 +24,7 @@ const persistedArticleReducer = persistReducer(persistConfig, articleReducer);
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 const persistedChatReducer = persistReducer(persistConfig, chatReducer);
 const persistedFolderReducer = persistReducer(persistConfig, folderReducer);
+const persistedOrgReducer = persistReducer(persistConfig, orgReducer);
 
 export const store = configureStore({
     reducer: {
@@ -30,6 +33,7 @@ export const store = configureStore({
         auth: persistedAuthReducer,
         chat: persistedChatReducer,
         folders: persistedFolderReducer,
+        org: persistedOrgReducer,
         lead: leadReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -43,6 +47,7 @@ export const store = configureStore({
             }
         ).prepend(chatListener.middleware,
             folderListener.middleware, 
+            orgListener.middleware, 
             articleListener.middleware),
 });
 
