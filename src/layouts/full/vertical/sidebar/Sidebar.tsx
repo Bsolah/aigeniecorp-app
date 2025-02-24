@@ -27,7 +27,7 @@ const SidebarLayout = () => {
     selectedContent?.items?.forEach((item: any) => {
       if (item.heading === 'Knowledge Base') {
         
-        item.children = resultFolders.children;
+        item.children = [resultFolders];
       }
       return item;
     })

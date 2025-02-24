@@ -24,7 +24,7 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item, tab }: any) => {
   const [translatedLabel, setTranslatedLabel] = useState<string | null>(null);
 
   // Manage open/close state for the collapse
-  const [isOpen, setIsOpen] = useState<boolean>(tab === 'AI Models' ? !activeDD : activeDD);
+  const [isOpen, setIsOpen] = useState<boolean>((tab === 'AI Models'|| item.parentId ==='123')  ? !activeDD : activeDD);
 
   useEffect(() => {
     const loadTranslation = async () => {
