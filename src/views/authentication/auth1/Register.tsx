@@ -19,7 +19,7 @@ const Register = () => {
                 <p className="text-sm font-medium">
                 Your all-in-one business manager 
                 </p>
-                <SocialButtons title="or sign up with" />
+                {/* <SocialButtons title="or sign up with" /> */}
                 <AuthRegister />
                 <div className="flex gap-2 text-base text-dark dark:text-white font-medium mt-6 items-center justify-start">
                   <p className="text-sm">Already have an Account?</p>

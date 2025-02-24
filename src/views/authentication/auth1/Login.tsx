@@ -19,7 +19,7 @@ const Login = () => {
                 <p className="text-sm font-medium">
                   Your all-in-one business manager 
                 </p>
-                <SocialButtons title="or sign in with" />
+                {/* <SocialButtons title="or sign in with" /> */}
                 <AuthLogin />
                 <div className="flex gap-2 text-base dark:text-white font-medium mt-6 items-center justify-center">
                   <p className="text-sm">New to {APP_NAME}?</p>
