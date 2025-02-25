@@ -17,7 +17,7 @@ const Register = () => {
                 <Logo />
                 <h3 className="text-2xl font-bold my-3 mt-5">Sign Up</h3>
                 <p className="text-sm font-medium">
-                Your all-in-one business manager 
+                Your dedicated AI for your teams.
                 </p>
                 {/* <SocialButtons title="or sign up with" /> */}
                 <AuthRegister />

@@ -22,9 +22,9 @@ const LeftSidebarPart = () => {
             {APP_NAME}
           </h2>
           <p className="opacity-75 text-white my-4 text-base font-medium">
-            Your all-in-one platform for managing projects, tasks, and teams.
+            Your dedicated AI for your teams.
           </p>
-          <Button className="mt-6" color={"primary"} onClick={() => navigate("/landingpage")}>Learn More</Button>
+          <Button className="mt-6" color={"primary"} onClick={() => navigate("/")}>Learn More</Button>
         </div>
       </div>
     </>

@@ -18,8 +18,12 @@ export const register = createAsyncThunk(
       );
       const data = await dispatch(login({ email: email, password: password }));
       return data?.payload;
-    } catch (error) {
-      return rejectWithValue(error);
+    } catch (error: any) {
+
+      return rejectWithValue({
+        message: error.response?.data,
+        status: error.response?.status,
+      });
     }
   },
 );
@@ -28,23 +32,23 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
-    const {data} = await API.post(
-      '/api/auth/login',
-      { email, password },
-      { withCredentials: true },
-    );
+      const { data } = await API.post(
+        '/api/auth/login',
+        { email, password },
+        { withCredentials: true },
+      );
 
-    // Check authentication
-    const checkAuth = await API.get("/api/auth/check-auth", {
-      withCredentials: true,
-    });
+      // Check authentication
+      const checkAuth = await API.get("/api/auth/check-auth", {
+        withCredentials: true,
+      });
 
-    if (checkAuth?.data?.payload?.user?.id === data?.payload?.user?.id) {
-      return data; // Assume response includes token and user data
-    }
-    return;
+      if (checkAuth?.data?.payload?.user?.id === data?.payload?.user?.id) {
+        return data; // Assume response includes token and user data
+      }
+      return;
 
-    } catch (error: any) {      
+    } catch (error: any) {
       return rejectWithValue({
         message: error.response?.data,
         status: error.response?.status,
@@ -58,14 +62,14 @@ export const verifyAuth = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       // Check authentication
-      const {data} = await API.get("/api/auth/check-auth", {
+      const { data } = await API.get("/api/auth/check-auth", {
         withCredentials: true,
       });
 
       return data;
 
     } catch (error: any) {
-      return rejectWithValue( {
+      return rejectWithValue({
         message: error.response?.data?.message,
         status: error?.status,
       });
@@ -75,6 +79,8 @@ export const verifyAuth = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
+    sessionStorage.clear();
+    localStorage.clear();
     await API.post('/api/auth/logout', { withCredentials: true });
     return true;
   } catch (error) {

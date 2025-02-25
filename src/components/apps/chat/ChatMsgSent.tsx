@@ -6,6 +6,7 @@ import { saveChat } from "src/redux/slices/chatSlice.ts";
 import { AppDispatch } from "src/redux/store.ts";
 import VoiceRecorder from './VoiceRecorder';
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
+import { ChatContext } from "src/context/ChatContext/index";
 import { ObjectId } from "bson";
 
 
@@ -23,6 +24,7 @@ const ChatMsgSent = () => {
   const activeChat = selectedChat[0];
   const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
   const { isChildSwitch } = useContext(DashboardContext);
+  const { setNewMessage } = useContext(ChatContext);
 
   const handleChatMsgChange = (e: ChangeEvent<HTMLInputElement>) => {
     setType('text');
@@ -90,6 +92,15 @@ const ChatMsgSent = () => {
       internalAI: isChildSwitch["knb"] ? "knb" : null,
       externalAI: isChildSwitch,
     }));
+    setNewMessage({
+        receiverId: {_id: '679f70fa087ddee39b7efc5b'},
+        senderId: user,
+        content: messageToSend,
+        createdAt: new Date(Date.now()).toISOString(),
+        chatRoomId: activeChat?.chatRoomId ?? chatRoomId,
+        media: selectedAttachment,
+        type: type
+    })// send reponse first
     handleRemove();
   }
 

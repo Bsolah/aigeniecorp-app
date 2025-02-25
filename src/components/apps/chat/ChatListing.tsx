@@ -1,5 +1,5 @@
 import { Badge, Label } from "flowbite-react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { formatDistanceToNowStrict } from "date-fns";
 import { ChatContext, ChatsType } from "src/context/ChatContext/index.tsx";
@@ -14,7 +14,7 @@ const ChatListing = () => {
 
   const { user } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
-  const {selectedChat, data, loading} = useSelector((state: any) => state.chat);
+  const { selectedChat, data, loading } = useSelector((state: any) => state.chat);
   // console.log('selected Chat ', selected)
   // const { data, loading } = useSelector((state: any) => state.chatRoom);
 
@@ -35,13 +35,25 @@ const ChatListing = () => {
     chat.name.toLowerCase().includes(chatSearch.toLowerCase())
   );
 
-  console.log('filteredChats ', filteredChats)
+  useEffect(() => {
+
+    const defaultSelectedChat = filteredChats[0]?.id;
+    dispatch(getChatByRoomId({ chatRoomId: defaultSelectedChat }))
+    setActiveChatId(defaultSelectedChat);
+  }, [])
+
+  useEffect(() => {
+    const defaultSelectedChat = filteredChats[0]?.id;
+    dispatch(getChatByRoomId({ chatRoomId: defaultSelectedChat }))
+    setActiveChatId(defaultSelectedChat);
+  }, [user])
+
 
   const agentChats = filteredChats?.filter((item: any) => item.type === 'Agent');
   // const nonAgentChats = filteredChats?.filter((item: any) => item.type !== 'Agent');
 
   const handleChatSelect = (chat: ChatsType) => {
-    const chatId = chat.id;
+    const chatId = chat?.id;
     dispatch(getChatByRoomId({ chatRoomId: chatId }))
     setActiveChatId(chatId);
   };
@@ -141,7 +153,9 @@ const ChatListing = () => {
           {/* } */}
         </div>
         {isAgent && chat.lastMessage.map((item: any) => {
-          return (<div key={`${item.id}-child`} onClick={() => handleChatSelect(item)} className="flex justify-between p-2 text-xs text-ld opacity-90 cursor-pointer px-6 hover:bg-lightsecondary hover:dark:bg-lightsecondary bg-gray-50 border-gray-100 border-t  delete-icon-container">
+          return (<div key={`${item.id}-child`} onClick={() => handleChatSelect(item)} className={`flex justify-between p-2 text-xs text-ld opacity-90 cursor-pointer px-6 ${activeChatId === item?.id
+            ? "bg-lightsecondary dark:bg-lightsecondary"
+            : "initial"} hover:bg-lightsecondary hover:dark:bg-lightsecondary bg-gray-50 border-gray-100 border-t  delete-icon-container`}>
             <div className="truncated ">
               {item?.content}
             </div>

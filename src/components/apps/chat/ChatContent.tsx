@@ -6,6 +6,7 @@ import user2 from '/src/assets/images/profile/user-2.jpg';
 import { useSelector } from 'react-redux';
 import { formatChatMessage } from '../../../utils/commonFunctions.ts';
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
+import { ChatContext } from 'src/context/ChatContext/index.tsx';
 
 const ChatContent = () => {
   const [isRightSide] = useState(false);
@@ -14,14 +15,30 @@ const ChatContent = () => {
   const { selectedChat } = useSelector((state: any) => state.chat);
   const chatRoomList = useSelector((state: any) => state.chat.data)
   const { isChildSwitch } = useContext(DashboardContext);
+  const { newMessage, setNewMessage } = useContext(ChatContext);
+  // const [ cloneSelectedChat, setCloneSelectedChat ] = useState<any>( JSON.parse(JSON.stringify(selectedChat)));
+
+  const cloneSelectedChat = JSON.parse(JSON.stringify(selectedChat));
+  useEffect(() => {
+    // console.log('new messgae ', newMessage)
+    setNewMessage('')
+  }, [selectedChat])
+
+  if (newMessage) {
+    cloneSelectedChat.push(newMessage)
+  }
+
+
+  console.log('new cloneSelectedChat ', cloneSelectedChat)
+
 
 
   useEffect(() => {
-    if (selectedChat) {
+    if (cloneSelectedChat) {
       scrollToBottom();
     }
 
-  }, [selectedChat]);
+  }, [cloneSelectedChat]);
 
   // Function to scroll to bottom
   const scrollToBottom = () => {
@@ -41,7 +58,7 @@ const ChatContent = () => {
     <>
       <div className="p-5">
         <div>
-          {selectedChat ? (
+          {cloneSelectedChat ? (
             <div className="flex items-center justify-between ">
               <div className="flex items-center gap-2 mx-auto">
                 Selected Models : ({translateModelName(isChildSwitch)})
@@ -52,7 +69,7 @@ const ChatContent = () => {
       </div>
       <HR className="my-0" />
       <div className="flex h-[calc(100vh_-_300px)] overflow-y-auto scrollbar-hide">
-        {(!chatRoomList?.length || selectedChat?.length <= 1) ? <div className="m-auto text-center text-3xl">
+        {(!chatRoomList?.length || cloneSelectedChat?.length <= 1) ? <div className="m-auto text-center text-3xl">
           What can I help with?
         </div> :
           <div
@@ -68,7 +85,7 @@ const ChatContent = () => {
               >
                 <div>
                   <>
-                    {selectedChat && selectedChat?.map((msg: any) => (
+                    {cloneSelectedChat && cloneSelectedChat?.map((msg: any) => (
                       <div className="flex gap-3 mb-[30px]" key={msg.id + msg.createdAt}>
                         {!(user.username === msg?.senderId?.username) ? (
                           <div className="flex gap-3">
@@ -84,7 +101,7 @@ const ChatContent = () => {
                             {msg.type === 'text' ? (
                               <div>
                                 <div className="text-xs text-ld opacity-60 font-medium mb-1 block">
-                                  {selectedChat.name},{' '}
+                                  {cloneSelectedChat.name},{' '}
                                   {formatDistanceToNowStrict(new Date(msg.createdAt), {
                                     addSuffix: false,
                                   })}{' '}
@@ -109,14 +126,14 @@ const ChatContent = () => {
                         ) : (
                           <div className="flex  justify-end w-full">
                             <div>
-                              {msg.timestamp ? (
-                                <div className="text-xs text-ld opacity-60 font-medium mb-1 block text-end">
-                                  {formatDistanceToNowStrict(new Date(msg.createdAt), {
-                                    addSuffix: false,
-                                  })}{' '}
-                                  ago
-                                </div>
-                              ) : null}
+                              {/* {msg.timestamp ? ( */}
+                              <div className="text-xs text-ld opacity-60 font-medium mb-1 block text-end">
+                                {formatDistanceToNowStrict(new Date(msg.createdAt), {
+                                  addSuffix: false,
+                                })}{' '}
+                                ago
+                              </div>
+                              {/* // ) : null} */}
                               {msg.type === 'text' ? (
                                 <div className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
                                   {msg.content}
