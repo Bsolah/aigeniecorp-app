@@ -27,9 +27,9 @@ const MobileMenu = () => {
           <Navigation />
           <Button
             as={Link}
-            to="/auth/auth2/login"
+            to="/auth/auth1/login"
             className="font-bold w-full mt-6"
-            color={"sky"}
+            color="primary"
           >
             Log in
           </Button>

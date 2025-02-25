@@ -51,12 +51,17 @@ const MainBanner = () => {
         <div className="container-1218 mx-auto sm:pt-10 pt-6 xl:pb-0 pb-10">
           <div className="grid grid-cols-12 gap-30  items-center ">
             <div className="xl:col-span-6 col-span-12 lg:text-start text-center md:mb-28">
+              {/* <h2 className="lg:text-30 text-2xl text-darklink dark:text-white leading-[50px] ">
+                Prevent your employees from leaking private data to AI tools — in real time
+              </h2> */}
               <h2 className="lg:text-30 text-2xl text-darklink dark:text-white leading-[50px] ">
-                The AI Model That
+                Stop employees from leaking private
               </h2>
-              <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px]">
-                Knows. Protects. Complies.
+              <h2 className="lg:text-30 text-2xl text-darklink dark:text-white leading-[50px] ">
+                data to AI—instantly.
               </h2>
+              {/* <h2 className="lg:text-39 text-3xl text-darklink dark:text-white leading-[50px]">
+              </h2> */}
               <div className=" py-6">
                 <h5 className="text-17 text-ldfont-medium opacity-80 md:pt-0 pt-3">
                   <span style={{ fontSize: 'small' }}>With AI Genie, you get: </span>

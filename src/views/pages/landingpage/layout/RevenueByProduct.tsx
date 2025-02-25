@@ -112,7 +112,7 @@ const RevenueByProduct = () => {
       <CardBox className="pb-3">
         <div className="sm:flex justify-between align-baseline">
           <div>
-            <h5 className="card-title">Knowledge Base Overview by Team</h5>
+            <h5 className="card-title">Knowledge Hub Overview by Team</h5>
           </div>
           <Select required className="form-control select-md w-fit sm:my-0 my-4">
             {dropdownItems.map((items, index) => {

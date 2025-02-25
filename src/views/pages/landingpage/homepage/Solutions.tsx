@@ -3,33 +3,29 @@ import { Icon } from '@iconify/react';
 const Feature = [
   {
     icon: 'mdi:security',
-    title: 'Enterprise-Grade Security',
-    subtitle:
-      'Your data stays protected at all times. With end-to-end encryption, access control, and zero external leaks, AI Genie ensures your company’s sensitive information remains private and secure.',
+    title: '75% Companies Can\'t Track AI Leaks',
+    subtitle: 'AI Genie provides real-time visibility into attempted AI data leaks. Companies get actionable insights on what employees are trying to share, allowing them to address risks before they become security breaches.',
     bgcolor: 'bg-lighterror',
     color: 'text-error',
   },
   {
     icon: 'icon-park-outline:brain',
-    title: 'Unified Knowledge Hub',
-    subtitle:
-      'No more scattered information. AI Genie centralizes all company knowledge into a single, dynamic hub, delivering fast, reliable answers to employees with AI-powered precision.',
+    title: '11% Data Pasted Is Confidential',
+    subtitle: 'AI Genie screens data inputs into AI tools, blocking confidential information. This mechanism prevents exposure and ensures sensitive data stays protected, helping organizations comply with privacy regulations.',
     bgcolor: 'bg-lightwarning',
     color: 'text-warning',
   },
   {
     icon: 'octicon:zap',
-    title: 'Efficiency Without Compromise',
-    subtitle:
-      'Boost employee productivity while staying compliant. AI Genie leverages your company’s private LLM, ensuring accuracy, real-time updates, and context-aware responses tailored to your business needs.',
+    title: '$4.45M – Avg Breach Cost',
+    subtitle: 'By intercepting unauthorized AI data usage instantly, AI Genie significantly reduces the risk of costly data breaches and regulatory fines. Its proactive approach stops non-compliant activities before they occur, effectively safeguarding financial resources and preserving organizational reputation.',
     bgcolor: 'bg-lightprimary',
     color: 'text-primary',
   },
   {
     icon: 'fluent-mdl2:compliance-audit',
-    title: 'Regulatory Continuous Monitoring',
-    subtitle:
-      'Stay compliant with real-time web crawling and API integrations with regulatory bodies. Audit logs track all content changes, ensuring transparency and accountability across your organization.',
+    title: '69% Use AI Even if Banned',
+    subtitle: 'Recognizing that employees often find ways to use AI despite restrictions, AI Genie provides a secure framework for AI adoption. It enables safe utilization of AI tools by ensuring that even when AI is used, sensitive data never leaves the company, maintaining both innovation and security.',
     bgcolor: 'bg-lightsuccess',
     color: 'text-success',
   },
@@ -43,7 +39,7 @@ const Solution = () => {
           <div className="grid grid-cols-12 gap-30">
             <div className="lg:col-span-5 col-span-12">
               <h2 className="sm:text-40 text-3xl font-bold !leading-[48px] text-darklink dark:text-white">
-                What We Offer
+                Problems we solve
               </h2>
               <p className="text-17 leading-[32px] text-ld opacity-80 py-6">
                 Empower Your Teams with Secure, Compliant & Accurate AI              </p>

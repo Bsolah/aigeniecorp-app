@@ -20,10 +20,10 @@ const About = () => {
                     marginBottom: 5,
                   }}
                 >
-                  ABOUT US
+                  Why AI Genie
                 </p>
                 <h2 className="sm:text-40 text-3xl font-bold !leading-[43px] text-darklink dark:text-white pb-6">
-                  Work Smarter. Grow Faster.
+                No Leaks. Just Safe AI.
                 </h2>
                 <p
                   style={{
@@ -47,7 +47,6 @@ const About = () => {
                     <div className='text-sm mt-3 mx-3'> <b>✅ One Hub, All Knowledge:</b> No more searching through scattered documents.</div>
                     <div className='text-sm mt-3 mx-3'> <b>✅ Seamless Integration:</b> Works with your existing tools, APIs, and regulatory databases.</div>
                     <div className='text-sm mt-3 mx-3'> <b>✅ AI-Powered Compliance:</b> Context-aware responses, change tracking, and automatic updates.</div>
-                    <div className='text-sm mt-3 mx-3'> <b>✅ Cheaper Than DIY:</b> Save $500k+ vs. building in-house. </div>
                   </div>
                 </p>
               </>
