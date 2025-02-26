@@ -62,7 +62,7 @@ export const formatChatMessage: any = (text: string) => {
         { regex: /(^|\s)(\^)(.*?)\^/g, replacement: '<sup>$3</sup>' }, // ^superscript^
         { regex: /~\~(.*?)\~\~/g, replacement: '<sub>$1</sub>' }, // ~~subscript~~
         {
-            regex: /^(#{1,6})\s*(.*?)$/gm, replacement: (match: any, p1: any, p2: any) => {
+            regex: /^(#{1,6})\s*(.*?)$/gm, replacement: (_: any, p1: any, p2: any) => {
                 const level = p1.length; // heading level based on number of `#`
                 return `<h${level}>${p2}</h${level}>`;
             }
@@ -71,7 +71,7 @@ export const formatChatMessage: any = (text: string) => {
         { regex: /\d+\.(.*?)\n/g, replacement: '<ol><li>$1</li></ol>' }, // numbered list (1. item)
         { regex: /\~\~(.*?)\~\~/g, replacement: '<mark>$1</mark>' }, // ~~highlighted~~
         {
-            regex: /<(\w+)\>(.*?)<\/\1>/g, replacement: (match: any, p1: any, p2: any) => {
+            regex: /<(\w+)\>(.*?)<\/\1>/g, replacement: (_: any, p1: any, p2: any) => {
                 return `<span class="${p1}">${p2}</span>`;
             }
         }, // generic tag parser (for dynamic handling)

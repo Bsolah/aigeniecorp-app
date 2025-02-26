@@ -34,7 +34,7 @@ export const Footer = () => {
           <div className="border-b border-darkborder lg:py-24 py-12">
             <div className="grid grid-cols-12 gap-30 ">
               <div className="lg:col-span-6 sm:col-span-6">
-                <img src={FullLogo} alt="logo" color="white" className="mb-1" width="50" />
+                <img src={FullLogo} alt="logo" style={{fill: "white"}} color="white" className="mb-1" width="50" />
                 <div className="flex flex-col gap-4">
                   {navLinks1.map((item) => {
                     return (

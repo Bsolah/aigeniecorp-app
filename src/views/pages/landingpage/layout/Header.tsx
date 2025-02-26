@@ -2,7 +2,7 @@ import 'flowbite';
 import { Button } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import FullLogo from 'src/layouts/full/shared/logo/FullLogo';
-import MobileMenu from './MobileMenu';
+// import MobileMenu from './MobileMenu';
 import Navigation from './Navigation';
 import { Link } from "react-router";
 
