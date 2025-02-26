@@ -5,6 +5,7 @@ import API from "../../api/api";
 export const getOrg = createAsyncThunk('org/get/all', async (_, { rejectWithValue }) => {
     try {
         const { data } = await API.get(`/api/organizations/all`, { withCredentials: true });
+        console.log('org ', data)
         return data;
     } catch (error: any) {
         return rejectWithValue({
@@ -17,7 +18,7 @@ export const getOrg = createAsyncThunk('org/get/all', async (_, { rejectWithValu
 const orgSlice = createSlice({
     name: 'org',
     initialState: {
-        org: [],
+        org: null,
         loading: false,
         status: null,
         error: null as any,

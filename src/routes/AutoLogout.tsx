@@ -20,7 +20,7 @@ const AutoLogout = () => {
             }
         };
 
-        // Check every 5 seconds
+        // Check every 15 mins
         // let interval: any
         if (user) {
             const interval = setInterval(checkSession, 900000);

@@ -28,11 +28,6 @@ const ChatContent = () => {
     cloneSelectedChat.push(newMessage)
   }
 
-
-  console.log('new cloneSelectedChat ', cloneSelectedChat)
-
-
-
   useEffect(() => {
     if (cloneSelectedChat) {
       scrollToBottom();
