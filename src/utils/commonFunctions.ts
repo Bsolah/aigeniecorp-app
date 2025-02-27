@@ -74,27 +74,54 @@ export const formatChatMessage: any = (text: string) => {
             .replace(`V2. Updated by "Alex Thompson "20.12.2024" and approved by "Chloe Warren" 20.12.2024`, `<li><i>V2. Updated by "Alex Thompson "20.12.2024" and approved by "Chloe Warren" 20.12.2024</i></li>`)
     }
 
+    // return text;
+
     // Master regex patterns
     const patterns = [
+        {
+            regex: /<(\w+)\>(.*?)<\/\1>/g, replacement: (_: any, p1: any, p2: any) => {
+                return `<span class="${p1}">${p2}</span>`;
+            }
+        }, // generic tag parser (for dynamic handling)
+          // Tables with pipes: | cell1 | cell2 |
+        {
+            regex: /((?:\|.*?\|(?:\n|$))+)/g,
+            replacement: (match: any) => {
+                // Split the input into rows (each match contains a table's worth of content)
+                const rows = match.split('\n').map((row: string, index: number) => {
+                    // Split the row by pipes and filter empty cells
+                    const cells = row.split('|').filter(Boolean).map((cell: string) => `<td style="padding: 8px; border: 1px solid #ddd; text-align: left;">${cell.trim()}</td>`).join('');
+                    // Add a check for the first row to be used as headers
+                    if (index === 0) {
+                        return `<th><tr style="font-weight: bold; background-color: #282c34; color: #f8f8f2;">${cells}</tr></th>`;
+                    }
+                    if (index === 1) {
+                        return // `<td><tr style="font-weight: bold;>${cells}</tr></t>`;
+                    }
+                    return `<tr>${cells}</tr>`;
+                }).join('');
+
+                console.log('rows ', rows);
+
+        
+                // Wrap everything in table tags and add some basic styles
+                return `
+                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #ddd;">
+                        ${rows}
+                    </table>
+                `;
+            }
+        },
         { regex: /\*\*(.*?)\*\*/g, replacement: '<b>$1</b>' }, // **bold**
         { regex: /\*(.*?)\*/g, replacement: '<i>$1</i>' }, // *italic*
         { regex: /__(.*?)__/g, replacement: '<u>$1</u>' }, // __underline__
         { regex: /~~(.*?)~~/g, replacement: '<s>$1</s>' }, // ~~strikethrough~~
-        { regex: /`(.*?)`/g, replacement: '<code>$1</code>' }, // `inline code`
-        { regex: /```([\s\S]*?)```/g, replacement: '<pre><code>$1</code></pre>' }, // ```code block```
+        { regex: /```([\s\S]*?)```/g, replacement: '<pre style="background-color: #282c34; color: #f8f8f2; padding: 1em; border-radius: 8px; overflow-x: auto; font-family: monospace;"><code>$1</code></pre>' }, // ```code block```
+        { regex: /`([^`]+)`/g, replacement: '<code style="background-color: #282c34; color: #f8f8f2; padding: 2px 4px; border-radius: 4px; font-family: monospace;">$1</code>' },
         { regex: /\[(.*?)\]\((.*?)\)/g, replacement: '<a href="$2" target="_blank">$1</a>' }, // [link](url)
         { regex: /(^|\s)(https?:\/\/[^\s]+)/g, replacement: '$1<a href="$2" target="_blank">$2</a>' }, // auto-link URLs
         { regex: /:(\w+):/g, replacement: '<span class="emoji">:$1:</span>' }, // :emoji:
         { regex: /\n/g, replacement: '<br>' }, // new lines
-        {
-            regex: /\|(.+?)\|/g,
-            replacement: (match: any) => {
-                const rows = match.split('\n').map((row: any) =>
-                    `<tr>${row.split('|').filter(Boolean).map((cell: any) => `<td>${cell.trim()}</td>`).join('')}</tr>`
-                ).join('');
-                return `<table>${rows}</table>`;
-            }
-        }, // simple markdown-style tables
         { regex: /(^|\s)(\^)(.*?)\^/g, replacement: '<sup>$3</sup>' }, // ^superscript^
         { regex: /~\~(.*?)\~\~/g, replacement: '<sub>$1</sub>' }, // ~~subscript~~
         {
@@ -106,11 +133,6 @@ export const formatChatMessage: any = (text: string) => {
         { regex: /- (.*?)(?=\n)/g, replacement: '<ul><li>$1</li></ul>' }, // bullet list (- item)
         { regex: /\d+\.(.*?)\n/g, replacement: '<ol><li>$1</li></ol>' }, // numbered list (1. item)
         { regex: /\~\~(.*?)\~\~/g, replacement: '<mark>$1</mark>' }, // ~~highlighted~~
-        {
-            regex: /<(\w+)\>(.*?)<\/\1>/g, replacement: (_: any, p1: any, p2: any) => {
-                return `<span class="${p1}">${p2}</span>`;
-            }
-        }, // generic tag parser (for dynamic handling)
         { regex: /\{font:(\w+)\}(.*?)\{\/font\}/g, replacement: '<span style="font-size:$1;">$2</span>' }, // {font: large}text{/font}
         { regex: /==(.+?)==/g, replacement: '<mark>$1</mark>' }, // ==highlighted text==
         { regex: /^>\s*(.*?)$/gm, replacement: '<blockquote>$1</blockquote>' }, // Blockquote: > text
@@ -129,6 +151,16 @@ export const formatChatMessage: any = (text: string) => {
         { regex: /\$\$(.*?)\$\$/g, replacement: '<math>$1</math>' }, // $$math$$ (LaTeX-style)
         { regex: /\\([*|_~`\-{}])/g, replacement: '$1' }, // Escape characters (\* -> *)      
     ];
+
+    // const patterns = [
+    //     // Inline code with backticks: `code`
+    //     { regex: /`([^`]+)`/g, replacement: '<code>$1</code>' },
+
+    //     // Multiline code blocks with triple backticks: ```code```
+    //     { regex: /```([\s\S]*?)```/g, replacement: '<pre><code>$1</code></pre>' },
+
+    //     // Other formatting rules...
+    // ];
 
     // Apply all patterns
     return patterns.reduce((text, { regex, replacement }: any) => {

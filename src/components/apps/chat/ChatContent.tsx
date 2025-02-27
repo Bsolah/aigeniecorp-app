@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { formatChatMessage } from '../../../utils/commonFunctions.ts';
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
 import { ChatContext } from 'src/context/ChatContext/index.tsx';
+import CopyableText from './CopyableText';
 
 const ChatContent = () => {
   const [isRightSide] = useState(false);
@@ -103,6 +104,7 @@ const ChatContent = () => {
                                   ago
                                 </div>
                                 <div className="p-2 bg-muted dark:bg-darkmuted text-ld rounded-md">
+                                {/* <CopyableText text="This is the AI's response text." /> */}
                                   <div className='confidential-container' dangerouslySetInnerHTML={{ __html: formatChatMessage(msg.content) }} />
                                 </div>
                               </div>

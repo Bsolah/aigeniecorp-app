@@ -49,21 +49,21 @@ const SidebarContent: MenuItem[] = [
             children: [
               {
                 id: uniqueId(),
-                name: "Open AI",
+                name: "Chat GPT",
                 tag: "oai",
                 selector: true, 
                 url:  "/id/chats",
               },
               {
                 id: uniqueId(),
-                name: "Gemini AI",
+                name: "Gemini",
                 tag: "gai",
                 selector: true, 
-                url:  "/id/chats",
+                url:  "/id/chats",  
               },
               {
                 id: uniqueId(),
-                name: "Deepseek AI",
+                name: "Deepseek",
                 tag: "dai",
                 selector: true, 
                 url:  "/id/chats",
@@ -82,13 +82,6 @@ const SidebarContent: MenuItem[] = [
                 id: uniqueId(),
                 name: "Company Test AI",
                 tag: "knb",
-                selector: true, 
-                url: "/id/chats",
-              },
-              {
-                id: uniqueId(),
-                name: "Slack",
-                tag: "oth",
                 selector: true, 
                 url: "/id/chats",
               }
