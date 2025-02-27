@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { formatChatMessage } from '../../../utils/commonFunctions.ts';
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
 import { ChatContext } from 'src/context/ChatContext/index.tsx';
-import CopyableText from './CopyableText';
+// import CopyableText from './CopyableText';
 
 const ChatContent = () => {
   const [isRightSide] = useState(false);

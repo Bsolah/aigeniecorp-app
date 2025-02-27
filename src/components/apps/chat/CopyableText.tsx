@@ -1,5 +1,5 @@
 // src/components/CopyableText.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const CopyableText = ({ text }: any) => {
   const [copied, setCopied] = useState(false);
