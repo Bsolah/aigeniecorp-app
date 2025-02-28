@@ -16,18 +16,20 @@ const ChatContent = () => {
   const { selectedChat } = useSelector((state: any) => state.chat);
   const chatRoomList = useSelector((state: any) => state.chat.data)
   const { isChildSwitch } = useContext(DashboardContext);
-  const { newMessage, setNewMessage } = useContext(ChatContext);
+  const { newMessage, setNewMessage } = useContext(ChatContext);  
+  console.log('new messgae ', newMessage)
   // const [ cloneSelectedChat, setCloneSelectedChat ] = useState<any>( JSON.parse(JSON.stringify(selectedChat)));
 
   const cloneSelectedChat = JSON.parse(JSON.stringify(selectedChat));
   useEffect(() => {
-    // console.log('new messgae ', newMessage)
     setNewMessage('')
   }, [selectedChat])
 
   if (newMessage) {
     cloneSelectedChat.push(newMessage)
   }
+
+  console.log('cloneSelectedChat ', cloneSelectedChat)
 
   useEffect(() => {
     if (cloneSelectedChat) {
@@ -134,6 +136,12 @@ const ChatContent = () => {
                               {msg.type === 'text' ? (
                                 <div className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
                                   {msg.content}
+
+                                </div>
+                              ) : null}
+                              {msg.media ? (
+                                <div style={{fontStyle: 'italic'}} className="p-2 bg-lightinfo text-ld dark:bg-lightinfo rounded-md">
+                                  File Uploaded Successfully!!!
 
                                 </div>
                               ) : null}

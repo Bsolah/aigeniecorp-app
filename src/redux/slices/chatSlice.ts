@@ -5,7 +5,7 @@ import { ObjectId } from "bson";
 
 export const saveChat = createAsyncThunk(
   'chat/save',
-  async ({ receiverId, senderId, content, chatRoomId, type, media, internalAI, externalAI }: any, { rejectWithValue }) => {
+  async ({ receiverId, senderId, content, chatRoomId, media, type, aIModels }: any, { rejectWithValue }) => {
     try {
       const formData = new FormData();
       formData.append('receiverId', receiverId);
@@ -13,8 +13,9 @@ export const saveChat = createAsyncThunk(
       formData.append('content', content);
       formData.append('type', type);
       formData.append('media', media);
-      formData.append('internalAI', internalAI);
-      formData.append('externalAI', JSON.stringify(externalAI));
+      formData.append('externalAI', JSON.stringify(aIModels));
+
+      console.log('media ', media)
 
       const {data} = await API.post(`/api/chat/save/${senderId}`, formData, { withCredentials: true });
       return data; // Assume response includes token and user data

@@ -48,8 +48,6 @@ const ChatMsgSent = () => {
     setMsg("");
   }
 
-
-
   const handleFileChange = (event: any) => {
     const uploadedFile = event.target.files[0];
     if (uploadedFile) {
@@ -82,6 +80,8 @@ const ChatMsgSent = () => {
 
     const messageToSend = selectedPrompt ? selectedPrompt : msg;
 
+    // console.log('selected Atgtachement ', selectedAttachment)
+
     dispatch(saveChat({
       receiverId: '679f70fa087ddee39b7efc5b',
       senderId: user._id,
@@ -89,9 +89,10 @@ const ChatMsgSent = () => {
       chatRoomId: activeChat?.chatRoomId ?? chatRoomId,
       media: selectedAttachment,
       type: type,
-      internalAI: isChildSwitch["knb"] ? "knb" : null,
-      externalAI: isChildSwitch,
+      aIModels: isChildSwitch,
     }));
+
+    //Prepopulate the chat before return from server
     setNewMessage({
         receiverId: {_id: '679f70fa087ddee39b7efc5b'},
         senderId: user,

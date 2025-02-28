@@ -100,9 +100,6 @@ export const formatChatMessage: any = (text: string) => {
                     }
                     return `<tr>${cells}</tr>`;
                 }).join('');
-
-                console.log('rows ', rows);
-
         
                 // Wrap everything in table tags and add some basic styles
                 return `

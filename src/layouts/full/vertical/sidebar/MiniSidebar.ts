@@ -9,13 +9,13 @@ interface MiniiconsType {
 const Miniicons: MiniiconsType[] = [
   {
     id: 1,
-    icon: "solar:text-underline-cross-broken",
+    icon: "solar:chat-dots-line-duotone",
     tooltip: "Genie Chat",
     url: "/id/chats",
   },
   {
     id: 2,
-    icon: "solar:mirror-left-line-duotone",
+    icon: "solar:notebook-bookmark-line-duotone",
     tooltip: "Knowledge Base",
     url: "/id/repository",
   },
