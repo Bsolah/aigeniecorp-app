@@ -7,20 +7,29 @@ import { useSelector } from 'react-redux';
 import { formatChatMessage } from '../../../utils/commonFunctions.ts';
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
 import { ChatContext } from 'src/context/ChatContext/index.tsx';
+import { getChatByRoomId } from 'src/redux/slices/chatSlice.ts';
+import dispatch from 'src/redux/store.ts';
 // import CopyableText from './CopyableText';
 
 const ChatContent = () => {
   const [isRightSide] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const chatEndRef = useRef<HTMLDivElement>(null);
-  const { selectedChat } = useSelector((state: any) => state.chat);
-  const chatRoomList = useSelector((state: any) => state.chat.data)
+  // const chatRoomList = useSelector((state: any) => state.chat.data)
+  const { selectedChat, data: chatRoomList } = useSelector((state: any) => state.chat);
+
   const { isChildSwitch } = useContext(DashboardContext);
   const { newMessage, setNewMessage } = useContext(ChatContext);  
-  console.log('new messgae ', newMessage)
+  // console.log('new message ', newMessage)
   // const [ cloneSelectedChat, setCloneSelectedChat ] = useState<any>( JSON.parse(JSON.stringify(selectedChat)));
 
   const cloneSelectedChat = JSON.parse(JSON.stringify(selectedChat));
+  useEffect(() => {
+    const chatId = chatRoomList[0]?.id;
+    // console.log('chat id ', chatRoomList[0])
+    dispatch(getChatByRoomId({ chatRoomId: chatId }))
+  }, [])
+
   useEffect(() => {
     setNewMessage('')
   }, [selectedChat])
@@ -29,7 +38,7 @@ const ChatContent = () => {
     cloneSelectedChat.push(newMessage)
   }
 
-  console.log('cloneSelectedChat ', cloneSelectedChat)
+  // console.log('cloneSelectedChat ', cloneSelectedChat)
 
   useEffect(() => {
     if (cloneSelectedChat) {

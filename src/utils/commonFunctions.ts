@@ -23,6 +23,14 @@ export const structureFolder = (rawFolder: any, parentId: any = '123'): any => {
 
 export const findKeyAndUpdate = (arr: any, newObj: any): any => {
 
+    // console.log('arr up 1 ', arr);
+
+    if(!arr.length){
+        if (arr.id === newObj.id) {
+            arr['children'] = newObj.children
+        } 
+    }
+    
     arr.children.map((item: any) => {
         if (item.id === newObj.id) {
             item['children'] = newObj.children
@@ -33,7 +41,24 @@ export const findKeyAndUpdate = (arr: any, newObj: any): any => {
         }
     })
 
+    // console.log('arr 2 update ', arr);
+
     return arr;
+}
+
+export const findKeyAndDelete = (arr: any, deletedId: any): any => {
+
+    // console.log('arr del 1 ', arr);
+    // console.log('deletedId', deletedId);
+    let arrArray = arr;
+    arrArray['children'] = arrArray?.children?.filter((item: any) => item.id !== deletedId);
+       
+    if(arrArray?.children?.length > 0) {
+        arrArray?.children?.forEach((child: any) => findKeyAndDelete(child, deletedId));
+    }
+    // console.log('arr delete 2 ', arrArray);
+
+    return arrArray;
 }
 
 export const formatChatMessage: any = (text: string) => {

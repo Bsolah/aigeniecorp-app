@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ children }: any) => {
     const {user} = useSelector((state: any) => state.auth);
-    const auth = useSelector((state: any) => state);
+    // const state = useSelector((state: any) => state);
 
-    console.log('user private ', user)
-    console.log('auth private ', auth)
+    // console.log('user state', state)
 
-    
+    // localStorage.clear();
+
     // If user is logged in, redirect to the dashboard
     if (!user) {
         return <Navigate to="/auth/login" />

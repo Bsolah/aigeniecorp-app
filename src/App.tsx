@@ -11,6 +11,9 @@ import { getOrg } from "./redux/slices/orgSlice.ts";
 
 function App() {
 
+
+  // console.log('user app.tsx ', user);
+
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getOrg())

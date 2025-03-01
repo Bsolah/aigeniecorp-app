@@ -5,7 +5,7 @@ import API from "../../api/api";
 export const getOrg = createAsyncThunk('org/get/all', async (_, { rejectWithValue }) => {
     try {
         const { data } = await API.get(`/api/organizations/all`, { withCredentials: true });
-        console.log('org ', data)
+        // console.log('org ', data)
         return data;
     } catch (error: any) {
         return rejectWithValue({

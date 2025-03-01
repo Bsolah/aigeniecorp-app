@@ -21,8 +21,6 @@ export const askAI = createAsyncThunk(
     'ai/ask',
     async ( {query, file} : any, { rejectWithValue }) => {
 
-        console.log('file ', file)
-
         const formData = new FormData();
         formData.append('query', query);
         formData.append('media', file);

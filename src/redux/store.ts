@@ -17,7 +17,7 @@ import orgListener from './middleware/orgListener.ts';
 
 const persistConfig = {
     key: 'root',
-    storage, // Saves the Redux state in localStorage
+    storage, // Saves the Redux state in localStorage.
 };
 
 const persistedArticleReducer = persistReducer(persistConfig, articleReducer);
@@ -30,7 +30,8 @@ export const store = configureStore({
     reducer: {
         ai: aiReducer,
         article: persistedArticleReducer,
-        auth: persistedAuthReducer,
+        auth: authReducer, // persistedAuthReducer,
+        auth2: persistedAuthReducer,
         chat: persistedChatReducer,
         folders: persistedFolderReducer,
         org: persistedOrgReducer,

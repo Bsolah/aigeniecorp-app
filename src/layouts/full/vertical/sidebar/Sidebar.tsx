@@ -26,6 +26,8 @@ const SidebarLayout = () => {
     const resultFolders = structureFolder(folder);
     selectedContent?.items?.forEach((item: any) => {
       if (item.heading === 'Knowledge Base') {
+
+        // console.log('knowledge base ',{item})
         
         item.children = [resultFolders];
       }

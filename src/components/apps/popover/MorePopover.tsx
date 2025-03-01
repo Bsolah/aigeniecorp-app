@@ -2,6 +2,7 @@ import { Popover } from "flowbite-react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import dispatch from "src/redux/store";
 import { deleteArticle } from "src/redux/slices/articleSlice";
+import { deleteFolder } from "src/redux/slices/folderSlice";
 
 const customPopoverTheme: any = {
   base: "rounded-sm bg-white shadow-lg z-[1]",
@@ -15,7 +16,7 @@ const MorePopover = ({ children, id, parentId, type }: any) => {
     e.preventDefault();
 
     if(type === 'folder') {
-      // dispatch(deleteFolder({id: id, parentId: parentId}))
+      dispatch(deleteFolder({id: id, parentId: parentId}))
     } else {
       dispatch(deleteArticle({id: id, parentId: parentId}))
     }

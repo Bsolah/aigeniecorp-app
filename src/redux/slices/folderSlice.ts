@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from "../../api/api";
-import { findKeyAndUpdate } from 'src/utils/commonFunctions';
+import { findKeyAndUpdate, findKeyAndDelete } from 'src/utils/commonFunctions';
 
 export const createFolder = createAsyncThunk('folder/create', async ({ name, parent, orgId }: any, { rejectWithValue }) => {
     try {
@@ -28,13 +28,15 @@ export const getRootFolders = createAsyncThunk('folder/get/root', async ({orgId}
 
 export const deleteFolder = createAsyncThunk(
     'folder/delete',
-    async ({ id, parentId }: any, { rejectWithValue }) => {
+    async ({ id }: any, { rejectWithValue, getState}: any) => {
         try {
-            const {data} = await API.delete(`/api/folder/delete/${id}`, { withCredentials: true });
-            return {
-                data,
-                parentId
-            };
+            await API.delete(`/api/folders/delete/${id}`, { withCredentials: true });
+            
+            const clonedFolderState = JSON.parse(JSON.stringify(getState()?.folders?.folder));
+            const updatedFolderData = findKeyAndDelete(clonedFolderState, id);
+    
+            
+            return updatedFolderData
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -114,6 +116,23 @@ const folderSlice = createSlice({
                 state.loading = false;
             })
             .addCase(getSubFolders.rejected, (state, action: any) => {
+                state.loading = true;
+                state.error = {
+                    message: action.payload?.message,
+                    status: action.payload?.status,
+                }
+            })
+     
+            // Get Deleted Folder
+            .addCase(deleteFolder.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteFolder.fulfilled, (state: any, action: any) => {
+                state.folder = action.payload;
+                state.loading = false;
+            })
+            .addCase(deleteFolder.rejected, (state, action: any) => {
                 state.loading = true;
                 state.error = {
                     message: action.payload?.message,

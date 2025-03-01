@@ -82,6 +82,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValu
     sessionStorage.clear();
     localStorage.clear();
     await API.post('/api/auth/logout', { withCredentials: true });
+    localStorage.clear();
     return true;
   } catch (error) {
     return rejectWithValue(error);
@@ -110,6 +111,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
+        // console.log('login')
         state.loading = false;
         state.user = action.payload?.user;
       })
@@ -127,6 +129,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(verifyAuth.fulfilled, (state, action) => {
+        // console.log('verifyAuth')
         state.loading = false;
         state.token = action.payload;
       })
@@ -140,6 +143,7 @@ const authSlice = createSlice({
 
       // Logout
       .addCase(logout.fulfilled, (state) => {
+        // console.log('logout')
         state.user = null;
       })
 
@@ -149,6 +153,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action: any) => {
+        console.log('verifyAuth')
         state.loading = false;
         state.user = action.payload?.user;
       })

@@ -33,7 +33,7 @@ export const AIAssistPopup = ({ isOpen, setIsOpen }: any) => {
     }
   };
 
-  console.log('vc ', selectedFile)
+  // console.log('vc ', selectedFile)
 
   const handleFileChange = (event: any) => {
     const uploadedFile = event.target.files[0];
