@@ -1,16 +1,16 @@
-import { Drawer, HR } from 'flowbite-react';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { HR } from 'flowbite-react';
+// import { useState } from 'react';
+// import { useSelector } from 'react-redux';
 import CardBox from 'src/components/shared/CardBox.tsx';
 import { ChatProvider } from 'src/context/ChatContext/index.tsx';
 import ChatContent from './ChatContent.tsx';
-import ChatListing from './ChatListing.tsx';
+// import ChatListing from './ChatListing.tsx';
 import ChatMsgSent from './ChatMsgSent.tsx';
 
 const ChatsApp = () => {
-  const [isOpenChat, setIsOpenChat] = useState(false);
-  const handleClose = () => setIsOpenChat(false);
-  const chatRoomList = useSelector((state: any) => state?.chat?.data)
+  // const [isOpenChat, setIsOpenChat] = useState(false);
+  // const handleClose = () => setIsOpenChat(false);
+  // const chatRoomList = useSelector((state: any) => state?.chat?.data)
 
   return (
     <>

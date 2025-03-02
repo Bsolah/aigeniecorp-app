@@ -1,11 +1,11 @@
 import { useState, useRef, useContext, useEffect } from 'react';
-import { Drawer, HR } from 'flowbite-react';
+import { Drawer } from 'flowbite-react';
 import ChatInsideSidebar from './ChatInsideSidebar.tsx';
 import { formatDistanceToNowStrict } from 'date-fns';
 import user2 from '/src/assets/images/profile/user-2.jpg';
 import { useSelector } from 'react-redux';
 import { formatChatMessage } from '../../../utils/commonFunctions.ts';
-import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
+// import { DashboardContext } from "src/context/DashboardContext/DashboardContext";
 import { ChatContext } from 'src/context/ChatContext/index.tsx';
 import { getChatByRoomId } from 'src/redux/slices/chatSlice.ts';
 import dispatch from 'src/redux/store.ts';
@@ -18,7 +18,7 @@ const ChatContent = () => {
   // const chatRoomList = useSelector((state: any) => state.chat.data)
   const { selectedChat, data: chatRoomList } = useSelector((state: any) => state.chat);
 
-  const { isChildSwitch } = useContext(DashboardContext);
+  // const { isChildSwitch } = useContext(DashboardContext);
   const { newMessage, setNewMessage } = useContext(ChatContext);  
   // console.log('new message ', newMessage)
   // const [ cloneSelectedChat, setCloneSelectedChat ] = useState<any>( JSON.parse(JSON.stringify(selectedChat)));
@@ -52,11 +52,11 @@ const ChatContent = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const translateModelName = (obj: any) => {
-    return Object.keys(obj)
-      .filter(key => obj[key] === true)
-      .join(', ');
-  }
+  // const translateModelName = (obj: any) => {
+  //   return Object.keys(obj)
+  //     .filter(key => obj[key] === true)
+  //     .join(', ');
+  // }
 
   const [isOpenMedia, setIsOpenMedia] = useState(false);
   const handleClose = () => setIsOpenMedia(false);

@@ -1,10 +1,10 @@
-import { Badge, Label } from "flowbite-react";
+import { Badge } from "flowbite-react";
 import { useContext, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { formatDistanceToNowStrict } from "date-fns";
 import { ChatContext, ChatsType } from "src/context/ChatContext/index.tsx";
 import { useSelector, useDispatch } from "react-redux"
-import profileImg from "/src/assets/images/profile/user-1.jpg"
+// import profileImg from "/src/assets/images/profile/user-1.jpg"
 import user2 from '/src/assets/images/profile/user-2.jpg';
 import { getChatByRoomId, startNewChat, deleteChatByRoomId } from "src/redux/slices/chatSlice";
 import { AppDispatch } from "src/redux/store";
