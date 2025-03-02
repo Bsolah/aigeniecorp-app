@@ -9,9 +9,9 @@ interface MiniiconsType {
 const Miniicons: MiniiconsType[] = [
   {
     id: 1,
-    icon: "solar:chat-dots-line-duotone",
-    tooltip: "Genie Chat",
-    url: "/id/chats",
+    icon: "mage:dashboard",
+    tooltip: "Dashboard",
+    url: "/id/dashboard",
   },
   {
     id: 2,
@@ -19,12 +19,12 @@ const Miniicons: MiniiconsType[] = [
     tooltip: "Knowledge Base",
     url: "/id/repository",
   },
-  // {
-  //   id: 3,
-  //   icon: "solar:palette-round-line-duotone",
-  //   tooltip: "Workflow",
-  //   url: "/id/workflow",
-  // },
+  {
+    id: 3,
+    icon: "solar:chat-dots-line-duotone",
+    tooltip: "Genie Chat",
+    url: "/id/chats",
+  },
   // {
   //   id: 4,
   //   icon: "solar:tuning-square-2-line-duotone",

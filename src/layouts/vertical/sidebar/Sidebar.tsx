@@ -7,7 +7,7 @@ import NavItems from "./NavItems/index.tsx";
 import NavCollapse from "./NavCollapse/index.tsx";
 // import SimpleBar from "simplebar-react";
 // import "simplebar-react/dist/simplebar.min.css";
-import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
+import { CustomizerContext } from "../../../context/CustomizerContext.tsx";
 import { useLocation } from "react-router";
 import FullLogo from "../../shared/logo/FullLogo.tsx";
 import React from "react";
@@ -22,6 +22,7 @@ const SidebarLayout = () => {
     (data) => data.id === selectedIconId
   );
   console.log('selected content ', selectedContent?.items);
+  console.log('selected selectedIconId ', selectedIconId);
 
   const { folder } = useSelector((state: any) => state.folders);
 

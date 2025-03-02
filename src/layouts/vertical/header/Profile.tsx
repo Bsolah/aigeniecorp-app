@@ -2,11 +2,11 @@ import { Icon } from "@iconify/react";
 import { Badge, Dropdown } from "flowbite-react";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router";
-import { AppDispatch } from '../../../../redux/store.ts';
+import { AppDispatch } from '../../../redux/store.ts';
 import * as profileData from "./Data.ts";
 import profileImg from "/src/assets/images/profile/user-1.jpg"
 import { useSelector } from "react-redux";
-import { logout } from '../../../../redux/slices/authSlice.ts';
+import { logout } from '../../../redux/slices/authSlice.ts';
 
 const Profile = () => {
 

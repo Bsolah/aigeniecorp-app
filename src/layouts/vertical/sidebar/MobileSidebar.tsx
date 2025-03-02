@@ -7,7 +7,7 @@ import NavItems from "./NavItems/index.tsx";
 import NavCollapse from "./NavCollapse/index.tsx";
 // import SimpleBar from "simplebar-react";
 // import "simplebar-react/dist/simplebar.min.css";
-import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
+import { CustomizerContext } from "../../../context/CustomizerContext.tsx";
 import React from "react";
 
 const MobileSidebar = () => {

@@ -2,15 +2,14 @@
 // @ts-ignore
 import { lazy } from 'react';
 import { Navigate, createBrowserRouter } from 'react-router';
-import Loadable from '../layouts/full/shared/loadable/Loadable.tsx';
+import Loadable from '../layouts/shared/loadable/Loadable.tsx';
 import PrivateRoute from './PrivateRoute.tsx'; // Adjust the path as necessary
 import PublicRoute from './PublicRoute.tsx'; // Adjust the path as necessary
 import AdminPanel from 'src/views/pages/admin/AdminPanel.tsx';
 import MyContent from '../components/apps/repository/MyContent.tsx';
 
 /* ***Layouts**** */
-const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout.tsx')));
-const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout.tsx')));
+const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout.tsx')));
 
 // authentication
 const Login = Loadable(lazy(() => import('../views/authentication/auth1/Login.tsx')));
@@ -24,6 +23,7 @@ const Maintenance = Loadable(lazy(() => import('../views/authentication/Maintain
 
 // landingPage
 const LandingPage = Loadable(lazy(() => import('../views/pages/landingpage/index.tsx')));
+const DashboardPage = Loadable(lazy(() => import('../views/pages/dashboard/Dashboard.tsx')));
 
 const ChatPage = Loadable(lazy(() => import('../views/pages/chats/ChatPage.tsx')));
 const RepositoryPage = Loadable(lazy(() => import('../views/pages/repository/RepositoryPage.tsx')));
@@ -44,7 +44,7 @@ const Router = [
     path: '/:id',
     element: <PrivateRoute children={<FullLayout />} />,
     children: [
-      { path: '/:id/chats/*', exact: true, element: <PrivateRoute children={<ChatPage />} /> },
+      { path: '/:id/dashboard', element: <PrivateRoute children={<DashboardPage />} />},
       {
         path: '/:id/repository/*',
         exact: true,
@@ -56,6 +56,7 @@ const Router = [
       { path: '/:id/repository/sharepoint', exact: true, element: <PrivateRoute children={<ViewSharepointPage />} /> },
       { path: '/:id/repository/notion', exact: true, element: <PrivateRoute children={<ViewNotionPage />} /> },
       { path: '/:id/repository/drafts', exact: true, element: <PrivateRoute children={<MyContent />} /> },
+      { path: '/:id/chats/*', exact: true, element: <PrivateRoute children={<ChatPage />} /> },
       { path: '/:id/agents', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
       { path: '/:id/projects', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
       { path: '/:id/analytics', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
@@ -64,7 +65,6 @@ const Router = [
   },
   {
     path: '/auth',
-    element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <PublicRoute children={<Login />} /> },
       { path: '/auth/register', element: <PublicRoute children={<Register />} /> },

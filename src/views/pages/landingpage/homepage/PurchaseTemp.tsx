@@ -1,5 +1,5 @@
 
-import Logo from "src/layouts/full/shared/logo/Logo";
+import Logo from "src/layouts/shared/logo/Logo";
 import { Button } from "flowbite-react";
 import { Link } from "react-router";
 import leftWidget from "/src/assets/images/front-pages/background/left-widget.png"

@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import { Outlet } from "react-router";
-import { CustomizerContext } from '../../context/CustomizerContext.tsx';
+import { CustomizerContext } from '../context/CustomizerContext.tsx';
 import Sidebar from './vertical/sidebar/Sidebar.tsx';
 import Header from './vertical/header/Header.tsx';
 import ScrollToTop from 'src/components/shared/ScrollToTop.tsx';

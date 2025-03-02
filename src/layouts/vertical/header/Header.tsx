@@ -7,8 +7,7 @@ import FullLogo from "../../shared/logo/FullLogo.tsx";
 import MobileHeaderItems from "./MobileHeaderItems.tsx";
 import { Drawer } from "flowbite-react";
 import MobileSidebar from "../sidebar/MobileSidebar.tsx";
-import HorizontalMenu from "../../horizontal/header/HorizontalMenu.tsx";
-import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
+import { CustomizerContext } from "../../../context/CustomizerContext.tsx";
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext.tsx";
 
 interface HeaderPropsType {
@@ -141,17 +140,6 @@ const Header = ({ layoutType }: HeaderPropsType) => {
         >
           <MobileHeaderItems />
         </div>
-
-        {/* Horizontal Menu  */}
-        {layoutType == "horizontal" ? (
-          <div className="xl:border-t xl:border-ld">
-            <div
-              className={`${isLayout == "full" ? "w-full px-6" : "container"}`}
-            >
-              <HorizontalMenu />
-            </div>
-          </div>
-        ) : null}
       </header>
 
       {/* Mobile Sidebar */}

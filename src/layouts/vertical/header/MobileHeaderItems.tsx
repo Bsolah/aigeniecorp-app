@@ -7,7 +7,7 @@ import { Navbar } from "flowbite-react";
 import AppLinks from "./AppLinks.tsx";
 
 import { useContext } from "react";
-import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
+import { CustomizerContext } from "../../../context/CustomizerContext.tsx";
 import { Language } from "./Language.tsx";
 
 const MobileHeaderItems = () => {

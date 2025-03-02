@@ -33,7 +33,7 @@ const SidebarContent: MenuItem[] = [
 
 
   {
-    id: 1,
+    id: 3,
     name: "AI",
     items: [
       {

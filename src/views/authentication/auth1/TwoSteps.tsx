@@ -1,4 +1,4 @@
-import Logo from "src/layouts/full/shared/logo/Logo.tsx"
+import Logo from "src/layouts/shared/logo/Logo.tsx"
 import { Link } from "react-router"
 import AuthTwoSteps from "../authforms/AuthTwoSteps.tsx"
 import LeftSidebarPart from "../LeftSidebarPart.tsx"

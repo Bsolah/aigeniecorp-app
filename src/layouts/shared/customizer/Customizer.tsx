@@ -5,7 +5,7 @@ import { Button, Drawer, RangeSlider, Tooltip } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { IconCheck, IconSettings } from "@tabler/icons-react";
-import { CustomizerContext } from "../../../../context/CustomizerContext.tsx";
+import { CustomizerContext } from "../../../context/CustomizerContext.tsx";
 
 
 export const Customizer = () => {

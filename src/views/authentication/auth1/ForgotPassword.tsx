@@ -1,4 +1,4 @@
-import Logo from "src/layouts/full/shared/logo/Logo.tsx"
+import Logo from "src/layouts/shared/logo/Logo.tsx"
 import { Button } from "flowbite-react"
 import { Link } from "react-router"
 import AuthForgotPassword from "../authforms/AuthForgotPassword.tsx"

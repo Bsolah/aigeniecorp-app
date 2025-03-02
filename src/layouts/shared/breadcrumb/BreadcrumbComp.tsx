@@ -1,7 +1,7 @@
 
 import { Badge, Breadcrumb } from "flowbite-react";
 import { Icon } from "@iconify/react";
-import CardBox from "../../../../components/shared/CardBox.tsx";
+import CardBox from "../../../components/shared/CardBox.tsx";
 
 interface BreadCrumbType {
   subtitle?: string;

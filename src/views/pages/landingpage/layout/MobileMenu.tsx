@@ -3,7 +3,7 @@ import  { useState } from "react";
 import { Button, Drawer } from "flowbite-react";
 import { IconMenu2 } from "@tabler/icons-react";
 import Navigation from "./Navigation";
-import FullLogo from "src/layouts/full/shared/logo/FullLogo";
+import FullLogo from "src/layouts/shared/logo/FullLogo";
 import { Link } from "react-router";
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
