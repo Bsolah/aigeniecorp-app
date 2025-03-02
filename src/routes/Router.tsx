@@ -6,6 +6,7 @@ import Loadable from '../layouts/full/shared/loadable/Loadable.tsx';
 import PrivateRoute from './PrivateRoute.tsx'; // Adjust the path as necessary
 import PublicRoute from './PublicRoute.tsx'; // Adjust the path as necessary
 import AdminPanel from 'src/views/pages/admin/AdminPanel.tsx';
+import MyContent from '../components/apps/repository/MyContent.tsx';
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout.tsx')));
@@ -54,7 +55,7 @@ const Router = [
       { path: '/:id/repository/google-drive', exact: true, element: <PrivateRoute children={<ViewGDrivePage />} /> },
       { path: '/:id/repository/sharepoint', exact: true, element: <PrivateRoute children={<ViewSharepointPage />} /> },
       { path: '/:id/repository/notion', exact: true, element: <PrivateRoute children={<ViewNotionPage />} /> },
-      // { path: '/:id/repository/drafts', exact: true, element: <PrivateRoute children={<ViewDrafts />} /> },
+      { path: '/:id/repository/drafts', exact: true, element: <PrivateRoute children={<MyContent />} /> },
       { path: '/:id/agents', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
       { path: '/:id/projects', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },
       { path: '/:id/analytics', exact: true, element: <PrivateRoute children={<RepositoryPage />} /> },

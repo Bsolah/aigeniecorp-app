@@ -34,7 +34,7 @@ const SidebarContent: MenuItem[] = [
 
   {
     id: 1,
-    name: "Conversations",
+    name: "AI",
     items: [
       {
         heading: "AI Models",
@@ -88,6 +88,11 @@ const SidebarContent: MenuItem[] = [
             ],
           }
 
+        ],
+      },
+      {
+        heading: "Conversations",
+        children: [
         ],
       },
     ],

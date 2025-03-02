@@ -93,11 +93,11 @@ const ChatListing = () => {
 
 
     return <>
-      <Label className="flex justify-start h-8 mt-4 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : ''}</Label>
+      {/* <Label className="flex justify-start h-8 mt-4 p-2 bg-lightprimary text-ld dark:bg-lightprimary">{isAgent ? 'Agents' : ''}</Label> */}
       {newArrItems?.map((chat: any) => (<>
         <div
           key={`${chat.id}/${chat.lastMessageDate}-parent`}
-          className={`cursor-pointer py-4 px-6 gap-0 flex justify-between group bg-hover ${activeChatId === chat.id
+          className={`cursor-pointer py-4 px-3 gap-0 flex justify-between group bg-hover ${activeChatId === chat.id
             ? "bg-lighthover dark:bg-darkmuted"
             : "initial"
             }`}
@@ -153,7 +153,7 @@ const ChatListing = () => {
           {/* } */}
         </div>
         {isAgent && chat.lastMessage.map((item: any) => {
-          return (<div key={`${item.id}-child`} onClick={() => handleChatSelect(item)} className={`flex justify-between p-2 text-xs text-ld opacity-90 cursor-pointer px-6 ${activeChatId === item?.id
+          return (<div key={`${item.id}-child`} onClick={() => handleChatSelect(item)} className={`flex justify-between p-2 text-xs text-ld opacity-90 cursor-pointer px-1 ${activeChatId === item?.id
             ? "bg-lightsecondary dark:bg-lightsecondary"
             : "initial"} hover:bg-lightsecondary hover:dark:bg-lightsecondary bg-gray-50 border-gray-100 border-t  delete-icon-container`}>
             <div className="truncated ">
@@ -175,8 +175,8 @@ const ChatListing = () => {
 
   return (
     <>
-      <div className="left-part w-full px-0 ">
-        <div className="flex justify-between items-center px-6">
+      <div className="w-full px-0 ">
+        {/* <div className="flex justify-between items-center px-6">
           <div className="flex items-center gap-3">
             <div className="relative">
               <img
@@ -197,7 +197,7 @@ const ChatListing = () => {
               <p className="text-darklink dark:text-bodytext text-xs">{user?.role}</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Listing */}
         <div className="max-h-[1250px] h-[calc(100vh_-_270px)]">

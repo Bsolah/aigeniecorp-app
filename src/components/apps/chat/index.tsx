@@ -22,14 +22,14 @@ const ChatsApp = () => {
             {/* Left Part */}
             {/* ------------------------------------------- */}
             
-            {chatRoomList?.length ?
+            {/* {chatRoomList?.length ?
             <Drawer
               open={isOpenChat}
               onClose={handleClose}
               className="lg:relative lg:transform-none h-[calc(100vh_-_150px)] lg:bg-transparent max-w-[300px] w-full lg:z-[0] "
             >
               <ChatListing />
-            </Drawer> : ""}
+            </Drawer> : ""} */}
             {/* ------------------------------------------- */}
             {/* Right part */}
             {/* ------------------------------------------- */}

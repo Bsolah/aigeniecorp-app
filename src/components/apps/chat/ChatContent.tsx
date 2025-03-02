@@ -63,7 +63,7 @@ const ChatContent = () => {
 
   return (
     <>
-      <div className="p-5">
+      {/* <div className="p-5">
         <div>
           {cloneSelectedChat ? (
             <div className="flex items-center justify-between ">
@@ -74,8 +74,8 @@ const ChatContent = () => {
           ) : null}
         </div>
       </div>
-      <HR className="my-0" />
-      <div className="flex h-[calc(100vh_-_300px)] overflow-y-auto scrollbar-hide">
+      <HR className="my-0" /> */}
+      <div className="flex h-[calc(100vh_-_250px)] overflow-y-auto scrollbar-hide">
         {(!chatRoomList?.length || cloneSelectedChat?.length <= 1) ? <div className="m-auto text-center text-3xl">
           What can I help with?
         </div> :

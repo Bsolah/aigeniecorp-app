@@ -13,6 +13,7 @@ import FullLogo from "../../shared/logo/FullLogo.tsx";
 import React from "react";
 import { useSelector } from "react-redux";
 import { structureFolder } from "src/utils/commonFunctions.ts";
+import ChatListing from "src/components/apps/chat/ChatListing.tsx";
 
 const SidebarLayout = () => {
   const { selectedIconId, setSelectedIconId } =
@@ -20,6 +21,8 @@ const SidebarLayout = () => {
   const selectedContent = SidebarContent.find(
     (data) => data.id === selectedIconId
   );
+  console.log('selected content ', selectedContent?.items);
+
   const { folder } = useSelector((state: any) => state.folders);
 
   // if (folder && folder.length > 0 ) {
@@ -27,13 +30,11 @@ const SidebarLayout = () => {
     selectedContent?.items?.forEach((item: any) => {
       if (item.heading === 'Knowledge Base') {
 
-        // console.log('knowledge base ',{item})
         
         item.children = [resultFolders];
       }
       return item;
     })
-    console.log({selectedContent})
   // }
 
   const location = useLocation();
@@ -109,6 +110,7 @@ const SidebarLayout = () => {
                           <h5 className="text-link dark:text-white/70 font-semibold caption font-semibold leading-6 tracking-widest text-xs text-sm  pb-2 uppercase">
                             {item.heading}
                           </h5>
+                          {item?.heading === 'Conversations' && (<ChatListing />)}
                           {defaultSidebar(item)}
                         </React.Fragment>
                       </div>
