@@ -6,6 +6,9 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { CustomCollapse } from "../CustomCollapse.tsx";
 import React from "react";
+import dispatch from "src/redux/store.ts";
+import { getSubFolders } from "src/redux/slices/folderSlice";
+
 interface NavCollapseProps {
   item: ChildItem;
   tab?: string
@@ -36,6 +39,12 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item, tab }: any) => {
 
   // Toggle the collapse
   const handleToggle = () => {
+
+    if(tab === 'Knowledge Base'){
+      // console.log('i am here ', item)
+      dispatch(getSubFolders({id: item?.id}))
+    }
+
     setIsOpen((prev) => !prev);
   };
 

@@ -6,10 +6,11 @@ import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { DashboardContext } from "src/context/DashboardContext/DashboardContext.tsx";
 import { Switch } from "@headlessui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import dispatch from "src/redux/store.ts";
-import { getArticleById, getDraftArticles } from "src/redux/slices/articleSlice.ts";
-import MorePopover  from "src/components/apps/popover/MorePopover"; // Adjust the import path as necessary
+import { getArticleById, getDraftArticles, updateArticle } from "src/redux/slices/articleSlice.ts";
+import MorePopover from "src/components/apps/popover/MorePopover"; // Adjust the import path as necessary
+import { getSubFolders } from "src/redux/slices/folderSlice.ts";
 
 
 interface NavItemsProps {
@@ -29,6 +30,9 @@ const NavItems: React.FC<NavItemsProps> = ({ item, tab }: any) => {
 
   const { setIsMobileSidebarOpen } = useContext(DashboardContext);
 
+  const [updateLabel, setUpdateLabel] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState(item?.name);
+
   const handleClick = () => {
     // setIsMobileSidebarOpen(false);
 
@@ -39,6 +43,17 @@ const NavItems: React.FC<NavItemsProps> = ({ item, tab }: any) => {
       dispatch(getDraftArticles())
     }
   }
+
+  const handleKeyDown = (event: any) => {
+    // Check if Enter key is pressed
+    if (event.key === 'Enter') {
+      // Dispatch the input value to Redux when Enter is pressed
+      dispatch(updateArticle({ id: item?.id, name: event.target.value }));
+      dispatch(getSubFolders({ id: item?.parentId }));
+      // Optionally, reset input after dispatching
+      setUpdateLabel(false);
+    }
+  };
 
   return (
     <>
@@ -74,15 +89,18 @@ const NavItems: React.FC<NavItemsProps> = ({ item, tab }: any) => {
               )}</>
             }
 
-            <span onClick={handleClick}
-            style={{textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", display: "inline-block"}}
-              className={`w-34  group-hover:w-28 text-xs`}
-            >
-              {t(`${item.name}`)}
-            </span>
+            {updateLabel ?
+              <input type="text" onKeyDown={handleKeyDown} onChange={(e: any) => setInputValue(e.target.value)} style={{ backgroundColor: 'transparent', borderWidth: 1 }} className="flex  text-bold text-xs w-30 focus:bg-transparent focus:ring-0 focus:ring-transparent rounded-md p-1" value={inputValue} /> :
+
+              <span onClick={handleClick}
+                style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", display: "inline-block" }}
+                className={`w-34  group-hover:w-28 text-xs`}
+              >
+                {t(`${item.name}`)}
+              </span>}
           </span>
           {tab === 'Knowledge Base' && <span className={`flex opacity-0 group-hover:opacity-100`}>
-          <MorePopover children={<Icon className="ml-auto" icon='tabler:dots' height={18} />} parentId={item?.parentId} id={item?.id} />
+            <MorePopover children={<Icon className="ml-auto" icon='tabler:dots' height={18} />} onRename={() => setUpdateLabel(true)} parentId={item?.parentId} id={item?.id} />
           </span>}
 
         </span>

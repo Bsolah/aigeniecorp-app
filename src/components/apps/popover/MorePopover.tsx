@@ -9,7 +9,7 @@ const customPopoverTheme: any = {
   content: "",
 };
 
-const MorePopover = ({ children, id, parentId, type }: any) => {
+const MorePopover = ({ children, id, parentId, type, onRename }: any) => {
 
   
   const handleDelete = (e: any) => {
@@ -29,8 +29,8 @@ const MorePopover = ({ children, id, parentId, type }: any) => {
     placement="bottom-start"
     content={<div className="w-35 pt-4">
       <div className="mb-1 flex flex-col items-start text-xs">
-        <div className="flex gap-2 px-4 py-2 hover:bg-gray-200 " ><Icon className="ml-auto" icon='tabler:edit' height={18} />Edit</div> 
-        <div className="flex gap-2 px-4 py-2 hover:bg-gray-200"><Icon className="ml-auto" icon='bx:rename' height={18} />Rename</div> 
+        {type !== 'folder' && <div className="flex gap-2 px-4 py-2 hover:bg-gray-200 " ><Icon className="ml-auto" icon='tabler:edit' height={18} />Edit</div>}
+        <div className="flex gap-2 px-4 py-2 hover:bg-gray-200" onClick={onRename}><Icon className="ml-auto" icon='bx:rename' height={18} />Rename</div> 
         <div className="w-full border-t border-dark-900 my-1"></div>
         <div className="flex gap-2 px-4 py-2 hover:bg-gray-200" onClick={handleDelete}><Icon className="ml-auto" icon='mi:delete' height={18} /> Delete</div>
         

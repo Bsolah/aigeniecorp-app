@@ -14,6 +14,18 @@ export const createFolder = createAsyncThunk('folder/create', async ({ name, par
     }
 });
 
+export const updateFolder = createAsyncThunk('folder/edit', async ({ id, name, parent, orgId }: any, { rejectWithValue }) => {
+    try {
+        const {data} = await API.put(`/api/folders/edit/${id}`, { name, parent, organizationId: orgId }, { withCredentials: true });
+        return {
+            data,
+            parentId: parent
+        };
+    } catch (error) {
+        return rejectWithValue(error);
+    }
+});
+
 export const getRootFolders = createAsyncThunk('folder/get/root', async ({orgId}: any, { rejectWithValue }) => {
     try {
         const { data } = await API.get(`/api/folders/all?organizationId=${orgId}`, { withCredentials: true });
@@ -46,6 +58,8 @@ export const deleteFolder = createAsyncThunk(
 export const getSubFolders = createAsyncThunk('folder/get', async ({id}: any, { rejectWithValue , getState}: any) => {
     try {
         const { data } = await API.get(`/api/folders/${id}`, { withCredentials: true });
+
+        console.log('data', data);
 
         const clonedFolderState = JSON.parse(JSON.stringify(getState()?.folders?.folder));
         const updatedFolderData = findKeyAndUpdate(clonedFolderState, data.folder);
