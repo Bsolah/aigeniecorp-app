@@ -1,8 +1,8 @@
 import { Button } from 'flowbite-react';
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { inviteUser } from 'src/redux/slices/authSlice';
-import dispatch from 'src/redux/store';
+// import { inviteUser } from 'src/redux/slices/authSlice';
+// import dispatch from 'src/redux/store';
 
 const AdminPanel = () => {
   const [expandedSection, setExpandedSection] = useState(null);
@@ -14,7 +14,7 @@ const AdminPanel = () => {
 
   const handleInvite = async () => {
       
-    dispatch(inviteUser({email}));
+    // dispatch(inviteUser({email}));
     setEmail('');
   };
 
