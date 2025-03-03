@@ -7,7 +7,7 @@ import { DashboardContext } from "src/context/DashboardContext/DashboardContext"
 import AddPopover  from "src/components/apps/popover/AddPopover"; // Adjust the import path as necessary
 import MorePopover  from "src/components/apps/popover/MorePopover"; // Adjust the import path as necessary
 import dispatch from "src/redux/store";
-import { getSubFolders, updateFolder } from "src/redux/slices/folderSlice";
+import { updateFolder } from "src/redux/slices/folderSlice";
 
 const CustomCollapse: React.FC<{
   label: string;
@@ -49,7 +49,7 @@ const CustomCollapse: React.FC<{
     if (event.key === 'Enter') {
       // Dispatch the input value to Redux when Enter is pressed
       dispatch(updateFolder({ id: id, name: event.target.value }));
-      dispatch(getSubFolders({ id: parentId }));
+      // dispatch(getSubFolders({ id: parentId }));
       // Optionally, reset input after dispatching
       setUpdateLabel(false);
     }

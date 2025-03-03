@@ -12,6 +12,7 @@ import { updateArticle, deleteArticle, getArticleById } from 'src/redux/slices/a
 import TextStyle from "@tiptap/extension-text-style";
 import { Button } from 'flowbite-react';
 import { Input } from '@headlessui/react';
+import { formatChatMessage } from 'src/utils/commonFunctions.ts';
 
 
 const ViewContent = () => {
@@ -64,7 +65,7 @@ const ViewContent = () => {
 
 
     useEffect(() => {
-        editor?.commands.insertContent(`<p> ${aiSolution} </p>`)
+        editor?.commands.insertContent(`<p> ${formatChatMessage(aiSolution)} </p>`)
     }, [aiSolution])
 
     // Initialize editor

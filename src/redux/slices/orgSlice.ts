@@ -15,6 +15,21 @@ export const getOrg = createAsyncThunk('org/get/all', async (_, { rejectWithValu
     }
 });
 
+export const updateOrg = createAsyncThunk('org/get/update', async ({id, location, website, name, size,regNo, industry}: any, { rejectWithValue }) => {
+    try {
+
+        console.log({id, location, website, name, size,regNo, industry})
+        const { data } = await API.put(`/api/organizations/${id}`, {location, website, name, size,regNo, industry}, { withCredentials: true });
+        // console.log('org ', data)
+        return data;
+    } catch (error: any) {
+        return rejectWithValue({
+            message: error.response?.data?.message,
+            status: error?.status,
+        });
+    }
+});
+
 const orgSlice = createSlice({
     name: 'org',
     initialState: {
@@ -36,7 +51,7 @@ const orgSlice = createSlice({
                 state.error = null;
             })
             .addCase(getOrg.fulfilled, (state, action: any) => {
-                state.org = action.payload.org?.data;
+                state.org = action.payload?.data;
                 state.loading = false;
             })  
             .addCase(getOrg.rejected, (state, action: any) => {

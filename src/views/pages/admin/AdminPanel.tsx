@@ -1,12 +1,39 @@
 import { Button } from 'flowbite-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
+import { updateOrg } from 'src/redux/slices/orgSlice';
+import dispatch from 'src/redux/store';
 // import { inviteUser } from 'src/redux/slices/authSlice';
-// import dispatch from 'src/redux/store';
+
+const orgObj = {
+  id: '',
+  name: '',
+  regNo: '',
+  website: '',
+  industry: '',
+  size: '',
+  location: '',
+}
 
 const AdminPanel = () => {
+  const {org} = useSelector((state: any) => state.org);
+  orgObj['id'] = org?._id;
+  orgObj['name'] = org?.name;
+  orgObj['regNo'] = org?.regNo;
+  orgObj['website'] = org?.website;
+  orgObj['industry'] = org?.industry;
+  orgObj['size'] = org?.size;
+  orgObj['location'] = org?.location;
+  const [orgState, setOrgState] = useState(orgObj);
   const [expandedSection, setExpandedSection] = useState(null);
+  const [isChanged, setIsChanged] = useState(false);
   const [email, setEmail] = useState('');
+
+    // Check if state has changed
+    useEffect(() => {
+      setIsChanged(JSON.stringify(orgState) !== JSON.stringify(orgObj));
+    }, [orgState]);  
 
   const toggleSection = (section: any) => {
     setExpandedSection(expandedSection === section ? null : section);
@@ -17,6 +44,16 @@ const AdminPanel = () => {
     // dispatch(inviteUser({email}));
     setEmail('');
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setOrgState({ ...orgState, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    dispatch(updateOrg(orgState));
+    setIsChanged(false);
+  };  
 
   return (
     <div className="p-10 bg-gray-100 min-h-screen flex flex-col gap-6">
@@ -38,28 +75,30 @@ const AdminPanel = () => {
           <form className="mt-4 space-y-4">
             <div>
               <label className="block text-sm font-medium">Company Name</label>
-              <input type="text" className="w-full border rounded p-2" />
+              <input type="text" name="name" onChange={handleChange} className="w-full border rounded p-2" value={orgState?.name} />
             </div>
             <div>
-              <label className="block text-sm font-medium"> Logo</label>
-              <input type="text" className="w-full border rounded p-2" />
+              <label className="block text-sm font-medium" > EIN/Registration No.</label>
+              <input type="text" name="regNo" onChange={handleChange} className="w-full border rounded p-2" value={orgState?.regNo}  />
             </div>
             <div>
               <label className="block text-sm font-medium"> Website</label>
-              <input type="text" className="w-full border rounded p-2" />
+              <input type="text" name="website" onChange={handleChange} className="w-full border rounded p-2" value={orgState?.website}  />
             </div>
             <div>
-              <label className="block text-sm font-medium">Industry</label>
-              <input type="text" className="w-full border rounded p-2" />
+              <label className="block text-sm font-medium" >Industry</label>
+              <input type="text" name="industry" onChange={handleChange} className="w-full border rounded p-2" value={orgState?.industry}  />
             </div>
             <div>
               <label className="block text-sm font-medium">Company Size</label>
-              <input type="text" className="w-full border rounded p-2" />
+              <input type="text" name="size" onChange={handleChange} className="w-full border rounded p-2" value={orgState?.size}  />
             </div>
             <div>
               <label className="block text-sm font-medium">Location</label>
-              <input type="text" className="w-full border rounded p-2" />
+              <input type="text" name="location" onChange={handleChange} className="w-full border rounded p-2"value={orgState?.location} />
             </div>
+
+            <Button className="bg-primary" disabled={!isChanged} onClick={handleSubmit}>Save</Button>
           </form>
         )}
       </div>

@@ -103,6 +103,21 @@ const folderSlice = createSlice({
                 state.error = action.payload;
             })
 
+            // Update Folder
+            .addCase(updateFolder.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateFolder.fulfilled, (state, action: any) => {
+                state.loading = false;
+                state.status = action.payload;
+
+            })
+            .addCase(updateFolder.rejected, (state, action: any) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
             // Get Root Folder
             .addCase(getRootFolders.pending, (state) => {
                 state.loading = true;

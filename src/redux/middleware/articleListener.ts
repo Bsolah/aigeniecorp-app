@@ -1,5 +1,5 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
-import { createArticle, deleteArticle, getArticleById } from '../slices/articleSlice.ts';
+import { createArticle, deleteArticle, getArticleById, updateArticle } from '../slices/articleSlice.ts';
 import { getSubFolders } from '../slices/folderSlice.ts';
 
 // Create middleware
@@ -17,7 +17,7 @@ listenerMiddleware.startListening({
 });
 
 listenerMiddleware.startListening({
-    matcher: isAnyOf(createArticle.fulfilled, deleteArticle.fulfilled),
+    matcher: isAnyOf(createArticle.fulfilled, updateArticle.fulfilled, deleteArticle.fulfilled),
     effect: async (action: any, listenerApi) => {
 
         // const state: any = listenerApi.getState();
