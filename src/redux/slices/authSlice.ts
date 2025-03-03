@@ -77,6 +77,20 @@ export const verifyAuth = createAsyncThunk(
   },
 );
 
+
+export const inviteUser = createAsyncThunk('auth/invite', async ({email}: any, { rejectWithValue }) => {
+  try {
+    const data = await API.post(
+      '/api/auth/invite',
+      { email },
+      { withCredentials: true },
+    );
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     sessionStorage.clear();
@@ -93,6 +107,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
+    invitations: [],
     token: null,
     loading: false,
     error: null as any,

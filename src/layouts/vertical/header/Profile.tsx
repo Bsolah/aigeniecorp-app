@@ -26,7 +26,7 @@ const Profile = () => {
     <div className="relative ">
       <Dropdown
         label=""
-        className="w-screen sm:w-[360px] pb-4 rounded-sm"
+        className="w-screen sm:w-[250px] pb-4 rounded-sm"
         dismissOnClick={false}
         renderTrigger={() => (
           <div className="flex items-center gap-1">
@@ -47,7 +47,7 @@ const Profile = () => {
           </div>
         )}
       >
-        <div className="px-6">
+        <div className="px-4">
           <div className="flex items-center gap-6 pb-5 border-b dark:border-darkborder mt-5 mb-3">
             <img
               src={profileImg}

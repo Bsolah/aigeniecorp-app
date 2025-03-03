@@ -33,65 +33,30 @@ const SidebarContent: MenuItem[] = [
 
 
   {
-    id: 3,
-    name: "AI",
+    id: 1,
+    name: "Dashboard",
     items: [
       {
-        heading: "AI Models",
+        heading: "Compliance Reports",
+        children: [],
+      },
+      {
+        heading: "Knowledge Base Insights",
         children: [
-          {
-            name: "External",
-            // icon: "solar:home-angle-outline",
-            description: "Sources from Web",
-            selector: true, 
-            id: uniqueId(),
-            url:  "/id/chats",
-            children: [
-              {
-                id: uniqueId(),
-                name: "Chat GPT",
-                tag: "oai",
-                selector: true, 
-                url:  "/id/chats",
-              },
-              {
-                id: uniqueId(),
-                name: "Gemini",
-                tag: "gai",
-                selector: true, 
-                url:  "/id/chats",  
-              },
-              {
-                id: uniqueId(),
-                name: "Deepseek",
-                tag: "dai",
-                selector: true, 
-                url:  "/id/chats",
-              },
-            ],
-          },
-          {
-            name: "Internal",
-            // icon: "solar:settings-minimalistic-line-duotone",
-            description: "Sources internally",
-            selector: true,
-            id: uniqueId(),
-            url:  "/id/chats",
-            children: [
-              {
-                id: uniqueId(),
-                name: "Company Test AI",
-                tag: "knb",
-                selector: true, 
-                url: "/id/chats",
-              }
-            ],
-          }
-
         ],
       },
       {
-        heading: "Conversations",
+        heading: "Chat Insights",
+        children: [
+        ],
+      },
+      {
+        heading: "Reporting & Logs",
+        children: [
+        ],
+      },
+      {
+        heading: "User & Role Management",
         children: [
         ],
       },
@@ -148,6 +113,71 @@ const SidebarContent: MenuItem[] = [
             icon: "ri:notion-fill",
             color: "text-primary",
           }
+        ],
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "AI",
+    items: [
+      {
+        heading: "AI Models",
+        children: [
+          {
+            name: "External",
+            // icon: "solar:home-angle-outline",
+            description: "Sources from Web",
+            selector: true,
+            id: uniqueId(),
+            url: "/id/chats",
+            children: [
+              {
+                id: uniqueId(),
+                name: "Chat GPT",
+                tag: "oai",
+                selector: true,
+                url: "/id/chats",
+              },
+              {
+                id: uniqueId(),
+                name: "Gemini",
+                tag: "gai",
+                selector: true,
+                url: "/id/chats",
+              },
+              {
+                id: uniqueId(),
+                name: "Deepseek",
+                tag: "dai",
+                selector: true,
+                url: "/id/chats",
+              },
+            ],
+          },
+          {
+            name: "Internal",
+            // icon: "solar:settings-minimalistic-line-duotone",
+            description: "Sources internally",
+            selector: true,
+            id: uniqueId(),
+            url: "/id/chats",
+            children: [
+              {
+                id: uniqueId(),
+                name: "Company Test AI",
+                tag: "knb",
+                selector: true,
+                url: "/id/chats",
+              }
+            ],
+          }
+
+        ],
+      },
+      {
+        heading: "Conversations",
+        children: [
         ],
       },
     ],

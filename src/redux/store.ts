@@ -30,8 +30,7 @@ export const store = configureStore({
     reducer: {
         ai: aiReducer,
         article: persistedArticleReducer,
-        auth: authReducer, // persistedAuthReducer,
-        auth2: persistedAuthReducer,
+        auth: persistedAuthReducer,
         chat: persistedChatReducer,
         folders: persistedFolderReducer,
         org: persistedOrgReducer,

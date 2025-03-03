@@ -16,7 +16,7 @@ const ChatMsgSent = () => {
   const [msg, setMsg] = useState<string>("");
   const dispatch: AppDispatch = useDispatch();
   const [type, setType] = useState<string>('text');
-  const { selectedChat } = useSelector((state: any) => state.chat);
+  const { selectedChat, data: chatRoomList  } = useSelector((state: any) => state.chat);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fullSizeImage, setFullSizeImage] = useState<any>(null);
   const [preview, setPreview] = useState<any>(null);
@@ -25,6 +25,7 @@ const ChatMsgSent = () => {
   const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
   const { isChildSwitch } = useContext(DashboardContext);
   const { setNewMessage } = useContext(ChatContext);
+
 
   const handleChatMsgChange = (e: ChangeEvent<HTMLInputElement>) => {
     setType('text');
@@ -80,17 +81,20 @@ const ChatMsgSent = () => {
 
     const messageToSend = selectedPrompt ? selectedPrompt : msg;
 
-    // console.log('selected Atgtachement ', selectedAttachment)
-
-    dispatch(saveChat({
-      receiverId: '679f70fa087ddee39b7efc5b',
-      senderId: user._id,
-      content: messageToSend,
-      chatRoomId: activeChat?.chatRoomId ?? chatRoomId,
-      media: selectedAttachment,
-      type: type,
-      aIModels: isChildSwitch,
-    }));
+    // console.log('selected ', selectedAttachment)
+    let newChatRoomId = activeChat?.chatRoomId ?? chatRoomId;
+    if(!chatRoomList?.length || selectedChat?.length <= 1) {
+      newChatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
+    } 
+      dispatch(saveChat({
+        receiverId: '679f70fa087ddee39b7efc5b',
+        senderId: user._id,
+        content: messageToSend,
+        chatRoomId: newChatRoomId,
+        media: selectedAttachment,
+        type: type,
+        aIModels: isChildSwitch,
+      }));
 
     //Prepopulate the chat before return from server
     setNewMessage({

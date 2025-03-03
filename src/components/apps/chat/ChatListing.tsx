@@ -5,6 +5,7 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { ChatContext, ChatsType } from "src/context/ChatContext/index.tsx";
 import { useSelector, useDispatch } from "react-redux"
 // import profileImg from "/src/assets/images/profile/user-1.jpg"
+import { ObjectId } from "bson";
 import user2 from '/src/assets/images/profile/user-2.jpg';
 import { getChatByRoomId, startNewChat, deleteChatByRoomId } from "src/redux/slices/chatSlice";
 import { AppDispatch } from "src/redux/store";
@@ -59,7 +60,8 @@ const ChatListing = () => {
   };
 
   const handleNewBotChat = () => {
-    dispatch(startNewChat())
+    const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
+    dispatch(startNewChat({chatRoomId}))
   }
   const handleDeleteChatRoom = (chat: MessageType) => {
     dispatch(deleteChatByRoomId({ room: chat.id }))
@@ -165,7 +167,7 @@ const ChatListing = () => {
             <div>
               {formatDistanceToNowStrict(new Date(item.date), {
                 addSuffix: false,
-              }).replace('second', 'sec').replace('minute', 'min')}
+              }).replace('second', 'sec').replace('minute', 'min').replace('hour', 'hr')}
             </div>
           </div>)
         })}

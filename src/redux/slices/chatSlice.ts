@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // import axios from 'axios';
 import API from "../../api/api";
-import { ObjectId } from "bson";
+// import { ObjectId } from "bson";
 
 export const saveChat = createAsyncThunk(
   'chat/save',
@@ -24,9 +24,9 @@ export const saveChat = createAsyncThunk(
     }
 );
 
-export const startNewChat = createAsyncThunk('chat/startNewChat', async (_, { rejectWithValue }) => {
+export const startNewChat = createAsyncThunk('chat/startNewChat', async ({chatRoomId}: any, { rejectWithValue }) => {
   try {
-    const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
+    // const chatRoomId = new ObjectId().toString(); // Generate BSON ObjectId
 
     const chat =  {
       chatRoomId,
