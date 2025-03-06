@@ -9,8 +9,8 @@ const Landingpage = () => {
     <>
       <LandingPageLayouts>
         <MainBanner />
-        <Solution />
         <About />
+        <Solution />
         <ContactForm />
       </LandingPageLayouts>
     </>

@@ -54,3 +54,20 @@
         transform: translate3d(0, 0, 0)
     }
 }
+
+/* You can add this to your CSS file */
+.video-container {
+    width: 100%;
+    max-width: 800px; /* Adjust based on your needs */
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Optional: Responsive adjustments */
+  @media (max-width: 768px) {
+    .video-container {
+      max-width: 100%;
+    }
+  }

@@ -1,9 +1,8 @@
-import RevenueByProduct from "../layout/RevenueByProduct";
-
+// import RevenueByProduct from "../layout/RevenueByProduct";
+import AutoPlayVideo from "../layout/AutoPlay";
 
 const About = () => {
   // Custom Tab
-
 
   return (
     <div id="about">
@@ -11,7 +10,9 @@ const About = () => {
         <div className="container-1218 mx-auto">
           <div className="grid grid-cols-12 gap-30  items-center">
             <div className="lg:col-span-7 col-span-12">
-              <RevenueByProduct />
+              <div className="video-container">
+                <AutoPlayVideo />
+              </div>
             </div>
             <div className="lg:col-span-5 col-span-12 lg:ps-7">
               <>
@@ -23,7 +24,7 @@ const About = () => {
                   Why AI Genie
                 </p>
                 <h2 className="sm:text-40 text-3xl font-bold !leading-[43px] text-darklink dark:text-white pb-6">
-                No Leaks. Just Safe AI.
+                  No Leaks. Just Safe AI.
                 </h2>
                 <p
                   style={{

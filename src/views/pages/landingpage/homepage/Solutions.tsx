@@ -43,6 +43,7 @@ const Solution = () => {
               </h2>
               <p className="text-17 leading-[32px] text-ld opacity-80 py-6">
                 Empower Your Teams with Secure, Compliant & Accurate AI              </p>
+
             </div>
             <div className="lg:col-span-7 col-span-12 lg:ps-5 ">
               <div className="grid grid-cols-12 md:gap-12 gap-6">
